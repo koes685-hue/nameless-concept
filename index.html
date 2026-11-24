@@ -599,7 +599,23 @@ input.name-input:focus-visible { outline: none; border-bottom-color: var(--accen
 .stamp { position: absolute; right: 12px; top: -12px; border: 2px solid var(--warn); color: var(--warn); background: var(--surface); font-weight: 800; font-size: 0.85rem; padding: 2px 10px; border-radius: 6px; transform: rotate(-6deg); }
 .sheet.find .story { font-size: 1.1rem; }
 .sheet.find .who { color: var(--muted); font-size: 0.85rem; }
-@media (prefers-reduced-motion: reduce) { .map-me { transition: none; } .place .pin, .dex-slot.on { animation: none; } }
+/* walking, facing, found burst */
+.map-me-body { transition: transform 0.2s ease; transform-box: fill-box; transform-origin: center; }
+.map-me-body.left { transform: scaleX(-1); }
+.map-me.walking > .map-me-body > svg { animation: hop 0.18s ease-in-out 3; }
+@keyframes hop { 50% { transform: translateY(-5px); } }
+.burst { pointer-events: none; }
+.burst-ring { fill: none; stroke: var(--accent); stroke-width: 3; animation: ring 0.7s ease-out both; transform-box: fill-box; transform-origin: center; }
+.burst-ray { stroke: #FFD23F; stroke-width: 3; stroke-linecap: round; animation: ray 0.7s ease-out both; }
+@keyframes ring { from { transform: scale(0.4); opacity: 1; } to { transform: scale(2.2); opacity: 0; } }
+@keyframes ray { from { opacity: 1; } to { opacity: 0; transform: scale(1.5); } }
+.place.just .place-ic { animation: pop 0.45s ease; }
+/* dark: line-only icon parts need a light stroke */
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .place-ic .ic-pole, :root:not([data-theme="light"]) .place-ic .ic-wave, :root:not([data-theme="light"]) .place-ic .ic-ring, :root:not([data-theme="light"]) .place-ic .ic-line { stroke: #E9EEE8; } :root:not([data-theme="light"]) .place-ic * { stroke: #0B100D; } :root:not([data-theme="light"]) .place-ic .ic-pole, :root:not([data-theme="light"]) .place-ic .ic-wave, :root:not([data-theme="light"]) .place-ic .ic-ring, :root:not([data-theme="light"]) .place-ic .ic-line, :root:not([data-theme="light"]) .place-ic .ic-tower { stroke: #E9EEE8; } }
+:root[data-theme="dark"] .place-ic * { stroke: #0B100D; }
+:root[data-theme="dark"] .place-ic .ic-pole, :root[data-theme="dark"] .place-ic .ic-wave, :root[data-theme="dark"] .place-ic .ic-ring, :root[data-theme="dark"] .place-ic .ic-line { stroke: #E9EEE8; }
+@media (prefers-reduced-motion: reduce) { .map-me-body, .map-me.walking > .map-me-body > svg, .burst, .place.just .place-ic { animation: none; transition: none; } .burst { display: none; } .map-me { transition: none; } .place .pin, .dex-slot.on { animation: none; } }
+body, h1, h2, h3, p, .bubble, button { word-break: keep-all; overflow-wrap: anywhere; }
 
 </style>
 
@@ -2766,7 +2782,7 @@ input.name-input:focus-visible { outline: none; border-bottom-color: var(--accen
     list.forEach(function (it) { gNode.appendChild(sv(it[0], it[1])); });
   }
 
-  var explorePos = null;
+  var explorePos = null, exploreFace = 1, exploreJust = null;
   function exploreSection(onAllFound) {
     var s = set(), M = MAPS[setKey];
     if (!M) { return null; }
@@ -2782,20 +2798,31 @@ input.name-input:focus-visible { outline: none; border-bottom-color: var(--accen
     var meSvg = avSvg(avGet() || "1001000", 40);
     meSvg.setAttribute("x", -20); meSvg.setAttribute("y", -46);
     me.appendChild(sv("ellipse", { cx: 0, cy: 0, rx: 12, ry: 4, class: "map-shadow" }));
-    me.appendChild(meSvg);
+    var meBody = sv("g", { class: "map-me-body" + (exploreFace < 0 ? " left" : "") });
+    meBody.appendChild(meSvg); me.appendChild(meBody);
     if (!explorePos) { explorePos = { x: 200, y: 156 }; }
     me.style.transform = "translate(" + explorePos.x + "px," + explorePos.y + "px)";
     M.places.forEach(function (p) {
       var c = s.cases.filter(function (x) { return x.id === p.id; })[0]; if (!c) { return; }
       var isFound = !!state.found[p.id];
-      var g = sv("g", { class: "place" + (isFound ? " found" : ""), transform: "translate(" + p.x + " " + p.y + ")", tabindex: "0", role: "button", id: "place-" + p.id, "aria-label": p.label + (isFound ? " (찾았어)" : " (아직 안 찾았어)") });
+      var g = sv("g", { class: "place" + (isFound ? " found" : "") + (exploreJust === p.id ? " just" : ""), transform: "translate(" + p.x + " " + p.y + ")", tabindex: "0", role: "button", id: "place-" + p.id, "aria-label": p.label + (isFound ? " (찾았어)" : " (아직 안 찾았어)") });
       var ig = sv("g", { class: "place-ic" }); drawPlaceIcon(ig, p.kind); g.appendChild(ig);
       var lab = sv("text", { x: 0, y: 30, "text-anchor": "middle", class: "place-lab" }); lab.textContent = p.label; g.appendChild(lab);
       var pin = sv("g", { class: "pin", transform: "translate(16 -24)" });
       pin.appendChild(sv("circle", { r: 9, class: "pin-dot" }));
       var pt = sv("text", { y: 4, "text-anchor": "middle", class: "pin-t" }); pt.textContent = isFound ? "✓" : "?"; pin.appendChild(pt);
       g.appendChild(pin);
+      if (exploreJust === p.id) {
+        var burst = sv("g", { class: "burst", "aria-hidden": "true" });
+        burst.appendChild(sv("circle", { r: 14, class: "burst-ring" }));
+        for (var k = 0; k < 8; k += 1) { var a = k * Math.PI / 4; burst.appendChild(sv("line", { x1: Math.cos(a) * 18, y1: Math.sin(a) * 18, x2: Math.cos(a) * 28, y2: Math.sin(a) * 28, class: "burst-ray" })); }
+        g.appendChild(burst);
+      }
       function visit() {
+        var dx = p.x - explorePos.x;
+        if (Math.abs(dx) > 4) { exploreFace = dx < 0 ? -1 : 1; meBody.classList.toggle("left", exploreFace < 0); }
+        me.classList.remove("walking"); void me.getBoundingClientRect(); me.classList.add("walking");
+        window.setTimeout(function () { me.classList.remove("walking"); }, 560);
         explorePos = { x: p.x, y: p.y + 20 };
         me.style.transform = "translate(" + explorePos.x + "px," + explorePos.y + "px)";
         window.setTimeout(function () { openFind(c, p); }, matchMedia("(prefers-reduced-motion: reduce)").matches ? 0 : 520);
@@ -2818,7 +2845,9 @@ input.name-input:focus-visible { outline: none; border-bottom-color: var(--accen
         el("div", { class: "sheet-bar" }, [
           el("button", { type: "button", class: "ghost", text: "닫기", onclick: function () { back.remove(); } }),
           el("button", { type: "button", class: "primary", id: "find-keep", text: was ? "관찰 노트에 있어" : "관찰 노트에 넣기", onclick: function () {
+            exploreJust = was ? null : c.id;
             state.found[c.id] = true; save(); back.remove();
+            window.setTimeout(function () { exploreJust = null; }, 900);
             var n = s.cases.filter(function (x) { return state.found[x.id]; }).length;
             if (n === s.cases.length && onAllFound) { onAllFound(); } else { render(); }
           } })
