@@ -2,7 +2,7 @@
 <meta name="claude:viewport-fit-sides" content="cover">
 <title>이름 없는 개념 · 고1 통합사회</title>
 <meta name="description" content="교과서 이름을 배우기 전에, 겉은 다르고 속은 같은 사연을 모아 직접 이름을 붙여 보는 고1 통합사회 수업 자료. 교사 화면과 학생 폰이 실시간으로 이어지고, 끝나면 학생마다 다른 필기본 PDF가 생긴다.">
-<meta name="theme-color" content="#F6F7F3">
+<meta name="theme-color" content="#F7F7F2">
 <meta property="og:type" content="website">
 <meta property="og:title" content="이름 없는 개념 · 고1 통합사회">
 <meta property="og:description" content="사연을 모아 직접 이름을 붙이고, 교과서 개념을 만나는 교실 수업 앱. 1분 체험으로 교사 화면과 학생 폰을 함께 볼 수 있어요.">
@@ -22,7 +22,7 @@
    previews without vendor/ use Google Fonts. */
 (function () {
   var local = /^https?:$/.test(location.protocol) && !(window.claude && window.claude.use);
-  var g = "https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=IBM+Plex+Sans+KR:wght@400;500;600;700&family=Noto+Sans+KR:wght@400;500;700;900&family=Noto+Serif+KR:wght@400;600&family=Nanum+Myeongjo:wght@700;800&display=swap";
+  var g = "https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=IBM+Plex+Sans+KR:wght@400;500;600;700&family=Noto+Sans+KR:wght@400;500;700;900&family=Noto+Serif+KR:wght@400;600&display=swap";
   document.write('<link rel="stylesheet" href="' + (local ? "vendor/fonts/fonts.css" : g) + '"' + (local ? ' onerror="var l=document.createElement(\'link\');l.rel=\'stylesheet\';l.href=\'' + g + '\';document.head.appendChild(l)"' : '') + '>');
 })();
 </script>
@@ -437,29 +437,34 @@ body.teach .wrap { max-width: 1120px; }
 
 /* ===== redesign: discovery notebook app (C) + readable letters (A) + big tappable controls (B) ===== */
 :root {
-  --bg: #F6F7F3; --surface: #FFFFFF; --ink: #1B2420; --muted: #5F6A64; --line: #D3DAD3; --soft: #E9EEE8;
-  --accent: #23704F; --accent-ink: #FFFFFF; --mark: #FFE45C; --good: #23704F; --warn: #C2452D;
-  --grid: #E4E9E2; --tagbg: #E1F0E7;
-  --font-display: "Nanum Myeongjo", "Gowun Batang", "AppleMyungjo", serif;
-  --font-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
-  --font-ui: "Noto Sans KR", "IBM Plex Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+  /* look A "형광펜" (design team, chosen 2026-11-28): notebook paper, pen blue, highlighter yellow */
+  --bg: #F7F7F2; --surface: #FFFFFF; --ink: #1A2233; --muted: #5B6476; --line: #DADCD3; --soft: #EEEFE7;
+  --accent: #2F4BD8; --accent-ink: #FFFFFF; --mark: #FFD93B; --mark-ink: #1A2233; --good: #1F7A55; --warn: #D9362F;
+  --grid: transparent; --tagbg: #FFF1B0;
+  --shadow-1: 0 1px 0 rgba(26,34,51,.06), 0 2px 8px rgba(26,34,51,.06);
+  --shadow-2: 0 2px 0 rgba(26,34,51,.08), 0 12px 28px rgba(26,34,51,.12);
+  --font-ui: "IBM Plex Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+  --font-voice: "Gowun Batang", "AppleMyungjo", "Batang", serif;
+  --font-display: var(--font-ui);
+  --font-mono: var(--font-ui);
+  --step-0: 0.8125rem; --step-1: 1rem; --step-2: 1.1875rem; --step-3: 1.4375rem; --step-4: 2rem;
   --tabbar-h: 66px;
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --bg: #121714; --surface: #1A211D; --ink: #E5ECE7; --muted: #9AA8A0; --line: #2E3A33; --soft: #222B26;
-    --accent: #6FD3A4; --accent-ink: #0D1A13; --mark: #6B5C00; --good: #6FD3A4; --warn: #F08A6C;
-    --grid: #1C241F; --tagbg: #1F3329; color-scheme: dark;
+    --bg: #12151C; --surface: #1B1F29; --ink: #ECEDE6; --muted: #A2A8B6; --line: #2C3240; --soft: #222734;
+    --accent: #8EA2FF; --accent-ink: #0E1430; --mark: #FFD93B; --mark-ink: #1A2233; --good: #5CCB98; --warn: #FF7A70;
+    --grid: transparent; --tagbg: #3A3418; color-scheme: dark;
   }
 }
 :root[data-theme="dark"] {
-  --bg: #121714; --surface: #1A211D; --ink: #E5ECE7; --muted: #9AA8A0; --line: #2E3A33; --soft: #222B26;
-  --accent: #6FD3A4; --accent-ink: #0D1A13; --mark: #6B5C00; --good: #6FD3A4; --warn: #F08A6C;
-  --grid: #1C241F; --tagbg: #1F3329; color-scheme: dark;
+  --bg: #12151C; --surface: #1B1F29; --ink: #ECEDE6; --muted: #A2A8B6; --line: #2C3240; --soft: #222734;
+  --accent: #8EA2FF; --accent-ink: #0E1430; --mark: #FFD93B; --mark-ink: #1A2233; --good: #5CCB98; --warn: #FF7A70;
+  --grid: transparent; --tagbg: #3A3418; color-scheme: dark;
 }
 body {
   background-color: var(--bg);
-  background-image: linear-gradient(var(--grid) 1px, transparent 1px), linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+  background-image: none;
   background-size: 22px 22px;
   padding-block: 0 calc(var(--tabbar-h) + env(safe-area-inset-bottom, 0px) + 24px);
 }
@@ -473,8 +478,8 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .mast h1 { font-family: var(--font-display); font-weight: 800; font-size: 1.25rem; }
 .mast .tag { font-family: var(--font-mono); font-size: 0.7rem; color: var(--accent); background: var(--tagbg); border: 0; border-radius: 4px; }
 body:not([data-step="1"]) .mast > p, body.teach .mast > p, body.in-class .mast > p { display: none; }
-body[data-step="1"]:not(.in-class) .mast { position: static; background: transparent; backdrop-filter: none; -webkit-backdrop-filter: none; border-bottom: 0; }
-body:not([data-step="1"]):not(.teach) .mast .switch, body:not([data-step="1"]):not(.teach) #cls-entry { display: none; }
+body[data-step="1"]:not(.in-class) .mast, body[data-step="mix"] .mast { position: static; background: transparent; backdrop-filter: none; -webkit-backdrop-filter: none; border-bottom: 0; }
+body:not([data-step="1"]):not([data-step="mix"]):not(.teach) .mast .switch, body:not([data-step="1"]):not([data-step="mix"]):not(.teach) #cls-entry { display: none; }
 .switch { border-radius: 999px; border-color: var(--line); }
 .switch button { padding: 6px 14px; font-size: 0.85rem; }
 .switch button[aria-pressed="true"] { background: var(--accent); color: var(--accent-ink); }
@@ -671,9 +676,74 @@ body.demo.teach .wrap { max-width: none; margin-right: 450px; margin-left: 24px;
 .app-foot .ver { opacity: 0.7; }
 /* the teacher screen redraws on every answer that comes in: no entrance animation there, or the projector flickers */
 body.teach .panel { animation: none; }
+/* ---- look A specifics ---- */
+.mu-body { fill: var(--mark); stroke: var(--mark-ink); }
+.mu-line, .mu-name { stroke: var(--mark-ink); }
+.mu-eye, .mu-name { fill: var(--mark-ink); }
+.card.picked .who, .chip { color: var(--mark-ink); }
+.mast .tag { background: var(--tagbg); color: var(--mark-ink); }
+.rail button[aria-current="step"] { background: var(--tagbg); color: var(--ink); }
+.rail button[aria-current="step"] .num { background: var(--mark); color: var(--mark-ink); border-color: var(--mark-ink); }
+.demo-top { width: 100%; min-height: 56px; display: flex; align-items: center; justify-content: space-between; gap: 12px; border: 0; border-radius: 16px; padding: 10px 18px; background: var(--mark); color: var(--mark-ink); font: inherit; cursor: pointer; box-shadow: var(--shadow-1); text-align: left; }
+.demo-top b { font-size: var(--step-2); }
+.demo-top span { font-size: var(--step-0); opacity: 0.85; }
+.demo-top .go { font-weight: 700; white-space: nowrap; }
+.demo-top:active { transform: translateY(1px) scale(0.99); }
+.demo-top:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+.demo-guide { border-color: var(--mark); box-shadow: inset 6px 0 0 var(--mark); }
+.demo-guide-t b { color: var(--ink); }
 .wipe-row { display: flex; flex-wrap: wrap; gap: 8px 14px; align-items: center; justify-content: space-between; padding-top: 4px; }
 .wipe.armed { border-color: var(--warn); color: var(--warn); font-weight: 600; }
 body.in-class .app-foot { display: none; }
+
+/* v10: 0단계 · 두 뜻 비교 · 심화 상자 · 다리 카드 · 섞인 장터 · 교사 처음 뜻 표시 */
+.pre-word { font: 700 var(--step-4)/1.2 var(--font-ui); display: inline-block; align-self: flex-start; padding: 0 4px; background: linear-gradient(transparent 55%, var(--mark) 55%); color: var(--ink); margin: 4px 0 4px; }
+.two-defs { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr)); gap: 12px; }
+.two-defs .td { border: 1px solid var(--line); border-radius: 14px; padding: 12px 14px; background: var(--surface); display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.two-defs .td.now { border: 1.5px solid var(--accent); }
+.two-defs .k, .bridge .who, .mix-row .k { font-size: var(--step-0); color: var(--muted); font-weight: 600; }
+.two-defs .v { font-family: var(--font-voice); font-size: var(--step-2); line-height: 1.6; overflow-wrap: anywhere; }
+.xbox { background: var(--soft); border-radius: 14px; padding: 14px 16px; display: flex; flex-direction: column; gap: 10px; }
+.xbox h3 { margin: 0; }
+table.xt { width: 100%; border-collapse: collapse; font-size: var(--step-1); }
+table.xt th, table.xt td { border-top: 1px solid var(--line); padding: 8px 6px; text-align: left; vertical-align: top; }
+table.xt thead th { border-top: 0; }
+table.xt thead th:first-child { color: var(--good); } table.xt thead th:last-child { color: var(--warn); }
+.bridge { border: 1.5px solid var(--accent); border-radius: 14px; padding: 14px 16px; display: flex; flex-direction: column; gap: 10px; background: var(--surface); }
+.bridge h3 { margin: 0; }
+.bridge .bc { border-left: 3px solid var(--line); padding-left: 12px; display: flex; flex-direction: column; gap: 4px; }
+.bridge .story { font-family: var(--font-voice); font-size: var(--step-2); line-height: 1.7; margin: 0; }
+.bridge .q { font-weight: 700; margin: 0; }
+.bridge .clue { background: var(--tagbg, #FFF1B0); color: var(--ink); border-radius: 8px; padding: 10px 12px; margin: 0; }
+.bridge > button { align-self: flex-start; }
+.mix-cards { display: flex; flex-direction: column; gap: 14px; }
+.mix-card { display: flex; flex-direction: column; gap: 10px; }
+.mix-card .who { font-weight: 700; color: var(--muted); font-size: var(--step-0); }
+.mix-card .story { font-family: var(--font-voice); font-size: var(--step-2); line-height: 1.7; margin: 0; }
+.mix-row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.mix-row .k { min-width: 3.2em; }
+.mix-row small { color: var(--muted); font-weight: 400; margin-left: 6px; font-size: var(--step-0); }
+.mix-row button.variant[aria-pressed="true"] { background: var(--mark); color: var(--mark-ink); border-color: transparent; }
+.mix-row button.variant[aria-pressed="true"] small { color: var(--mark-ink); }
+.mix-row button.variant:disabled { opacity: 1; cursor: default; }
+.mix-res { margin: 0; } .mix-res.ok { color: var(--good); } .mix-res.no { color: var(--warn); }
+.mix-why { margin: 0; color: var(--ink); background: var(--soft); border-radius: 8px; padding: 10px 12px; }
+.pm { display: flex; flex-direction: column; gap: 10px; margin-top: 14px; }
+.pm h3 { margin: 0; }
+.pm-list { display: flex; flex-direction: column; gap: 8px; }
+.pm-item { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; border: 1px solid var(--line); border-radius: 10px; padding: 8px 10px; background: var(--surface); }
+.pm-item .tx { flex: 1 1 100%; }
+.pm-item button { min-height: 36px; padding: 0 12px; font-size: var(--step-0); }
+.pm-item button[aria-pressed="true"] { background: var(--mark); color: var(--mark-ink); border-color: transparent; }
+.t-bridge { margin-top: 14px; }
+.teacher .order ol { padding-left: 1.3em; margin: 6px 0; }
+.switch button small { white-space: nowrap; }
+@media (max-width: 520px) {
+  .switch { display: grid; grid-template-columns: repeat(4, 1fr); width: 100%; border-radius: 14px; }
+  .switch button { padding: 7px 2px; line-height: 1.25; }
+  .switch button small { display: block; margin: 0; }
+}
+@media (min-width: 900px) { .pm-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); } }
 </style>
 
 <div class="wrap">
@@ -687,6 +757,7 @@ body.in-class .app-foot { display: none; }
       <button type="button" id="set-social" data-set="social" aria-pressed="true">1세트 <small>시장 골목</small></button>
       <button type="button" id="set-2" data-set="public" aria-pressed="false">2세트 <small>항구 마을</small></button>
       <button type="button" id="set-3" data-set="opp" aria-pressed="false">3세트 <small>주말 동네</small></button>
+      <button type="button" id="set-mix" data-mode="mix" aria-pressed="false">4차시 <small>섞인 장터</small></button>
     </div>
     <div id="cls-entry"></div>
   </header>
@@ -705,7 +776,7 @@ body.in-class .app-foot { display: none; }
   <footer class="app-foot" id="app-foot">
     <p><b>만든 방법</b> 사연과 필기본 설명은 생성형 AI(Claude)로 초안을 쓰고, 이름을 가린 채 AI에게 거꾸로 풀려 본 뒤 교사가 검토하고 있어. 등장인물과 사연은 모두 지어낸 것이야.</p>
     <p><b>개인정보</b> 로그인이 없어. 수업 중 답은 이 기기와 선생님 화면 사이에서 암호화되어 오가고, 어떤 서버에도 따로 저장하지 않아(학교망에서는 암호화된 채 공개 중계 서버를 거칠 수 있어). 반 화면과 친구 화면에는 이름 대신 닉네임만, 지은 이름과 뜻은 닉네임 없이 보여. 여럿이 쓰는 기기라면 마지막 단계의 ‘내 기록 지우기’로 지울 수 있어.</p>
-    <p class="ver">이름 없는 개념 · v9 (2026-11-28)</p>
+    <p class="ver">이름 없는 개념 · v10 (2026-11-28)</p>
   </footer>
 </div>
 
@@ -899,35 +970,38 @@ body.in-class .app-foot { display: none; }
 
   var SETS = {
     social: {
-      lead: "여덟 편 가운데 여섯 편은 같은 종류의 일이야. 사람도 장소도 다 다르지만 속을 들여다보면 같은 일이 벌어지고 있어. 같은 종류라고 생각하는 사연을 골라 봐.",
+      lead: "이 동네 사연 가운데 몇 편은 속이 같은 종류야. 몇 편인지는 안 알려 줄게. 사람도 장소도 다 다르지만 속을 들여다보면 같은 일이 벌어지고 있어. 같은 종류라고 생각하는 사연을 골라 봐.",
+      bridge: { cases: [["opp", "o4", "1차시 · 기회비용에서 본 장면"], ["social", "s8", "오늘 · 닮은꼴"]],
+        q: "지난 시간엔 기회비용으로 봤던 장면이야. 그런데 왜 외부 효과는 아닐까?",
+        clue: "손해가 나에게만 머물러. 그 일과 상관없는 다른 사람이 없으니 ②가 빠졌어. 내가 고르고 내가 감당한 일은 기회비용으로는 볼 수 있어도, 외부 효과는 아니야." },
       unit: "사연",
       course: "통합사회2 · 시장경제와 지속가능발전",
       nameHint: "예: ○○ 효과, ○○ 현상처럼 네 마음대로",
       cases: [
         { id: "s1", who: "카페 위층에 사는 고3", real: true,
-          marks: [{ f: "사장님은 장사가 잘돼", t: "u", l: "① 카페 장사" }, { f: "매일 밤 그 소리 속에서 수능 공부를 해", t: "w", l: "② 손해" }, { f: "뭘 해 주겠다는 말은 없어", t: "u", l: "③ 값 없음" }],
+          marks: [{ f: "사장님은 장사가 잘돼", t: "u", l: "① 카페 장사" }, { f: "그 소리 때문에 수능 문제집 한 쪽을 제대로 못 넘겨", t: "w", l: "② 손해" }, { f: "인사만 하셔", t: "u", l: "③ 값 없음" }],
           sum: "손해가 튀었다 → 부정적 외부 효과",
-          text: "우리 집 아래층에 카페가 생겼어. 밤 11시까지 테라스 스피커로 노래를 트는데, 손님들은 좋아하고 사장님은 장사가 잘돼. 나는 그 카페에 가 본 적도 없는데 매일 밤 그 소리 속에서 수능 공부를 해. 누구도 나한테 뭘 해 주겠다는 말은 없어." },
+          text: "우리 집 아래층에 카페가 생겼어. 밤 11시까지 테라스 스피커로 노래를 트는데, 손님들은 좋아하고 사장님은 장사가 잘돼. 나는 그 카페에 가 본 적도 없는데 매일 밤 그 소리 때문에 수능 문제집 한 쪽을 제대로 못 넘겨. 아침에 마주치면 사장님은 \"학생, 공부 열심히 해!\" 하고 인사만 하셔." },
         { id: "s2", who: "사과 과수원 할머니", real: true,
-          marks: [{ f: "벌통을 놓고 꿀을 팔기 시작했어", t: "u", l: "① 꿀 장사" }, { f: "사과가 눈에 띄게 잘 열려", t: "w", l: "② 이익" }, { f: "벌값 한 푼 낸 적이 없는데", t: "u", l: "③ 값 없음" }],
+          marks: [{ f: "벌통을 놓고 꿀을 팔기 시작했어", t: "u", l: "① 꿀 장사" }, { f: "사과가 유난히 주렁주렁 열렸어", t: "w", l: "② 이익" }, { f: "어떻게 됐는지도 몰라", t: "u", l: "③ 값 없음" }],
           sum: "이익이 튀었다 → 긍정적 외부 효과",
-          text: "옆 땅에 젊은 사람이 벌통을 놓고 꿀을 팔기 시작했어. 그 뒤로 우리 과수원 사과가 눈에 띄게 잘 열려. 벌들이 넘어와서 꽃가루를 옮겨 준 거지. 나는 그 청년한테 벌값 한 푼 낸 적이 없는데 말이야." },
+          text: "옆 땅에 젊은 사람이 벌통을 놓고 꿀을 팔기 시작했어. 그해 우리 과수원 사과가 유난히 주렁주렁 열렸어. 농업기술센터 직원이 와 보더니 벌들이 꽃가루를 옮겨 준 덕이래. 그 청년은 꿀 팔러 장에 다니느라 우리 과수원이 어떻게 됐는지도 몰라." },
         { id: "s3", who: "강 하류의 어부", real: true,
           marks: [{ f: "옷 회사에 천을 팔아 돈을 벌고", t: "u", l: "① 천 거래" }, { f: "물고기가 절반으로 줄었어", t: "w", l: "② 손해" }, { f: "누가 채워 준 적도 없어", t: "u", l: "③ 값 없음" }],
           sum: "손해가 튀었다 → 부정적 외부 효과",
           text: "상류에 염색 공장이 들어섰어. 공장은 옷 회사에 천을 팔아 돈을 벌고, 옷 회사는 싼값에 천을 사 가. 그런데 강물 색이 변하더니 그물에 걸리는 물고기가 절반으로 줄었어. 나는 그 거래에 낀 적도 없고, 줄어든 벌이를 누가 채워 준 적도 없어." },
         { id: "s4", who: "예방접종을 못 한 고1", real: true,
-          marks: [{ f: "병원에 돈을 내고 접종을 했대", t: "u", l: "① 접종" }, { f: "나도 겨울을 멀쩡히 났어", t: "w", l: "② 이익" }, { f: "한 푼도 안 냈는데", t: "u", l: "③ 값 없음" }],
+          marks: [{ f: "동네 병원에 가서 돈 내고 맞았대", t: "u", l: "① 접종" }, { f: "나도 기침 한 번 안 하고 넘어갔어", t: "w", l: "② 이익" }, { f: "예방접종을 못 했어", t: "u", l: "③ 나는 안 냄" }],
           sum: "이익이 튀었다 → 긍정적 외부 효과",
-          text: "나는 주사를 못 맞는 체질이라 독감 예방접종을 못 했어. 그런데 우리 반 애들 대부분이 병원에 돈을 내고 접종을 했대. 덕분에 반에 독감이 돌지 않아서 나도 겨울을 멀쩡히 났어. 나는 한 푼도 안 냈는데 덕을 본 거야." },
+          text: "나는 주사를 못 맞는 체질이라 독감 예방접종을 못 했어. 반 애들은 대부분 10월에 동네 병원에 가서 돈 내고 맞았대. 옆 반은 한 달 내내 결석생이 줄줄이 나왔는데, 우리 반은 겨울 내내 조용했어. 담임 선생님은 우리 반 접종률이 높아서 그렇다고 하셨어. 나도 기침 한 번 안 하고 넘어갔어." },
         { id: "s5", who: "버스로 통학하는 학생", real: true,
           marks: [{ f: "자기 돈 내고 가입한 영상 서비스를", t: "u", l: "① 영상 보기" }, { f: "20분 내내 소리를 들어야 해", t: "w", l: "② 손해" }, { f: "아무 일도 없었다는 듯이 끝나", t: "u", l: "③ 값 없음" }],
           sum: "손해가 튀었다 → 부정적 외부 효과",
           text: "아침 버스에서 뒷자리 아저씨가 이어폰 없이 영상을 봐. 아저씨는 자기 돈 내고 가입한 영상 서비스를 재밌게 보는 거겠지. 나는 그 영상을 보고 싶다고 한 적이 없는데 20분 내내 소리를 들어야 해. 내릴 때까지 아무 일도 없었다는 듯이 끝나." },
         { id: "s6", who: "골목 분식집 사장", real: true,
-          marks: [{ f: "큰돈을 들여 담장에 벽화를 그리고", t: "u", l: "① 가게 꾸미기" }, { f: "우리 분식집 손님도 늘었어", t: "w", l: "② 이익" }, { f: "벽화 값을 보탠 적이 없어", t: "u", l: "③ 값 없음" }],
+          marks: [{ f: "담장에 큰 벽화를 그리고", t: "u", l: "① 가게 꾸미기" }, { f: "우리 분식집에서 떡볶이를 사 가", t: "w", l: "② 이익" }, { f: "웃기만 했어", t: "u", l: "③ 값 없음" }],
           sum: "이익이 튀었다 → 긍정적 외부 효과",
-          text: "옆 건물 주인이 자기 가게 손님을 끌려고 큰돈을 들여 담장에 벽화를 그리고 화단을 만들었어. 그걸 보러 사람들이 골목에 몰려오면서 우리 분식집 손님도 늘었어. 나는 벽화 값을 보탠 적이 없어. 그냥 옆에 있었을 뿐이야." },
+          text: "옆 건물 사장님이 자기 카페 손님을 끌려고 담장에 큰 벽화를 그리고 화단을 만들었어. 주말마다 사진 찍으러 온 사람들로 골목이 북적이더니, 줄 서서 기다리던 사람들이 우리 분식집에서 떡볶이를 사 가. 벽화 앞에서 마주친 사장님은 \"요즘 골목 좋아졌죠?\" 하고 웃기만 했어." },
         { id: "s7", who: "드럼 치는 윗집의 아랫집", real: false, has: [true, true, false],
           marks: [{ f: "드럼 연습을 시작해서", t: "u", l: "① 하는 일" }, { f: "한동안 힘들었어", t: "w", l: "② 손해" }, { f: "매달 우리 집 관리비 일부를 내 주기로 했어", t: "u", l: "값을 치름!", red: true }],
           sum: "값이 오갔다 → ③이 빠짐 → 외부 효과가 아니다",
@@ -935,15 +1009,13 @@ body.in-class .app-foot { display: none; }
           why: "상관없는 사람에게 영향이 간 것까지는 같아. 하지만 그 값을 치르기로 약속했어. '오가는 값이 없다'는 요소가 빠진 거야.",
           fb: "윗집이 소음 값을 치르기로 했지? 값이 오갔으니까 여기에는 안 들어가." },
         { id: "s8", who: "밤새 게임한 중3", real: false, has: [true, false, null],
-          marks: [{ f: "새로 산 게임을 새벽 4시까지 했어", t: "u", l: "① 게임" }, { f: "내가 고르고 내가 손해 본 거니까", t: "u", l: "나 자신!", red: true }],
+          marks: [{ f: "새로 산 게임을 새벽 4시까지 했어", t: "u", l: "① 게임" }, { f: "졸아서 점수가 엉망이 됐어", t: "u", l: "나 자신!", red: true }],
           sum: "상관없는 다른 사람이 없다 → ②가 빠짐 → 외부 효과가 아니다",
-          text: "시험 전날 새로 산 게임을 새벽 4시까지 했어. 게임은 정말 재밌었어. 그런데 다음 날 시험 시간에 졸아서 점수가 엉망이 됐어. 누굴 탓할 수도 없어. 내가 고르고 내가 손해 본 거니까.",
-          why: "게임을 사서 한 사람도, 손해를 본 사람도 자기 자신이야. '상관없는 다른 사람에게 영향이 간다'는 요소가 빠졌어.",
-          fb: "게임한 사람도 손해 본 사람도 나 자신이야. 상관없는 다른 사람이 없어." }
+          text: "시험 전날 새로 산 게임을 새벽 4시까지 했어. 게임은 정말 재밌었어. 그런데 다음 날 시험 시간에 졸아서 점수가 엉망이 됐어. 다음부턴 시험 전날엔 게임기를 엄마한테 맡기기로 했어." }
       ],
       elements: [
         "누군가 무언가를 만들거나, 팔거나, 사서 쓰는 일이 있다",
-        "그 일과 상관없는 다른 사람에게 이익이나 손해가 간다",
+        "그 일과 상관없는 다른 사람에게 뜻하지 않게 이익이나 손해가 간다",
         "그 이익이나 손해에 대한 값이 오가지 않는다"
       ],
       skeleton: "sk-ext",
@@ -1041,7 +1113,10 @@ body.in-class .app-foot { display: none; }
       }
     },
     public: {
-      lead: "여덟 편 가운데 여섯 편은 같은 종류의 것을 쓰는 이야기야. 나오는 물건도 사람도 다 다르지만, 그것이 사람들에게 쓰이는 방식을 들여다보면 같은 성질이 있어. 같은 종류라고 생각하는 사연을 골라 묶음에 넣어 봐.",
+      lead: "이 마을 사연 가운데 몇 편은 같은 종류의 것을 쓰는 이야기야. 몇 편인지는 안 알려 줄게. 나오는 물건도 사람도 다 다르지만, 그것이 사람들에게 쓰이는 방식을 들여다보면 같은 성질이 있어. 같은 종류라고 생각하는 사연을 골라 묶음에 넣어 봐.",
+      bridge: { cases: [["social", "s4", "2차시 · 외부 효과에서 본 장면"]],
+        q: "모두에게 좋은 일이었는데, 공공재일까?",
+        clue: "병원에서 돈 내고 맞은 사람만 맞을 수 있어(막을 수 있다). 백신 하나는 한 사람만 맞아(줄어든다). 좋은 영향이 둘레로 퍼지는 것(외부 효과)과, 그것 자체의 성질(공공재)은 달라." },
       unit: "사연",
       course: "통합사회2 · 시장경제와 지속가능발전",
       nameHint: "예: ○○재, ○○ 혜택처럼 네 마음대로",
@@ -1051,25 +1126,25 @@ body.in-class .app-foot { display: none; }
           sum: "못 막고, 같이 봐도 안 줄어든다 → 공공재",
           text: "우리 항구 끝에 등대가 있어. 밤바다에서 길을 찾게 해 주는데, 등대 값을 낸 배인지 아닌지 가려서 비출 방법은 없어. 우리 배 말고 다른 배 열 척이 같이 봐도 불빛이 흐려지지 않아." },
         { id: "p2", who: "학원 마치고 밤길 걷는 고1", real: true,
-          marks: [{ f: "가로등 값을 따로 낸 적이 없어", t: "u", l: "① 못 막음" }, { f: "나랑 똑같이 환한 길을 걸어", t: "u", l: "② 안 줄어듦" }],
+          marks: [{ f: "처음 보는 대학생도 지나가", t: "u", l: "① 못 막음" }, { f: "내 발밑이 어두워지진 않아", t: "u", l: "② 안 줄어듦" }],
           sum: "못 막고, 같이 써도 안 줄어든다 → 공공재",
-          text: "학원 끝나고 밤 10시에 골목길로 걸어와. 가로등 덕분에 무섭지 않은데, 나는 가로등 값을 따로 낸 적이 없어. 내 뒤에 오는 사람들도 나랑 똑같이 환한 길을 걸어." },
+          text: "학원 끝나고 밤 10시에 골목으로 걸어와. 가로등 아래로 배달 오토바이도 지나가고, 강아지 산책하는 아저씨도, 처음 보는 대학생도 지나가. 다들 같은 불빛 아래를 걷는데, 사람이 많이 지나간다고 내 발밑이 어두워지진 않아." },
         { id: "p3", who: "폭우가 온 날의 중학생", real: true,
-          marks: [{ f: "돈을 낸 사람만 받는 문자가 아니야", t: "u", l: "① 못 막음" }, { f: "내 문자가 줄어드는 것도 아니고", t: "u", l: "② 안 줄어듦" }],
+          marks: [{ f: "통신사가 다른 옆집 아저씨 폰에도", t: "u", l: "① 못 막음" }, { f: "내 문자만 늦게 오거나 잘려 온 것도 아니야", t: "u", l: "② 안 줄어듦" }],
           sum: "못 막고, 다 같이 받아도 안 줄어든다 → 공공재",
-          text: "어젯밤 폭우 재난 문자가 온 동네 휴대폰에 한꺼번에 울렸어. 돈을 낸 사람만 받는 문자가 아니야. 우리 반 서른 명이 다 받았다고 내 문자가 줄어드는 것도 아니고." },
+          text: "어젯밤 11시에 휴대폰이 한꺼번에 '삐—' 울렸어. 학원 단톡방에 \"너도 받았어?\"가 줄줄이 올라왔고, 할머니 폴더폰에도, 동생 키즈폰에도, 통신사가 다른 옆집 아저씨 폰에도 똑같은 폭우 경보가 떴대. 동네 사람 수만 명이 같은 순간에 받았는데, 내 문자만 늦게 오거나 잘려 온 것도 아니야. 그 문자 보고 아빠가 지하 주차장 차를 미리 빼 놨어." },
         { id: "p4", who: "강변 아파트 할아버지", real: true,
-          marks: [{ f: "하늘을 가릴 수는 없으니까", t: "u", l: "① 못 막음" }, { f: "불꽃이 덜 예뻐지진 않아", t: "u", l: "② 안 줄어듦" }],
-          sum: "못 막고, 수십만 명이 봐도 안 줄어든다 → 공공재",
-          text: "가을마다 강에서 불꽃놀이 축제를 해. 자리를 맡은 사람만 보라고 하늘을 가릴 수는 없으니까 우리 집 베란다에서도 다 보여. 수십만 명이 같이 올려다봐도 불꽃이 덜 예뻐지진 않아." },
+          marks: [{ f: "아파트 옥상에 돗자리를 폈지", t: "u", l: "① 못 막음" }, { f: "우리랑 똑같이", t: "u", l: "② 안 줄어듦" }],
+          sum: "못 막고, 수십만 명이 봐도 안 줄어든다 → 공공재 (불꽃을 보는 일)",
+          text: "가을 불꽃 축제 날, 강변은 발 디딜 틈도 없었어. 우리 가족은 아파트 옥상에 돗자리를 폈지. 옆 동 옥상에도, 다리 위에도, 강 건너 편의점 앞에도 사람들이 고개를 젖히고 있었어. 마지막 큰 불꽃이 터질 때, 저 멀리 강변 사람들이랑 우리랑 똑같이 \"와\" 했어." },
         { id: "p5", who: "강가 마을 이장님", real: true,
           marks: [{ f: "가리지 않고 다 지켜 줘", t: "u", l: "① 못 막음" }, { f: "옆집을 지킬 힘이 줄어드는 것도 아니야", t: "u", l: "② 안 줄어듦" }],
           sum: "못 막고, 여러 집을 지켜도 안 줄어든다 → 공공재",
           text: "마을 앞에 큰 둑이 생긴 뒤로 장마철에도 물이 넘치지 않아. 둑은 세금을 많이 낸 집이든 어제 이사 온 집이든 가리지 않고 다 지켜 줘. 우리 집을 지켜 준다고 옆집을 지킬 힘이 줄어드는 것도 아니야." },
         { id: "p6", who: "군인 형을 둔 고1", real: true,
-          marks: [{ f: "갓난아기만 빼고 지킬 수는 없잖아", t: "u", l: "① 못 막음" }, { f: "다른 사람을 지키는 힘이 줄어들지도 않고", t: "u", l: "② 안 줄어듦" }],
+          marks: [{ f: "쏙 빼놓고 지킬 수는 없잖아", t: "u", l: "① 못 막음" }, { f: "다른 사람을 지키는 힘이 줄어들지도 않고", t: "u", l: "② 안 줄어듦" }],
           sum: "못 막고, 한 사람 늘어도 안 줄어든다 → 공공재",
-          text: "휴가 나온 형이 그러는데, 군대는 이 나라에 사는 사람 모두를 지킨대. 세금을 안 내는 갓난아기만 빼고 지킬 수는 없잖아. 인구가 한 명 늘었다고 다른 사람을 지키는 힘이 줄어들지도 않고." },
+          text: "휴가 나온 형이 그러는데, 군대는 이 나라에 사는 사람 모두를 지킨대. 세금을 안 내는 갓난아기라고 쏙 빼놓고 지킬 수는 없잖아. 인구가 한 명 늘었다고 다른 사람을 지키는 힘이 줄어들지도 않고." },
         { id: "p7", who: "인터넷 강의 듣는 고2", real: false, has: [false, true],
           marks: [{ f: "결제한 사람만 아이디로 들어갈 수 있어서", t: "u", l: "막을 수 있음!", red: true }, { f: "몇 명이 동시에 봐도", t: "u", l: "② 안 줄어듦" }],
           sum: "돈 안 내면 막을 수 있다 → ①이 빠짐 → 공공재가 아니다",
@@ -1180,35 +1255,46 @@ body.in-class .app-foot { display: none; }
       }
     },
     opp: {
-      lead: "여덟 편 모두 무언가를 고른 이야기야. 그 가운데 여섯 편은 고른 것의 대가를 같은 방식으로 따지고 있어. 무엇을 대가로 보는지 잘 보고, 같은 방식이라고 생각하는 사연을 묶음에 넣어 봐.",
+      lead: "여덟 편 모두 무언가를 고른 이야기야. 그 가운데 몇 편은 고른 것의 대가를 같은 방식으로 따지고 있어. 몇 편인지는 안 알려 줄게. 무엇을 대가로 보는지 잘 보고, 같은 방식이라고 생각하는 사연을 묶음에 넣어 봐.",
+      pre: { ask: "이 말, 들어 본 적 있어?", word: "기회비용",
+        hintCls: "뜻을 아는 만큼 한 줄로 써 봐. 몰라도 괜찮아, 이름은 가려서 모여.",
+        hintSolo: "뜻을 아는 만큼 한 줄로 써 봐. 몰라도 괜찮아. 사연을 다 보고 나서 이 문장과 견줘 볼 거야.",
+        tags: [["sunk", "이미 쓴 돈을 셈"], ["sum", "포기한 것을 다 더함"], ["money", "돈만 셈"]] },
+      extraBox: { head: "심화: 낸 돈이 있는 선택이라면?",
+        p: "주말 알바(6만 원)를 쉬고 입장권 4만 원을 내고 놀이공원에 갔다면, 실제로 낸 4만 원(명시적 비용)과 포기한 알바비 6만 원(암묵적 비용)을 더한 10만 원이 기회비용이야. 그럼 닮은꼴 ‘다 더하기’와는 뭐가 다를까?",
+        head2: ["더해도 되는 것", "더하면 안 되는 것"],
+        rows: [["실제로 낸 돈 + 포기한 것 가운데 가장 큰 하나", "포기한 것 여럿 (한꺼번에 다 할 수는 없었으니까)"],
+               ["놀이공원: 입장권 4만 원 + 알바비 6만 원 = 10만 원", "영화: 알바 3만 원 + 학원 보충 + 낮잠을 다 더함"]],
+        note: "명시적 비용·암묵적 비용은 선택과목 ‘경제’에서 자세히 배우는 말이야." },
+      teaser: "‘시험 전날 밤의 고1’ 장면은 다음 시간에 다시 나와. 그때는 다른 눈으로 볼 거야.",
       unit: "사연",
       course: "통합사회2 · 시장경제와 지속가능발전",
       nameHint: "예: ○○ 값, ○○의 대가처럼 네 마음대로",
       cases: [
-        { id: "o1", who: "주말에 놀이공원 간 고1", real: true,
-          marks: [{ f: "편의점 알바를 할지", t: "u", l: "② 포기" }, { f: "놀이공원을 골랐어", t: "u", l: "① 고름" }, { f: "10만 원짜리 하루", t: "b", l: "③ 대가" }],
-          sum: "낸 돈 4만 원 + 포기한 알바비 6만 원 → 대가는 10만 원",
-          text: "토요일에 친구들이랑 놀이공원에 갈지, 편의점 알바를 할지 고민하다가 놀이공원을 골랐어. 입장권 4만 원이 들었고, 그날 알바로 벌 수 있던 6만 원도 못 벌었지. 엄마는 그날이 나한테 10만 원짜리 하루였대." },
+        { id: "o1", who: "축제 날 고1", real: true,
+          marks: [{ f: "골라야 했어", t: "u", l: "② 포기" }, { f: "공연 쪽으로 발을 돌리는 순간", t: "u", l: "① 고름" }, { f: "피자 파티", t: "b", l: "③ 가장 아까움" }],
+          sum: "공연을 고른 대가 → 부스 피자 파티",
+          text: "학교 축제 날, 반 먹거리 부스를 도울지 강당 밴드 공연을 볼지 골라야 했어. 부스 애들은 끝나고 판매 수익으로 피자 파티를 하기로 했대. 공연 쪽으로 발을 돌리는 순간, 교실에 피자 상자가 쌓이는 장면이 떠올랐어." },
         { id: "o2", who: "용돈 만 원 남은 중2", real: true,
-          marks: [{ f: "하나만 살 수 있었어", t: "u", l: "② 포기" }, { f: "떡볶이를 사 먹었는데", t: "u", l: "① 고름" }, { f: "친구 선물", t: "b", l: "③ 가장 아까움" }],
+          marks: [{ f: "하나만 살 수 있었어", t: "u", l: "② 포기" }, { f: "떡볶이를 계산하는 동안에도", t: "u", l: "① 고름" }, { f: "친구 선물이 계속 마음에 걸렸어", t: "b", l: "③ 가장 아까움" }],
           sum: "포기한 둘 가운데 가장 아까운 것 → 친구 선물",
-          text: "용돈이 딱 만 원 남았는데 떡볶이, 웹툰 쿠키, 친구 생일 선물 가운데 하나만 살 수 있었어. 떡볶이를 사 먹었는데, 먹고 나니 제일 아까운 건 친구 선물이야. 웹툰은 다음 주에 봐도 되거든." },
+          text: "용돈이 딱 만 원 남았는데 떡볶이, 웹툰 쿠키, 친구 생일 선물 가운데 하나만 살 수 있었어. 떡볶이를 계산하는 동안에도 친구 선물이 계속 마음에 걸렸어. 웹툰은 다음 주에 봐도 되니까 별생각 안 났고." },
         { id: "o3", who: "밭농사 짓는 할머니", real: true,
-          marks: [{ f: "고추를 심었으니", t: "u", l: "① 고름" }, { f: "배추로 벌었을 돈은 포기한 셈이지", t: "u", l: "② 포기" }, { f: "그 돈이 제일 아깝더라", t: "b", l: "③ 가장 아까움" }],
-          sum: "고추를 고른 대가 → 배추로 벌 수 있던 돈",
-          text: "밭 한 뙈기에 고추를 심을지 배추를 심을지 정해야 했어. 고추를 심었으니 배추로 벌었을 돈은 포기한 셈이지. 올해는 배춧값이 많이 올라서 그 돈이 제일 아깝더라." },
+          marks: [{ f: "고추로 정하던 날", t: "u", l: "① 고름" }, { f: "배추였으면 이만큼은 남았을 텐데", t: "u", l: "② 포기" }, { f: "그 금액", t: "b", l: "③ 대가" }],
+          sum: "고추를 고른 대가 → 배추로 남길 수 있던 돈",
+          text: "밭 한 뙈기에 고추를 심을지 배추를 심을지 정해야 했어. 고추로 정하던 날, 아빠는 \"배추였으면 이만큼은 남았을 텐데\" 하면서 그 금액을 공책 귀퉁이에 적어 두셨어." },
         { id: "o4", who: "시험 전날 밤의 고1", real: true,
-          marks: [{ f: "가운데 하나에 써야 했어", t: "u", l: "② 포기" }, { f: "수학을 골랐더니", t: "u", l: "① 고름" }, { f: "그 단어들", t: "b", l: "③ 가장 아까움" }],
+          marks: [{ f: "가운데 하나에 써야 했어", t: "u", l: "② 포기" }, { f: "수학 문제집을 펴면서", t: "u", l: "① 고름" }, { f: "영어 단어장만 맴돌았어", t: "b", l: "③ 가장 아까움" }],
           sum: "포기한 둘 가운데 가장 아까운 것 → 영어 단어 외울 시간",
-          text: "시험 전날 밤 남은 세 시간을 수학 복습, 영어 단어 외우기, 잠자기 가운데 하나에 써야 했어. 수학을 골랐더니 다음 날 영어 시험에 외우려던 단어가 나왔어. 잠 못 잔 것보다 그 단어들이 훨씬 아까웠어." },
+          text: "시험 전날 밤 남은 세 시간을 수학 복습, 영어 단어 외우기, 잠자기 가운데 하나에 써야 했어. 수학 문제집을 펴면서 머릿속엔 못 외운 영어 단어장만 맴돌았어. 잠은 원래 시험 전날엔 포기하는 거라 생각했거든." },
         { id: "o5", who: "카페를 차린 삼촌", real: true,
           marks: [{ f: "카페를 차렸어", t: "u", l: "① 고름" }, { f: "회사에 계속 다녔으면", t: "u", l: "② 포기" }, { f: "그 350만 원", t: "b", l: "③ 대가" }],
           sum: "카페를 고른 대가 → 포기한 회사 월급 350만 원",
           text: "삼촌은 회사를 그만두고 카페를 차렸어. 카페로 한 달에 300만 원이 남는데, 회사에 계속 다녔으면 월급 350만 원을 받았을 거래. 삼촌은 그 350만 원을 생각하면 아직은 손해 보는 장사라고 웃더라." },
         { id: "o6", who: "동아리 고르는 신입생", real: true,
-          marks: [{ f: "하나만 들 수 있었어", t: "u", l: "② 포기" }, { f: "방송부를 골랐는데", t: "u", l: "① 고름" }, { f: "코딩부를 못 간 게", t: "b", l: "③ 가장 아까움" }],
+          marks: [{ f: "하나만 들 수 있었어", t: "u", l: "② 포기" }, { f: "방송부 신청서를 내면서", t: "u", l: "① 고름" }, { f: "코딩부 신청서를 내려놓는 손이 훨씬 무거웠어", t: "b", l: "③ 가장 아까움" }],
           sum: "포기한 둘 가운데 가장 아까운 것 → 코딩부",
-          text: "동아리 시간이 겹쳐서 방송부, 축구부, 코딩부 가운데 하나만 들 수 있었어. 방송부를 골랐는데, 축구부보다 코딩부를 못 간 게 훨씬 아쉬워. 코딩부였으면 대회에도 나갈 수 있었거든." },
+          text: "동아리 시간이 겹쳐서 방송부, 축구부, 코딩부 가운데 하나만 들 수 있었어. 방송부 신청서를 내면서, 축구부보다 코딩부 신청서를 내려놓는 손이 훨씬 무거웠어." },
         { id: "o7", who: "재미없는 영화를 본 중3", real: false, has: [true, false, null],
           marks: [{ f: "만 원이 아까울 것 같아서", t: "u", l: "이미 쓴 돈!", red: true }, { f: "끝까지 앉아 있었어", t: "u", l: "① 고름" }],
           sum: "이미 써서 돌아오지 않는 돈을 따졌다 → ②가 빠짐 → 기회비용이 아니다",
@@ -1216,11 +1302,9 @@ body.in-class .app-foot { display: none; }
           why: "나갈지 남을지 고른 것까지는 같아. 하지만 만 원은 나가든 남든 돌아오지 않는 돈이야. 고르는 순간 포기하는 게 아니니까 대가로 셀 수 없어. 진짜 대가는 그 두 시간에 할 수 있던 다른 일이야.",
           fb: "만 원은 나가도 남아도 이미 쓴 돈이야. 고르면서 포기하는 게 아니야." },
         { id: "o8", who: "영화 보러 간 고2", real: false, has: [true, true, false],
-          marks: [{ f: "영화를 보러 갔어", t: "u", l: "① 고름" }, { f: "알바를 했으면", t: "u", l: "② 포기" }, { f: "셋을 다 더한 거야", t: "u", l: "다 더함!", red: true }],
+          marks: [{ f: "영화를 보러 갔어", t: "u", l: "① 고름" }, { f: "이 셋을 다 더한 거야", t: "u", l: "다 더함!", red: true }],
           sum: "포기한 것을 다 더했다 → ③이 빠짐 → 대가를 잘못 셌다",
-          text: "토요일 오후에 영화를 보러 갔어. 그 시간에 알바를 했으면 3만 원을 벌었고, 학원 보충도 들을 수 있었고, 낮잠도 잘 수 있었지. 그러니까 내 영화 한 편의 대가는 이 셋을 다 더한 거야.",
-          why: "고르고 포기한 것까지는 같아. 하지만 알바, 보충, 낮잠을 그 시간에 한꺼번에 다 할 수는 없었어. 영화를 안 봤어도 그중 하나만 했을 테니, 대가는 가장 아까운 하나야.",
-          fb: "셋을 한꺼번에 할 수는 없었지? 대가는 그중 가장 아까운 하나야." }
+          text: "토요일 오후에 영화를 보러 갔어. 그 시간에 알바를 했으면 3만 원을 벌었고, 학원 보충도 들을 수 있었고, 낮잠도 잘 수 있었지. 그러니까 내 영화 한 편의 대가는 이 셋을 다 더한 거야." }
       ],
       elements: [
         "여럿 가운데 하나를 고르면 나머지는 할 수 없게 된다",
@@ -1250,7 +1334,7 @@ body.in-class .app-foot { display: none; }
       extra: "기회비용에는 실제로 낸 돈(명시적 비용)과, 포기한 것의 가치(암묵적 비용)가 함께 들어가. 고른 것에서 얻는 만족(편익)이 기회비용보다 크면 합리적인 선택이야. 영화표처럼 이미 써서 돌아오지 않는 돈은 매몰 비용이라고 하는데, 선택할 때 따지지 않는 게 합리적이야.",
       minePrompt: "요즘 내가 한 선택 하나를 골라서 써 봐. 무엇을 골랐고, 무엇을 포기했고, 그 가운데 가장 아까운 게 무엇이었는지.",
       caseTagHead: "가장 아까운 것",
-      caseTag: { o1: "알바비 6만 원 (+입장권 4만 원)", o2: "친구 선물", o3: "배추로 벌 돈", o4: "영어 단어 외울 시간", o5: "회사 월급 350만 원", o6: "코딩부" },
+      caseTag: { o1: "부스 피자 파티", o2: "친구 선물", o3: "배추로 벌 돈", o4: "영어 단어 외울 시간", o5: "회사 월급 350만 원", o6: "코딩부" },
       twinNote: {
         o7: "나갈지 남을지 고른 것까지는 같다. 하지만 만 원은 무엇을 고르든 돌아오지 않는 돈이므로 ‘고르는 순간 포기하는 것’이 아니다.",
         o8: "고르고 포기한 것까지는 같다. 하지만 셋을 한꺼번에 할 수는 없었으므로 다 더하면 안 되고 ‘가장 아까운 하나’만 대가다."
@@ -1264,30 +1348,39 @@ body.in-class .app-foot { display: none; }
         { k: "h", t: "개념 정리 ① 뜻" },
         { k: "def" },
         { k: "me", slot: "def" },
+        { k: "me", slot: "pre" },
         { k: "h", t: "② 낱말 풀이" },
         { k: "parts" },
         { k: "me", slot: "compare" },
         { k: "h", t: "③ 뼈대" },
         { k: "fig" },
         { k: "elements" },
-        { k: "h", t: "④ 기회비용에 들어가는 것" },
-        { k: "table", head: ["", "뜻", "놀이공원 사연에서"], rows: [
+        { k: "h", t: "④ 기회비용에 들어가는 것 (심화)" },
+        { k: "note", t: "심화: 명시적 비용·암묵적 비용·매몰 비용은 선택과목 ‘경제’에서 자세히 배우는 말이다.", keep: true },
+        { k: "p", t: "예: 주말 알바(6만 원)를 쉬고, 입장권 4만 원을 내고 놀이공원에 갔다.", keep: true },
+        { k: "table", head: ["", "뜻", "놀이공원 예에서"], rows: [
           ["명시적 비용", "선택하느라 ==실제로 낸 돈==", "입장권 4만 원"],
           ["암묵적 비용", "선택하느라 포기한 것의 가치 (__눈에 안 보이는 비용__)", "알바로 벌 수 있던 6만 원"],
           ["기회비용", "명시적 비용 + 암묵적 비용", "10만 원"]
         ] },
         { k: "red", t: "★ 대가는 ‘포기한 것 가운데 가장 아까운 하나’!" },
+        { k: "p", t: "그럼 놀이공원은 왜 더하고, 닮은꼴 ‘다 더하기’는 왜 틀렸을까?", keep: true },
+        { k: "table", head: ["더해도 되는 것", "더하면 안 되는 것"], rows: [
+          ["==실제로 낸 돈== + 포기한 것 가운데 __가장 큰 하나__", "==포기한 것 여럿== (한꺼번에 다 할 수는 없었으니까)"],
+          ["놀이공원: 입장권 4만 원 + 알바비 6만 원 = 10만 원", "영화: 알바 3만 원 + 학원 보충 + 낮잠 → 셋을 다 더하면 틀림"]
+        ] },
         { k: "h", t: "⑤ 합리적 선택" },
         { k: "li", n: "①", t: "선택해서 얻는 만족 = ==편익==" },
         { k: "li", n: "②", t: "편익이 기회비용보다 클 때 → __합리적 선택__이다." },
         { k: "li", n: "③", t: "카페 삼촌: 편익 300만 원 < 기회비용 350만 원 → 돈으로만 따지면 __합리적이지 않은 선택__" },
+        { k: "note", t: "삼촌이 ‘손해 보는 장사’라고 한 까닭: 장부에는 300만 원이 남지만, 포기한 월급 350만 원까지 대가로 치면 50만 원을 덜 버는 셈이다." },
         { k: "note", t: "하고 싶은 일을 하는 기쁨, 여유처럼 돈으로 바꾸기 어려운 만족도 편익에 들어간다. 그래서 삼촌의 선택이 꼭 틀렸다고 할 수는 없다." },
         { k: "h", t: "⑥ 헷갈리는 두 가지" },
         { k: "table", head: ["", "닮은꼴 사연", "바르게 따지면"], rows: [
           ["==매몰 비용==", "환불 안 되는 영화표 만 원", "이미 써서 돌아오지 않는 돈은 __선택할 때 따지지 않는다__"],
           ["다 더하기", "알바·보충·낮잠을 다 더함", "한꺼번에 다 할 수는 없다 → __가장 아까운 하나__만 대가"]
         ] },
-        { k: "h", t: "본문 : 오늘 읽은 사연 여덟 편", page: true },
+        { k: "h", t: "본문 : 오늘 읽은 사연 여덟 편" },
         { k: "note", t: "진노랑 줄과 번호 = 뼈대의 요소가 사연 어디에 있는지 / 진노랑 네모 = 대가로 본 것 / 빨강 = 빠진 요소", keep: true },
         { k: "stories" },
         { k: "h", t: "정리 ① 내 묶음 돌아보기" },
@@ -1307,20 +1400,21 @@ body.in-class .app-foot { display: none; }
           "무언가를 고르느라 놓친 기회",
           "고를 때 버린 것들",
           "돈 말고도 시간처럼 잃은 것"
-        ]
+        ],
+        pre: ["내가 선택해서 쓴 돈", "포기한 것들을 다 합친 것", "무언가를 살 때 드는 돈", "선택하면서 포기한 것 중 제일 큰 것", "기회를 놓쳐서 생기는 손해", "", "이미 낸 돈이 아까운 것", "선택할 때 포기하는 것", "고르지 않은 것들의 값을 다 더한 것", "어떤 일을 할 때 드는 비용"]
       },
       teacher: {
         structure: "여럿 가운데 하나를 고르고, 고르는 순간 포기한 것들 가운데 가장 아까운 하나를 그 선택의 대가로 따진다.",
         variables: [
           ["말하는 사람", "고1, 중2, 할머니, 고1, 삼촌, 신입생"],
-          ["포기한 것", "돈(알바비, 월급, 수확), 물건, 시간, 기회"],
+          ["포기한 것", "돈(월급, 수확), 물건, 시간, 기회, 친구들과의 자리"],
           ["대안의 수", "하나인 사연 3편, 둘 이상인 사연 3편"],
           ["닮은꼴", "이미 쓴 돈을 셈(매몰 비용), 포기한 것을 다 더함"]
         ]
       }
     },
     korean: {
-      lead: "여덟 편 가운데 여섯 편은 같은 방식으로 쓰였어. 일기도 있고 노랫말도 있고 광고도 있지만, 글쓴이가 하고 있는 일은 같아. 같은 방식이라고 생각하는 글을 골라 봐.",
+      lead: "이 글들 가운데 몇 편은 같은 방식으로 쓰였어. 몇 편인지는 안 알려 줄게. 일기도 있고 노랫말도 있고 광고도 있지만, 글쓴이가 하고 있는 일은 같아. 같은 방식이라고 생각하는 글을 골라 봐.",
       unit: "글",
       course: "공통국어 · 문학",
       nameHint: "예: ○○ 쓰기, ○○ 표현처럼 네 마음대로",
@@ -1457,7 +1551,7 @@ body.in-class .app-foot { display: none; }
   var STEPS = ["읽고 묶기", "이름 짓기", "뼈대 맞추기", "진짜 이름", "내 필기본"];
   var STORE = "nameless-concept:v1:";
 
-  function blank() { return { step: 1, max: 1, picks: {}, name: "", def: "", why: "", checks: {}, compare: "", mine: "", variant: null, student: "", vote: "", found: {}, skipMap: false }; }
+  function blank() { return { step: 1, max: 1, picks: {}, name: "", def: "", why: "", checks: {}, compare: "", mine: "", variant: null, student: "", vote: "", found: {}, skipMap: false, pre: "", preDone: false }; }
   function load(key) {
     try {
       var raw = window.localStorage.getItem(STORE + key + sfx());
@@ -1614,6 +1708,7 @@ body.in-class .app-foot { display: none; }
     var s = set();
     state.found = state.found || {};
     var allFound = s.cases.every(function (c) { return state.found[c.id]; }) || state.skipMap;
+    if (s.pre && !state.preDone && !CLS.demo) { return preStep(); }
     if (!allFound && MAPS[setKey]) {
       return el("section", { class: "panel" }, [
         el("h2", { text: "동네를 돌아다니며 사연 여덟 개를 찾아봐" }),
@@ -1634,6 +1729,53 @@ body.in-class .app-foot { display: none; }
     ]);
     updateCount();
     return p;
+  }
+
+  /* 0단계 (1차시, 기회비용): the name is shown first and the student writes what they think it means.
+     It is kept, not shown to the class, and comes back next to the rewritten definition in step 4. */
+  function preStep() {
+    var s = set(), P = s.pre;
+    var ta = el("textarea", { id: "pre-input", placeholder: "기회비용이란 …" });
+    ta.value = state.pre || "";
+    var done = el("button", { type: "button", class: "primary", id: "pre-done", text: "이렇게 썼어", onclick: function () { state.pre = ta.value.trim(); state.preDone = true; save(); render(); try { window.scrollTo(0, 0); } catch (e) { /* ignore */ } } });
+    function sync() { done.disabled = ta.value.trim().length === 0; }
+    ta.addEventListener("input", function () { state.pre = ta.value; save(); sync(); });
+    sync();
+    return el("section", { class: "panel" }, [
+      el("h2", { text: "시작하기 전에 하나만" }),
+      el("p", { class: "lead", text: P.ask + " ‘" + P.word + "’" }),
+      el("p", { class: "pre-word", text: P.word }),
+      field("pre-input", "내가 아는 뜻 한 줄", CLS.role ? P.hintCls : P.hintSolo, ta),
+      el("div", { class: "bar static" }, [
+        el("button", { type: "button", class: "ghost", id: "pre-skip", text: "잘 모르겠어, 넘어갈래", onclick: function () { state.pre = ""; state.preDone = true; save(); render(); } }),
+        done
+      ])
+    ]);
+  }
+  function twoDefs() {
+    return el("div", { class: "two-defs" }, [
+      el("div", { class: "td" }, [el("span", { class: "k", text: "처음에 쓴 뜻" }), el("span", { class: "v", text: (state.pre || "").trim() || "(잘 모르겠다고 했어)" })]),
+      el("div", { class: "td now" }, [el("span", { class: "k", text: "사연을 보고 다시 쓴 뜻" }), el("span", { class: "v", text: state.def.trim() || "(아직 안 썼어. 이름 짓기로 돌아가서 써도 돼)" })])
+    ]);
+  }
+  function extraBox(x) {
+    return el("div", { class: "xbox" }, [
+      el("h3", { text: x.head }),
+      el("p", { text: x.p }),
+      el("div", { class: "tbl-wrap" }, [el("table", { class: "xt" }, [
+        el("thead", null, [el("tr", null, x.head2.map(function (h) { return el("th", { text: h }); }))]),
+        el("tbody", null, x.rows.map(function (r) { return el("tr", null, r.map(function (c) { return el("td", { text: c }); })); }))
+      ])]),
+      x.note ? el("p", { class: "note", text: x.note }) : null
+    ]);
+  }
+  function bridgeCase(b) { var c = SETS[b[0]].cases.filter(function (x) { return x.id === b[1]; })[0]; return c ? { c: c, label: b[2] } : null; }
+  function bridgeBox(br) {
+    var clue = el("p", { class: "clue", id: "bridge-clue", hidden: true, text: br.clue });
+    var btn = el("button", { type: "button", class: "ghost", id: "bridge-hint", text: "실마리 보기", onclick: function () { clue.hidden = !clue.hidden; btn.textContent = clue.hidden ? "실마리 보기" : "실마리 접기"; } });
+    return el("div", { class: "bridge", id: "bridge" }, br.cases.map(bridgeCase).filter(Boolean).map(function (x) {
+      return el("div", { class: "bc" }, [el("span", { class: "who", text: x.label + " · " + x.c.who }), el("p", { class: "story", text: x.c.text })]);
+    }).concat([el("p", { class: "q", text: br.q }), btn, clue]));
   }
 
   function field(id, label, hint, node) {
@@ -1741,7 +1883,11 @@ body.in-class .app-foot { display: none; }
       })),
       el("p", { text: s.gloss }),
       el("p", { class: "def", text: s.definition }),
+      s.pre ? el("h3", { text: "처음 쓴 뜻과 지금 뜻" }) : null,
+      s.pre ? twoDefs() : null,
+      s.pre ? el("p", { class: "note", text: "두 문장을 나란히 봐. 이미 쓴 돈을 넣었거나 포기한 것을 다 더했다면, 아래 닮은꼴 두 편이 바로 그 생각이야." }) : null,
       el("p", { text: s.extra }),
+      s.extraBox ? extraBox(s.extraBox) : null,
       field("compare-input", "두 이름을 견줘 봐", "교과서 이름도 누군가 지은 이름이야. 어느 쪽이 무엇을 더 잘 담았는지 써 봐.", compare),
       el("h3", { text: "닮은꼴 두 편" }),
       el("p", { class: "note", text: summary }),
@@ -1753,6 +1899,9 @@ body.in-class .app-foot { display: none; }
           el("p", { class: "why", text: c.why })
         ]);
       })),
+      s.bridge ? el("h3", { text: "다리: 지난 시간 장면 다시 보기" }) : null,
+      s.bridge ? bridgeBox(s.bridge) : null,
+      s.teaser ? el("p", { class: "note", text: "다음 시간 예고: " + s.teaser }) : null,
       el("h3", { text: "내 주변에서 하나 찾기" }),
       field("mine-input", s.minePrompt, null, mine),
       el("div", { class: "bar" }, [el("span", { class: "count", text: "오늘 한 걸 한 장으로 묶어 줄게" }),
@@ -1800,6 +1949,7 @@ body.in-class .app-foot { display: none; }
     return el("img", { class: "sh-fig", alt: label, width: vb.width, height: vb.height, src: "data:image/svg+xml;charset=utf-8," + encodeURIComponent(xml) });
   }
 
+  var pdfBusy = false, layoutLater = false;
   var downloadsNs = null, saveBtnRef = null, saveHintRef = null, fitRef = null, layoutRef = null, shareBtnRef = null, lastPdf = null;
   // phones run out of memory on big canvases, so pages are drawn a little smaller there
   var SHOT_SCALE = (Math.min(window.screen.width || 1000, window.screen.height || 1000) < 700) ? 1.6 : 2;
@@ -1821,8 +1971,9 @@ body.in-class .app-foot { display: none; }
   // Each A4 page is drawn to an image and placed on its own PDF page, so the file matches the screen.
   function savePdf(pageEls, btn, hint) {
     if (!canSave() || !pageEls.length) { refreshSave(); return; }
-    btn.disabled = true;
-    function done(msg) { btn.disabled = false; hint.textContent = msg; }
+    btn.disabled = true; pdfBusy = true;
+    function idle() { pdfBusy = false; if (layoutLater) { layoutLater = false; if (layoutRef) { layoutRef(); } } }
+    function done(msg) { btn.disabled = false; hint.textContent = msg; idle(); }
     var pdf = new window.jspdf.jsPDF({ orientation: "p", unit: "mm", format: "a4", compress: true });
     var i = 0;
     function unscale(doc) {
@@ -1855,7 +2006,7 @@ body.in-class .app-foot { display: none; }
       if (code === "declined") { done("저장을 취소했어."); }
       else if (code === "rate_limited") { done("잠깐 뒤에 다시 눌러 줘."); }
       else if (code === "unavailable" || code === "not_granted" || code === "capability_disabled" || code === "capability_removed") {
-        downloadsNs = null; btn.disabled = false; refreshSave();
+        downloadsNs = null; btn.disabled = false; idle(); refreshSave();
       }
       else { done("저장하지 못했어. 화면을 캡처해서 간직해 줘."); }
     });
@@ -2050,6 +2201,11 @@ body.in-class .app-foot { display: none; }
           var rows = [["내가 붙인 이름", myName || "(안 붙였어)"], ["내가 쓴 뜻", myDef || "(안 썼어)"]];
           if (state.why.trim()) { rows.push(["이렇게 묶은 까닭", state.why.trim()]); }
           push(el("div", { class: "nt-me" }, [bubble(rows), fb(defFb)]));
+        } else if (b.slot === "pre") {
+          if (s.pre && state.preDone) {
+            push(el("div", { class: "nt-me" }, [bubble([["처음에 쓴 뜻", (state.pre || "").trim() || "(잘 모르겠다고 했어)"], ["사연을 보고 다시 쓴 뜻", myDef || "(안 썼어)"]]),
+              fb("두 문장을 견줘 봐. 처음 뜻에 이미 쓴 돈을 넣었거나 포기한 것을 다 더했다면 ⑥ 헷갈리는 두 가지를 다시 봐.")]));
+          }
         } else if (b.slot === "compare") {
           if (state.compare.trim()) { push(el("div", { class: "nt-me" }, [bubble([["두 이름을 견줘 보니", state.compare.trim()]])])); }
         } else if (b.slot === "group") {
@@ -2063,6 +2219,19 @@ body.in-class .app-foot { display: none; }
         }
       }
     });
+
+    if (s.bridge) {
+      push(el("h4", { class: "nt-h" }, [el("span", { class: "nt-h-in", text: "③ 다리 사연" })]), true);
+      s.bridge.cases.map(bridgeCase).filter(Boolean).forEach(function (x) {
+        push(el("div", { class: "nt-story" }, [el("p", { class: "nt-sh" }, [el("span", { text: "▶ " + x.c.who + " · " + x.label })]), el("p", { class: "st", text: x.c.text })]), true);
+      });
+      push(el("p", null, [el("b", { class: "k", text: "Q. " }), document.createTextNode(s.bridge.q)]), true);
+      push(hand(s.bridge.clue, "c-gray nt-note"));
+    }
+    if (s.teaser) {
+      push(el("h4", { class: "nt-h" }, [el("span", { class: "nt-h-in", text: "③ 다음 시간 예고" })]), true);
+      push(hand(s.teaser, "c-gray nt-note"));
+    }
 
     return blocks;
   }
@@ -2163,6 +2332,72 @@ body.in-class .app-foot { display: none; }
     ]);
   }
 
+  /* ---- 4차시 섞인 장터: four market stories tagged with the student's own three names ---- */
+  var MIX = {
+    tags: ["social", "public", "opp", "none"],
+    pols: [["reg", "규제·세금·부담금"], ["sub", "보조금·지원"], ["gov", "정부가 직접 공급"], ["no", "대책 필요 없음"]],
+    stories: [
+      { id: "m1", place: "떡집 앞", ans: "social", pol: "reg", text: "장터 입구 떡집이 새벽 4시부터 떡을 찌는데, 김이 빠지는 환풍기가 바로 옆 하숙집 창문을 향해 있어. 떡은 아침마다 다 팔리고, 하숙하는 형은 여름 내내 창문을 닫고 자.",
+        why: "떡을 찌어 파는 일이 그 거래와 상관없는 하숙집 형에게 손해를 주는데, 그 손해에 대한 값은 오가지 않아 → 외부 효과(부정). 기준을 정해 규제하거나 세금·부담금을 매겨 손해를 줄이게 해." },
+      { id: "m2", place: "장터 입구", ans: "public", pol: "gov", text: "시에서 장터 입구에 큰 시계탑을 세웠어. 장 보러 온 할머니도, 지나가던 배달 기사도, 버스 기다리는 학생도 다 고개만 들면 시간을 봐. 백 명이 한꺼번에 올려다봐도 시곗바늘이 안 보이는 사람은 없어.",
+        why: "고개만 들면 누구나 보니 못 보게 막기 어렵고, 백 명이 봐도 볼 몫이 줄지 않아 → 공공재. 돈 받고 팔기 어려워 시장에서는 잘 안 생기니까 정부가 직접 공급해." },
+      { id: "m3", place: "옷 가게", ans: "opp", pol: "no", text: "장터에서 만 원짜리 티셔츠 두 장 가운데 하나만 살 수 있었어. 초록색을 고르면서, 계산대에 내려놓은 하늘색이 계속 눈에 밟혔어.",
+        why: "둘 가운데 초록색을 고르는 순간 하늘색을 포기했어 → 기회비용은 하늘색 티셔츠. 내가 고르고 내가 감당하는 일이라 정부 대책은 필요 없어." },
+      { id: "m4", place: "채소 가게", ans: "none", pol: "no", text: "상추 한 봉지를 3천 원에 샀는데, 집에 와서 보니 시든 잎이 반이었어. 다음 장날엔 다른 가게에서 사기로 했어.",
+        why: "손해는 나에게만 있고 값도 오갔어. 상관없는 사람이 없으니 외부 효과가 아니고, 막을 수 없거나 안 줄어드는 물건도 아니고, 여럿 가운데 고르는 장면도 아니야 → 셋 다 아님." }
+    ]
+  };
+  var mixOn = false;
+  try { mixOn = window.localStorage.getItem(STORE + "mode") === "mix"; } catch (e) { mixOn = false; }
+  function setMix(on) { mixOn = !!on; try { window.localStorage.setItem(STORE + "mode", mixOn ? "mix" : "set"); } catch (e) { /* ignore */ } }
+  function mixLoad() { try { var m = JSON.parse(window.localStorage.getItem(STORE + "mix") || "null"); if (m && typeof m === "object") { return { tags: m.tags || {}, pols: m.pols || {}, shown: !!m.shown }; } } catch (e) { /* ignore */ } return { tags: {}, pols: {}, shown: false }; }
+  function mixSave(m) { try { window.localStorage.setItem(STORE + "mix", JSON.stringify(m)); } catch (e) { /* ignore */ } }
+  function mixLabel(k) {
+    if (k === "none") { return { big: "셋 다 아님", small: "" }; }
+    var mine = ""; try { mine = load(k).name.trim(); } catch (e) { mine = ""; }
+    return mine ? { big: mine, small: SETS[k].term } : { big: SETS[k].term, small: "" };
+  }
+  function mixView() {
+    var m = mixLoad();
+    var anyOwn = ["social", "public", "opp"].some(function (k) { return mixLabel(k).small; });
+    var cards = MIX.stories.map(function (st, i) {
+      var tagRow = el("div", { class: "mix-row", role: "group", "aria-label": "꼬리표" }, [el("span", { class: "k", text: "꼬리표" })].concat(MIX.tags.map(function (k) {
+        var L = mixLabel(k);
+        return el("button", { type: "button", class: "variant", id: "mix-" + st.id + "-" + k, "aria-pressed": m.tags[st.id] === k ? "true" : "false", disabled: m.shown, onclick: function () { m.tags[st.id] = k; mixSave(m); render(); } },
+          [L.big, L.small ? el("small", { text: L.small }) : null]);
+      })));
+      var polRow = el("div", { class: "mix-row", role: "group", "aria-label": "대책" }, [el("span", { class: "k", text: "대책" })].concat(MIX.pols.map(function (p) {
+        return el("button", { type: "button", class: "variant", id: "mix-" + st.id + "-p-" + p[0], "aria-pressed": m.pols[st.id] === p[0] ? "true" : "false", disabled: m.shown, onclick: function () { m.pols[st.id] = p[0]; mixSave(m); render(); } }, [p[1]]);
+      })));
+      var kids = [el("span", { class: "who", text: "장터 사연 " + (i + 1) + " · " + st.place }), el("p", { class: "story", text: st.text }), tagRow, polRow];
+      if (m.shown) {
+        var okT = m.tags[st.id] === st.ans, okP = m.pols[st.id] === st.pol;
+        var L = mixLabel(st.ans), pl = MIX.pols.filter(function (p) { return p[0] === st.pol; })[0][1];
+        kids.push(el("p", { class: "mix-res " + (okT && okP ? "ok" : "no") }, [
+          el("b", { text: (okT ? "꼬리표 맞음" : "정답 꼬리표: " + L.big + (L.small ? " (" + L.small + ")" : "")) + " · " + (okP ? "대책 맞음" : "정답 대책: " + pl) })
+        ]));
+        kids.push(el("p", { class: "mix-why", text: st.why }));
+      }
+      return el("article", { class: "card mix-card" + (m.shown ? " shown" : "") }, kids);
+    });
+    var nT = MIX.stories.filter(function (st) { return m.tags[st.id]; }).length, nP = MIX.stories.filter(function (st) { return m.pols[st.id]; }).length;
+    var score = MIX.stories.filter(function (st) { return m.tags[st.id] === st.ans; }).length, scoreP = MIX.stories.filter(function (st) { return m.pols[st.id] === st.pol; }).length;
+    var bar = el("div", { class: "bar" }, m.shown
+      ? [el("span", { class: "count", id: "mix-score", text: "꼬리표 " + score + "/4 · 대책 " + scoreP + "/4 맞음" }),
+         el("button", { type: "button", class: "ghost", id: "mix-again", text: "다시 해 보기", onclick: function () { mixSave({ tags: {}, pols: {}, shown: false }); render(); } })]
+      : [el("span", { class: "count", text: "꼬리표 " + nT + "/4 · 대책 " + nP + "/4" }),
+         el("button", { type: "button", class: "primary", id: "mix-show", text: "정답 보기", disabled: nT < 4 || nP < 4, onclick: function () { m.shown = true; mixSave(m); render(); } })]);
+    var panel = el("section", { class: "panel" }, [
+      el("h2", { text: "섞인 장터: 내가 지은 이름으로 다시 보기" }),
+      guide("장터 사연 네 편이야. 앞에서 내가 지은 이름 세 개 가운데 어느 것이 붙는지 꼬리표를 달아 봐. 어디에도 안 맞으면 ‘셋 다 아님’. 그다음 정부가 나서야 할지, 어떤 대책이 맞을지도 골라 봐.", "think", "", null),
+      anyOwn ? el("p", { class: "note", text: "꼬리표의 큰 글씨는 내가 지은 이름, 작은 글씨는 교과서 이름이야." }) : el("p", { class: "note", text: "아직 지은 이름이 없어서 교과서 이름으로 꼬리표를 붙여. 세트를 하나씩 끝내면 내가 지은 이름이 꼬리표에 나와." }),
+      el("div", { class: "cards mix-cards" }, cards),
+      bar,
+      el("p", { class: "note", text: "교사: 꼬리표를 다 붙이면 손을 들어 사연마다 고른 꼬리표를 세어 보고, 가장 갈린 사연으로 1분 토론해 봐." })
+    ]);
+    return panel;
+  }
+
   function renderTeacher() {
     var s = set();
     teacherInner.textContent = "";
@@ -2182,6 +2417,15 @@ body.in-class .app-foot { display: none; }
       "3. 편마다 겉모습을 다르게 할 것: " + s.teacher.variables.map(function (v) { return v[0]; }).join(", ") + "\n" +
       "4. 고1이 겪었거나 본 적 있는 일일 것, 길이는 2~4문장\n\n" +
       "그다음, 요소가 하나씩만 빠진 닮은꼴을 2편 쓰고 어떤 요소가 빠졌는지 표시해 줘.";
+    teacherInner.appendChild(el("div", { class: "order" }, [el("h3", { text: "수업 순서 (3차시 소단원)" }),
+      el("ol", null, [
+        el("li", { text: "1차시 기회비용 (3세트 주말 동네): ‘이 말 알아?’로 아는 뜻을 먼저 쓰고, 4단계에서 처음 뜻과 다시 쓴 뜻을 나란히 본다." }),
+        el("li", { text: "2차시 외부 효과 (1세트 시장 골목): 끝에 다리 사연으로 1차시 ‘시험 전날’ 장면을 다시 꺼낸다." }),
+        el("li", { text: "3차시 공공재 (2세트 항구 마을): 끝에 2차시 ‘예방접종’을 다시 꺼내 외부 효과와 공공재를 가른다." }),
+        el("li", { text: "선택 4차시 섞인 장터: 사연 네 편에 학생이 지은 이름 세 개로 꼬리표를 붙이고 대책을 고른다." })
+      ]),
+      el("p", { class: "note", text: "첫 화면이 외부 효과인 것은 처음 보는 사람을 위한 시연용이야. 수업할 땐 위 세트 탭에서 차시에 맞는 세트를 고른 뒤 ‘수업 열기’를 누르면 돼. 시간이 모자라면 ‘지도 건너뛰기’로 1단계를 줄일 수 있어." })
+    ]));
     teacherInner.appendChild(el("div", null, [el("h3", { text: "구조 한 문장" }), el("p", { text: s.teacher.structure })]));
     teacherInner.appendChild(el("div", null, [el("h3", { text: "구조의 요소" }),
       el("ol", null, s.elements.map(function (t) { return el("li", { text: t }); }))]));
@@ -2203,6 +2447,11 @@ body.in-class .app-foot { display: none; }
     document.body.classList.toggle("in-class", !!CLS.role);
     renderEntry(); renderClassBar();
     if (isT) { renderTeacherScreen(); return; }
+    if (mixOn && !CLS.role) {
+      rail.hidden = true; document.body.setAttribute("data-step", "mix");
+      main.textContent = ""; main.appendChild(mixView()); pressTabs(); renderTeacher();
+      return;
+    }
     renderRail();
     main.textContent = "";
     var panel = state.step === 1 ? stepOne() : state.step === 2 ? stepTwo() : state.step === 3 ? stepThree() : state.step === 4 ? stepFour() : stepFive();
@@ -2213,19 +2462,30 @@ body.in-class .app-foot { display: none; }
       if (b && locked(n)) { b.disabled = true; b.textContent = "선생님이 다음 단계를 열면 넘어갈 수 있어"; }
     });
     if (nextNode && locked(2)) { nextNode.textContent = "선생님이 다음 단계를 열면 넘어갈 수 있어"; }
-    Array.prototype.forEach.call(document.querySelectorAll(".switch button"), function (b) {
-      b.setAttribute("aria-pressed", b.getAttribute("data-set") === setKey ? "true" : "false");
-    });
+    pressTabs();
     renderTeacher();
   }
+  function pressTabs() {
+    Array.prototype.forEach.call(document.querySelectorAll(".switch button"), function (b) {
+      var on = b.getAttribute("data-mode") === "mix" ? mixOn : (!mixOn && b.getAttribute("data-set") === setKey);
+      b.setAttribute("aria-pressed", on ? "true" : "false");
+    });
+  }
 
-  Array.prototype.forEach.call(document.querySelectorAll(".switch button"), function (b) {
+  Array.prototype.forEach.call(document.querySelectorAll(".switch button[data-set]"), function (b) {
     b.addEventListener("click", function () {
       var k = b.getAttribute("data-set");
-      if (k === setKey) { return; }
-      stopSpeaking(); save();
+      if (k === setKey && !mixOn) { return; }
+      stopSpeaking(); setMix(false);
+      if (k === setKey) { render(); return; }
+      save();
       setKey = k; state = load(setKey); save(); render();
     });
+  });
+  document.getElementById("set-mix").addEventListener("click", function () {
+    if (mixOn) { return; }
+    stopSpeaking(); save(); setMix(true); render();
+    try { window.scrollTo(0, 0); } catch (e) { /* ignore */ }
   });
 
 
@@ -2342,7 +2602,7 @@ body.in-class .app-foot { display: none; }
   function myRec() {
     var picks = Object.keys(state.picks).filter(function (k) { return state.picks[k]; });
     var checks = Object.keys(state.checks).filter(function (k) { return state.checks[k]; }).map(Number);
-    return { sid: CLS.sid, nick: clip(CLS.nick, 12), set: setKey, step: state.step, picks: picks, name: clip(state.name.trim(), 24), def: clip(state.def.trim(), 160), checks: checks, vote: state.vote || "", av: avGet() };
+    return { sid: CLS.sid, nick: clip(CLS.nick, 12), set: setKey, step: state.step, picks: picks, name: clip(state.name.trim(), 24), def: clip(state.def.trim(), 160), checks: checks, vote: state.vote || "", av: avGet(), pre: set().pre && state.preDone ? clip((state.pre || "").trim(), 160) : "", pd: !!state.preDone };
   }
   var pushTimer = null;
   function clsPush() {
@@ -2470,8 +2730,11 @@ body.in-class .app-foot { display: none; }
       el("span", { class: "lab", text: "혼자 해도 되고, 반 전체가 같이 해도 돼" }),
       el("button", { type: "button", class: "ghost", id: "cls-join-open", text: "수업 들어가기", onclick: function () { showJoin(); } }),
       el("button", { type: "button", class: "ghost", id: "cls-host", text: "선생님: 수업 열기", onclick: function () { hostClass(); } }),
-      el("button", { type: "button", class: "demo-btn", id: "demo-open", onclick: startDemo }, [el("b", { text: "1분 체험" }), el("span", { text: "선생님 화면과 학생 폰을 한 번에" })])
     ]);
+    entry.appendChild(el("button", { type: "button", class: "demo-top", id: "demo-open", onclick: startDemo }, [
+      el("span", { class: "demo-top-t" }, [el("b", { text: "1분 체험" }), el("br"), el("span", { text: "선생님 화면과 학생 폰을 한 화면에서. 자동으로 보기도 있어." })]),
+      el("span", { class: "go", text: "시작 →" })
+    ]));
     entry.appendChild(strip);
     function showJoin(prefill) {
       if (form) { form.remove(); }
@@ -2500,7 +2763,7 @@ body.in-class .app-foot { display: none; }
   /* ---------- teacher side ---------- */
 
   var teach = null; // { recs: {sid: rec}, peers: {peer: sid}, bots: [], T: {...} }
-  function newT() { return { v: 1, set: setKey, open: 1, showReal: false, vote: null, cls: null, spot: [], hidden: [], stats: { n: 0, pct: {} } }; }
+  function newT() { return { v: 1, set: setKey, open: 1, showReal: false, vote: null, cls: null, spot: [], hidden: [], pm: {}, stats: { n: 0, pct: {} } }; }
 
   function newCode() { return String(1000 + Math.floor(Math.random() * 9000)); }
   // restore: { code, T, recs, bots } saved in this tab, so a reload in the middle of a lesson keeps the class
@@ -2732,7 +2995,8 @@ body.in-class .app-foot { display: none; }
       teach.recs[r.sid] = {
         sid: clip(r.sid, 16), nick: clip(r.nick, 12), set: String(r.set || ""), step: Number(r.step) || 1,
         picks: Array.isArray(r.picks) ? r.picks.map(String).slice(0, 12) : [], name: clip(r.name, 24), def: clip(r.def, 160),
-        checks: Array.isArray(r.checks) ? r.checks.map(Number).slice(0, 5) : [], vote: clip(r.vote, 40), av: /^\d{7}$/.test(String(r.av || "")) ? String(r.av) : ""
+        checks: Array.isArray(r.checks) ? r.checks.map(Number).slice(0, 5) : [], vote: clip(r.vote, 40), av: /^\d{7}$/.test(String(r.av || "")) ? String(r.av) : "",
+        pre: clip(r.pre, 160), pd: !!r.pd
       };
       if (d.peer) { teach.peers[d.peer] = r.sid; }
       if (d.bye) { delete teach.recs[r.sid]; }
@@ -2763,7 +3027,8 @@ body.in-class .app-foot { display: none; }
       var df = demo.defs[i % demo.defs.length];
       var checks = s.elements.map(function (t, j) { return j; }).filter(function () { return Math.random() < 0.7; });
       var bot = { on: false, lag: 400 + Math.random() * 3600, full: { picks: picks, name: nm, def: df, checks: checks },
-        rec: { sid: "bot" + i, nick: nk, set: teach.T.set, step: 1, picks: [], name: "", def: "", checks: [], vote: "", bot: true, av: avRandom() } };
+        rec: { sid: "bot" + i, nick: nk, set: teach.T.set, step: 1, picks: [], name: "", def: "", checks: [], vote: "", bot: true, av: avRandom(),
+          pre: demo.pre ? demo.pre[i % demo.pre.length] : "", pd: !!demo.pre } };
       teach.bots.push(bot);
       window.setTimeout(function () { if (!teach || teach.bots.indexOf(bot) < 0) { return; } bot.on = true; bumpBot(bot); tPush(); tRedraw(); }, 120 * i);
     });
@@ -2836,6 +3101,7 @@ body.in-class .app-foot { display: none; }
     if (T.open === 1) {
       live.appendChild(el("h2", { text: "사연마다 몇 명이 같은 종류로 묶었을까" }));
       live.appendChild(el("p", { class: "sub", text: "아직 교과서 이름은 안 보여 줘. 갈리는 사연이 오늘 토론거리야." }));
+      if (s.pre) { live.appendChild(el("p", { class: "count", id: "t-pre-n", text: "‘이 말 알아?’ 처음 뜻: " + all.filter(function (r) { return r.pd; }).length + "명 / " + all.length + "명 (화면엔 안 띄워. 4단계에서 다시 봐)" })); }
       live.appendChild(el("div", { class: "bars" }, casesFor(T.set, CLS.code).map(function (c) {
         var p = T.stats.pct[c.id] || 0, twin = T.showReal && !c.real;
         return el("div", { class: "brow" + (twin ? " twin" : "") }, [
@@ -2908,6 +3174,13 @@ body.in-class .app-foot { display: none; }
         return el("div", { class: "brow twin" }, [el("span", { class: "who", text: "닮은꼴 ‘" + c.who + "’ 걸러 냄" }),
           el("div", { class: "track" }, [(function () { var f = el("div", { class: "fill" }); f.style.width = p + "%"; return f; })()]), el("span", { class: "v", text: p + "%" })]);
       })));
+      if (s.pre) { live.appendChild(preReview(all, s)); }
+      if (s.bridge) {
+        live.appendChild(el("div", { class: "bridge t-bridge" }, [el("h3", { text: "다리 발문" })].concat(s.bridge.cases.map(bridgeCase).filter(Boolean).map(function (x) {
+          return el("div", { class: "bc" }, [el("span", { class: "who", text: x.label + " · " + x.c.who }), el("p", { class: "story", text: x.c.text })]);
+        })).concat([el("p", { class: "q", text: s.bridge.q }), el("p", { class: "clue", text: "답 실마리 · " + s.bridge.clue })])));
+      }
+      if (s.teaser) { live.appendChild(el("p", { class: "sub", text: "다음 시간 예고: " + s.teaser })); }
       live.appendChild(el("div", { class: "t-row" }, [el("button", { type: "button", class: "primary", id: "t-next", text: "5단계 ‘내 필기본’ 열기", onclick: function () { tSet({ open: 5 }); } })]));
     } else {
       var done = all.filter(function (r) { return r.step >= 5; }).length;
@@ -2929,6 +3202,43 @@ body.in-class .app-foot { display: none; }
       return;
     }
     main.appendChild(el("section", { class: "panel" }, [el("div", { class: "t-top" }, [codeCard, peopleCard]), steps, live]));
+  }
+
+  /* 1차시: the first definitions, without nicknames. The teacher taps the usual slips on each one
+     and the screen shows how often each slip came up. */
+  function preReview(all, s) {
+    var T = teach.T, pm = T.pm || {}, g = {}, order = [];
+    all.forEach(function (r) {
+      if (!r.pd) { return; }
+      var t = (r.pre || "").trim(), k = t ? norm(t) : "-";
+      if (!g[k]) { g[k] = { k: k, t: t || "(잘 모르겠다)", n: 0 }; order.push(k); }
+      g[k].n += 1;
+    });
+    var wrote = order.reduce(function (a, k) { return a + g[k].n; }, 0);
+    var box = el("div", { class: "pm", id: "t-pre" }, [
+      el("h3", { text: "처음 쓴 뜻 다시 보기 · " + wrote + "명" }),
+      el("p", { class: "sub", text: "닉네임 없이 모였어. 실수가 보이면 눌러서 표시해. 학생 화면엔 각자 처음 뜻과 다시 쓴 뜻이 나란히 떠." })
+    ]);
+    box.appendChild(el("div", { class: "bars" }, s.pre.tags.map(function (tg) {
+      var k = order.filter(function (x) { return (pm[x] || []).indexOf(tg[0]) >= 0; }).reduce(function (a, x) { return a + g[x].n; }, 0);
+      var p = wrote ? Math.round(100 * k / wrote) : 0;
+      return el("div", { class: "brow twin" }, [el("span", { class: "who", text: tg[1] + " · " + k + "명" }),
+        el("div", { class: "track" }, [(function () { var f = el("div", { class: "fill" }); f.style.width = p + "%"; return f; })()]), el("span", { class: "v", text: p + "%" })]);
+    })));
+    box.appendChild(el("div", { class: "pm-list" }, order.map(function (k) {
+      var it = g[k], on = pm[k] || [];
+      return el("div", { class: "pm-item" }, [el("span", { class: "tx", text: it.t + (it.n > 1 ? "  ×" + it.n : "") })].concat(k === "-" ? [] : s.pre.tags.map(function (tg) {
+        var hit = on.indexOf(tg[0]) >= 0;
+        return el("button", { type: "button", class: "ghost", "aria-pressed": hit ? "true" : "false", onclick: function () {
+          var next = Object.assign({}, pm), cur = (next[k] || []).filter(function (x) { return x !== tg[0]; });
+          if (!hit) { cur.push(tg[0]); }
+          if (cur.length) { next[k] = cur; } else { delete next[k]; }
+          tSet({ pm: next });
+        } }, [tg[1]]);
+      })));
+    })));
+    if (!order.length) { box.appendChild(el("p", { class: "count", text: "아직 처음 뜻을 쓴 사람이 없어." })); }
+    return box;
   }
 
   function restoreClass() {
@@ -3124,7 +3434,7 @@ body.in-class .app-foot { display: none; }
         { id: "p7", x: 68, y: 66, kind: "house", label: "우리 집" }, { id: "p8", x: 260, y: 150, kind: "station", label: "역 앞" } ] },
     opp: { title: "주말 동네", water: "",
       places: [
-        { id: "o1", x: 330, y: 70, kind: "wheel", label: "놀이공원" }, { id: "o2", x: 92, y: 150, kind: "shop", label: "분식집" },
+        { id: "o1", x: 330, y: 70, kind: "school", label: "학교 축제" }, { id: "o2", x: 92, y: 150, kind: "shop", label: "분식집" },
         { id: "o3", x: 70, y: 252, kind: "field", label: "밭" }, { id: "o4", x: 72, y: 64, kind: "house", label: "우리 집" },
         { id: "o5", x: 210, y: 150, kind: "cafe", label: "삼촌 카페" }, { id: "o6", x: 200, y: 58, kind: "school", label: "학교" },
         { id: "o7", x: 320, y: 172, kind: "cinema", label: "영화관" }, { id: "o8", x: 230, y: 256, kind: "cinema2", label: "시내 극장" } ] }
@@ -3248,7 +3558,8 @@ body.in-class .app-foot { display: none; }
   window.addEventListener("resize", function () { if (fitRef) { fitRef(); } });
   try {
     if (document.fonts && document.fonts.addEventListener) {
-      document.fonts.addEventListener("loadingdone", function () { if (layoutRef) { layoutRef(); } });
+      // a font subset that arrives while the PDF is being drawn must not rebuild the pages under it
+      document.fonts.addEventListener("loadingdone", function () { if (pdfBusy) { layoutLater = true; return; } if (layoutRef) { layoutRef(); } });
     }
   } catch (e) { /* ignore */ }
 

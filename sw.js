@@ -2,7 +2,7 @@
    The page itself is fetched fresh when the network answers within a few seconds, so updates show up;
    otherwise the cached copy opens. Libraries, icons and fonts come from the cache first.
    Live class connections (PeerJS) are never cached. */
-var VERSION = "nc-v9.2-2026-11-28";
+var VERSION = "nc-v10-2026-11-28";
 var CORE = ["vendor/fonts/fonts.css", "./", "index.html", "manifest.webmanifest", "icon-192.png", "icon-512.png", "icon-180.png", "icon-maskable-512.png", "favicon-32.png",
   "vendor/html2canvas.min.js", "vendor/jspdf.umd.min.js", "vendor/peerjs.min.js", "vendor/qrcode.js"];
 
