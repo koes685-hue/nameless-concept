@@ -2888,6 +2888,10 @@ body.in-class .app-foot { display: none; }
     } else {
       var done = all.filter(function (r) { return r.step >= 5; }).length;
       live.appendChild(el("h2", { text: "각자 필기본을 만드는 중" }));
+      live.appendChild(el("div", { class: "t-big" }, [
+        el("div", { class: "plate" }, [el("span", { class: "t-k", text: "우리 반이 지은 이름" }), el("span", { class: "v", text: T.cls ? T.cls.name : "투표 안 함" })]),
+        el("div", { class: "plate official" }, [el("span", { class: "t-k", text: "교과서 이름" }), el("span", { class: "v", text: s.term })])
+      ]));
       live.appendChild(el("p", { class: "sub", text: "필기본에는 우리 반이 고른 이름과 닮은꼴을 걸러 낸 비율이 한 줄 들어가. 필기본까지 온 학생 " + done + "명 / " + all.length + "명." }));
     }
 
