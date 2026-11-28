@@ -479,7 +479,7 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .mast .tag { font-family: var(--font-mono); font-size: 0.7rem; color: var(--accent); background: var(--tagbg); border: 0; border-radius: 4px; }
 body:not([data-step="1"]) .mast > p, body.teach .mast > p, body.in-class .mast > p { display: none; }
 body[data-step="1"]:not(.in-class) .mast, body[data-step="mix"] .mast { position: static; background: transparent; backdrop-filter: none; -webkit-backdrop-filter: none; border-bottom: 0; }
-body:not([data-step="1"]):not([data-step="mix"]):not(.teach) .mast .switch, body:not([data-step="1"]):not([data-step="mix"]):not(.teach) #cls-entry { display: none; }
+body:not([data-step="1"]):not([data-step="mix"]):not(.teach) .mast .switch-row, body:not([data-step="1"]):not([data-step="mix"]):not(.teach) #cls-entry { display: none; }
 .switch { border-radius: 999px; border-color: var(--line); }
 .switch button { padding: 6px 14px; font-size: 0.85rem; }
 .switch button[aria-pressed="true"] { background: var(--accent); color: var(--accent-ink); }
@@ -737,13 +737,34 @@ table.xt thead th:first-child { color: var(--good); } table.xt thead th:last-chi
 .pm-item button[aria-pressed="true"] { background: var(--mark); color: var(--mark-ink); border-color: transparent; }
 .t-bridge { margin-top: 14px; }
 .teacher .order ol { padding-left: 1.3em; margin: 6px 0; }
-.switch button small { white-space: nowrap; }
+.switch-row { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; }
+.switch-row .switch { align-self: auto; }
+.mix-tab { font: inherit; font-size: 0.85rem; font-weight: 600; padding: 6px 14px; border-radius: 999px; border: 1.5px dashed var(--muted); background: transparent; color: var(--ink); cursor: pointer; white-space: nowrap; }
+.mix-tab small { font-weight: 500; color: var(--muted); font-size: 1em; }
+.mix-tab[aria-pressed="true"] { background: var(--mark); color: var(--mark-ink); border: 1.5px solid transparent; }
+.mix-tab[aria-pressed="true"] small { color: var(--mark-ink); }
+.mix-tab:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+.switch-row .switch + .mix-tab { position: relative; }
+.mix-lock { display: flex; flex-direction: column; gap: 10px; align-items: flex-start; }
 @media (max-width: 520px) {
-  .switch { display: grid; grid-template-columns: repeat(4, 1fr); width: 100%; border-radius: 14px; }
-  .switch button { padding: 7px 2px; line-height: 1.25; }
-  .switch button small { display: block; margin: 0; }
+  .switch-row .switch { display: grid; grid-template-columns: repeat(3, 1fr); width: 100%; border-radius: 14px; }
+  .switch button { padding: 8px 2px; }
 }
 @media (min-width: 900px) { .pm-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); } }
+
+/* v10 design review 1 */
+.mast .tag { color: var(--ink); }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .switch button[aria-pressed="true"] { color: #0E1430; } }
+:root[data-theme="dark"] .switch button[aria-pressed="true"] { color: #0E1430; }
+.mix-row button.variant[aria-pressed="true"] { box-shadow: inset 0 0 0 2px var(--mark-ink); }
+.mix-row button.variant[aria-pressed="true"]::before { content: "✓ "; font-weight: 700; }
+.mix-row .k { flex: 1 1 100%; }
+.mix-row.tags button.variant { border-radius: 8px 999px 999px 8px; padding-left: 12px; }
+.mix-row.tags button.variant:not([aria-pressed="true"])::before { content: ""; display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: currentColor; margin-right: 8px; vertical-align: middle; opacity: .5; }
+.mix-row.pols button.variant[aria-pressed="true"] { background: var(--surface); color: var(--ink); box-shadow: inset 0 0 0 2px var(--accent); }
+@media (max-width: 520px) { .mix-row { display: grid; grid-template-columns: 1fr 1fr; } .mix-row .k { grid-column: 1 / -1; } .mix-row button.variant { width: 100%; text-align: left; } }
+body[data-step="mix"] .wrap { max-width: 1120px; }
+@media (min-width: 900px) { .mix-cards { display: grid; grid-template-columns: 1fr 1fr; align-items: start; } }
 </style>
 
 <div class="wrap">
@@ -753,11 +774,13 @@ table.xt thead th:first-child { color: var(--good); } table.xt thead th:last-chi
       <span class="tag">고1 통합사회 · 세 세트</span>
     </div>
     <p>이름을 배우기 전에, 먼저 같은 종류의 일을 찾아서 직접 이름을 붙여 보는 자료야. 사연과 글은 모두 지어낸 것이고, 교과서 이름은 네 번째 단계에서 나와. 끝까지 하면 개념 정리에 네 답이 들어간 필기본이 PDF로 생겨.</p>
-    <div class="switch" role="group" aria-label="세트 고르기">
-      <button type="button" id="set-social" data-set="social" aria-pressed="true">1세트 <small>시장 골목</small></button>
-      <button type="button" id="set-2" data-set="public" aria-pressed="false">2세트 <small>항구 마을</small></button>
-      <button type="button" id="set-3" data-set="opp" aria-pressed="false">3세트 <small>주말 동네</small></button>
-      <button type="button" id="set-mix" data-mode="mix" aria-pressed="false">4차시 <small>섞인 장터</small></button>
+    <div class="switch-row">
+    <div class="switch" role="group" aria-label="동네 고르기">
+      <button type="button" id="set-social" data-set="social" aria-pressed="true">시장 골목</button>
+      <button type="button" id="set-2" data-set="public" aria-pressed="false">항구 마을</button>
+      <button type="button" id="set-3" data-set="opp" aria-pressed="false">주말 동네</button>
+    </div>
+    <button type="button" class="mix-tab" id="set-mix" data-mode="mix" aria-pressed="false"><small>마무리 ·</small> 섞인 장터</button>
     </div>
     <div id="cls-entry"></div>
   </header>
@@ -2339,7 +2362,7 @@ table.xt thead th:first-child { color: var(--good); } table.xt thead th:last-chi
     stories: [
       { id: "m1", place: "떡집 앞", ans: "social", pol: "reg", text: "장터 입구 떡집이 새벽 4시부터 떡을 찌는데, 김이 빠지는 환풍기가 바로 옆 하숙집 창문을 향해 있어. 떡은 아침마다 다 팔리고, 하숙하는 형은 여름 내내 창문을 닫고 자.",
         why: "떡을 쪄서 파는 일이 그 거래와 상관없는 하숙집 형에게 뜻하지 않게 손해를 주는데, 그 손해에 대한 값은 오가지 않아 → 외부 효과(부정). 기준을 정해 규제하거나 세금·부담금을 매겨 손해를 줄이게 해." },
-      { id: "m2", place: "장터 입구", ans: "public", pol: "gov", text: "시에서 장터 입구에 큰 시계탑을 세웠어. 장 보러 온 할머니도, 지나가던 배달 기사도, 버스 기다리는 학생도 다 고개만 들면 시간을 봐. 백 명이 한꺼번에 올려다봐도 시곗바늘이 안 보이는 사람은 없어.",
+      { id: "m2", place: "장터 입구", ans: "public", pol: "gov", text: "장터 입구에 큰 시계탑이 서 있어. 장 보러 온 할머니도, 지나가던 배달 기사도, 버스 기다리는 학생도 다 고개만 들면 시간을 봐. 백 명이 한꺼번에 올려다봐도 시곗바늘이 안 보이는 사람은 없어.",
         why: "고개만 들면 누구나 보니 못 보게 막기 어렵고, 백 명이 봐도 볼 몫이 줄지 않아 → 공공재. 돈 받고 팔기 어려워 시장에서는 잘 안 생기니까 정부가 직접 공급해." },
       { id: "m3", place: "옷 가게", ans: "opp", pol: "no", text: "장터에서 만 원짜리 티셔츠 두 장 가운데 하나만 살 수 있었어. 초록색을 고르면서, 계산대에 내려놓은 하늘색이 계속 눈에 밟혔어.",
         why: "둘 가운데 초록색을 고르는 순간 하늘색을 포기했어 → 기회비용은 하늘색 티셔츠. 내가 고르고 내가 감당하는 일이라 정부 대책은 필요 없어." },
@@ -2350,23 +2373,35 @@ table.xt thead th:first-child { color: var(--good); } table.xt thead th:last-chi
   var mixOn = false;
   try { mixOn = window.localStorage.getItem(STORE + "mode") === "mix"; } catch (e) { mixOn = false; }
   function setMix(on) { mixOn = !!on; try { window.localStorage.setItem(STORE + "mode", mixOn ? "mix" : "set"); } catch (e) { /* ignore */ } }
-  function mixLoad() { try { var m = JSON.parse(window.localStorage.getItem(STORE + "mix") || "null"); if (m && typeof m === "object") { return { tags: m.tags || {}, pols: m.pols || {}, shown: !!m.shown }; } } catch (e) { /* ignore */ } return { tags: {}, pols: {}, shown: false }; }
+  function mixLoad() { try { var m = JSON.parse(window.localStorage.getItem(STORE + "mix") || "null"); if (m && typeof m === "object") { return { tags: m.tags || {}, pols: m.pols || {}, shown: !!m.shown, preview: !!m.preview }; } } catch (e) { /* ignore */ } return { tags: {}, pols: {}, shown: false, preview: false }; }
   function mixSave(m) { try { window.localStorage.setItem(STORE + "mix", JSON.stringify(m)); } catch (e) { /* ignore */ } }
   function mixLabel(k) {
     if (k === "none") { return { big: "셋 다 아님", small: "" }; }
     var mine = ""; try { mine = load(k).name.trim(); } catch (e) { mine = ""; }
     return mine ? { big: mine, small: SETS[k].term } : { big: SETS[k].term, small: "" };
   }
+  function setDone(k) { try { return load(k).max >= 4; } catch (e) { return false; } }
   function mixView() {
     var m = mixLoad();
+    var doneN = ["social", "public", "opp"].filter(setDone).length;
+    if (doneN < 3 && !m.preview) {
+      return el("section", { class: "panel" }, [
+        el("h2", { text: "마무리 · 섞인 장터" }),
+        guide("세 동네를 다 돌고 나서 여는 마무리 활동이야. 지금 열면 아직 안 배운 개념의 이름이 먼저 보여서, 이름을 직접 지어 보는 재미가 사라져.", "think", "", null),
+        el("div", { class: "mix-lock" }, [
+          el("p", { text: "진짜 이름까지 끝낸 동네: " + doneN + " / 3. 세 동네의 ‘진짜 이름’ 단계까지 가면 여기서 내가 지은 이름 세 개로 장터 사연에 꼬리표를 붙일 수 있어." }),
+          el("button", { type: "button", class: "ghost", id: "mix-preview", text: "선생님·심사용으로 미리 열기", onclick: function () { m.preview = true; mixSave(m); render(); } })
+        ])
+      ]);
+    }
     var anyOwn = ["social", "public", "opp"].some(function (k) { return mixLabel(k).small; });
     var cards = MIX.stories.map(function (st, i) {
-      var tagRow = el("div", { class: "mix-row", role: "group", "aria-label": "꼬리표" }, [el("span", { class: "k", text: "꼬리표" })].concat(MIX.tags.map(function (k) {
+      var tagRow = el("div", { class: "mix-row tags", role: "group", "aria-label": "꼬리표" }, [el("span", { class: "k", text: "꼬리표" })].concat(MIX.tags.map(function (k) {
         var L = mixLabel(k);
         return el("button", { type: "button", class: "variant", id: "mix-" + st.id + "-" + k, "aria-pressed": m.tags[st.id] === k ? "true" : "false", disabled: m.shown, onclick: function () { m.tags[st.id] = k; mixSave(m); render(); } },
           [L.big, L.small ? el("small", { text: L.small }) : null]);
       })));
-      var polRow = el("div", { class: "mix-row", role: "group", "aria-label": "대책" }, [el("span", { class: "k", text: "대책" })].concat(MIX.pols.map(function (p) {
+      var polRow = el("div", { class: "mix-row pols", role: "group", "aria-label": "대책" }, [el("span", { class: "k", text: "대책" })].concat(MIX.pols.map(function (p) {
         return el("button", { type: "button", class: "variant", id: "mix-" + st.id + "-p-" + p[0], "aria-pressed": m.pols[st.id] === p[0] ? "true" : "false", disabled: m.shown, onclick: function () { m.pols[st.id] = p[0]; mixSave(m); render(); } }, [p[1]]);
       })));
       var kids = [el("span", { class: "who", text: "장터 사연 " + (i + 1) + " · " + st.place }), el("p", { class: "story", text: st.text }), tagRow, polRow];
@@ -2384,13 +2419,13 @@ table.xt thead th:first-child { color: var(--good); } table.xt thead th:last-chi
     var score = MIX.stories.filter(function (st) { return m.tags[st.id] === st.ans; }).length, scoreP = MIX.stories.filter(function (st) { return m.pols[st.id] === st.pol; }).length;
     var bar = el("div", { class: "bar" }, m.shown
       ? [el("span", { class: "count", id: "mix-score", text: "꼬리표 " + score + "/4 · 대책 " + scoreP + "/4 맞음" }),
-         el("button", { type: "button", class: "ghost", id: "mix-again", text: "다시 해 보기", onclick: function () { mixSave({ tags: {}, pols: {}, shown: false }); render(); } })]
+         el("button", { type: "button", class: "ghost", id: "mix-again", text: "다시 해 보기", onclick: function () { mixSave({ tags: {}, pols: {}, shown: false, preview: m.preview }); render(); } })]
       : [el("span", { class: "count", text: "꼬리표 " + nT + "/4 · 대책 " + nP + "/4" }),
          el("button", { type: "button", class: "primary", id: "mix-show", text: "정답 보기", disabled: nT < 4 || nP < 4, onclick: function () { m.shown = true; mixSave(m); render(); } })]);
     var panel = el("section", { class: "panel" }, [
       el("h2", { text: "섞인 장터: 내가 지은 이름으로 다시 보기" }),
       guide("장터 사연 네 편이야. 앞에서 내가 지은 이름 세 개 가운데 어느 것이 붙는지 꼬리표를 달아 봐. 어디에도 안 맞으면 ‘셋 다 아님’. 그다음 정부가 나서야 할지, 어떤 대책이 맞을지도 골라 봐.", "think", "", null),
-      anyOwn ? el("p", { class: "note", text: "꼬리표의 큰 글씨는 내가 지은 이름, 작은 글씨는 교과서 이름이야." }) : el("p", { class: "note", text: "아직 지은 이름이 없어서 교과서 이름으로 꼬리표를 붙여. 세트를 하나씩 끝내면 내가 지은 이름이 꼬리표에 나와." }),
+      anyOwn ? el("p", { class: "note", text: "꼬리표의 큰 글씨는 내가 지은 이름, 작은 글씨는 교과서 이름이야." }) : el("p", { class: "note", text: "미리 보기라서 교과서 이름으로 꼬리표를 붙여. 세 동네를 끝낸 학생에게는 자기가 지은 이름이 크게 나와." }),
       el("div", { class: "cards mix-cards" }, cards),
       bar,
       el("p", { class: "note", text: "교사: 꼬리표를 다 붙이면 손을 들어 사연마다 고른 꼬리표를 세어 보고, 가장 갈린 사연으로 1분 토론해 봐." })
@@ -2419,12 +2454,12 @@ table.xt thead th:first-child { color: var(--good); } table.xt thead th:last-chi
       "그다음, 요소가 하나씩만 빠진 닮은꼴을 2편 쓰고 어떤 요소가 빠졌는지 표시해 줘.";
     teacherInner.appendChild(el("div", { class: "order" }, [el("h3", { text: "수업 순서 (3차시 소단원)" }),
       el("ol", null, [
-        el("li", { text: "1차시 기회비용 (3세트 주말 동네): ‘이 말 알아?’로 아는 뜻을 먼저 쓰고, 4단계에서 처음 뜻과 다시 쓴 뜻을 나란히 본다." }),
-        el("li", { text: "2차시 외부 효과 (1세트 시장 골목): 끝에 다리 사연으로 1차시 ‘시험 전날’ 장면을 다시 꺼낸다." }),
-        el("li", { text: "3차시 공공재 (2세트 항구 마을): 끝에 2차시 ‘예방접종’을 다시 꺼내 외부 효과와 공공재를 가른다." }),
-        el("li", { text: "선택 4차시 섞인 장터: 사연 네 편에 학생이 지은 이름 세 개로 꼬리표를 붙이고 대책을 고른다." })
+        el("li", { text: "1차시 기회비용 (주말 동네): ‘이 말 알아?’로 아는 뜻을 먼저 쓰고, 4단계에서 처음 뜻과 다시 쓴 뜻을 나란히 본다." }),
+        el("li", { text: "2차시 외부 효과 (시장 골목): 끝에 다리 사연으로 1차시 ‘시험 전날’ 장면을 다시 꺼낸다." }),
+        el("li", { text: "3차시 공공재 (항구 마을): 끝에 2차시 ‘예방접종’을 다시 꺼내 외부 효과와 공공재를 가른다." }),
+        el("li", { text: "선택 4차시 ‘마무리 · 섞인 장터’: 사연 네 편에 학생이 지은 이름 세 개로 꼬리표를 붙이고 대책을 고른다." })
       ]),
-      el("p", { class: "note", text: "첫 화면이 외부 효과인 것은 처음 보는 사람을 위한 시연용이야. 수업할 땐 위 세트 탭에서 차시에 맞는 세트를 고른 뒤 ‘수업 열기’를 누르면 돼. 시간이 모자라면 ‘지도 건너뛰기’로 1단계를 줄일 수 있어." })
+      el("p", { class: "note", text: "첫 화면이 외부 효과인 것은 처음 보는 사람을 위한 시연용이야. 수업할 땐 위 동네 탭에서 차시에 맞는 동네를 고른 뒤 ‘수업 열기’를 누르면 돼. 시간이 모자라면 ‘지도 건너뛰기’로 1단계를 줄일 수 있어." })
     ]));
     teacherInner.appendChild(el("div", null, [el("h3", { text: "구조 한 문장" }), el("p", { text: s.teacher.structure })]));
     teacherInner.appendChild(el("div", null, [el("h3", { text: "구조의 요소" }),
@@ -2441,7 +2476,7 @@ table.xt thead th:first-child { color: var(--good); } table.xt thead th:last-chi
     var sw = document.querySelector(".switch"), td = document.getElementById("teacher");
     var isT = CLS.role === "teacher";
     document.body.classList.toggle("teach", isT);
-    rail.hidden = isT; if (td) { td.hidden = !!CLS.role; } if (sw) { sw.hidden = !!CLS.role; }
+    rail.hidden = isT; if (td) { td.hidden = !!CLS.role; } if (sw) { sw.hidden = !!CLS.role; } var mt = document.getElementById("set-mix"); if (mt) { mt.hidden = !!CLS.role; }
     document.body.classList.toggle("demo", !!CLS.demo);
     document.body.setAttribute("data-step", isT ? "t" : String(state.step));
     document.body.classList.toggle("in-class", !!CLS.role);
@@ -2466,7 +2501,7 @@ table.xt thead th:first-child { color: var(--good); } table.xt thead th:last-chi
     renderTeacher();
   }
   function pressTabs() {
-    Array.prototype.forEach.call(document.querySelectorAll(".switch button"), function (b) {
+    Array.prototype.forEach.call(document.querySelectorAll(".switch button, #set-mix"), function (b) {
       var on = b.getAttribute("data-mode") === "mix" ? mixOn : (!mixOn && b.getAttribute("data-set") === setKey);
       b.setAttribute("aria-pressed", on ? "true" : "false");
     });
