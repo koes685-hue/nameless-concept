@@ -765,6 +765,21 @@ table.xt thead th:first-child { color: var(--good); } table.xt thead th:last-chi
 @media (max-width: 520px) { .mix-row { display: grid; grid-template-columns: 1fr 1fr; } .mix-row .k { grid-column: 1 / -1; } .mix-row button.variant { width: 100%; text-align: left; } }
 body[data-step="mix"] .wrap { max-width: 1120px; }
 @media (min-width: 900px) { .mix-cards { display: grid; grid-template-columns: 1fr 1fr; align-items: start; } }
+
+/* v10: 섞인 장터 교사 화면 */
+.t-steps .mix-tab { grid-column: 1 / -1; justify-self: start; white-space: nowrap; min-width: max-content; }
+@media (min-width: 900px) { .mix-row.pols { display: grid; grid-template-columns: 1fr 1fr; } .mix-row.pols .k { grid-column: 1 / -1; } .mix-row.pols button.variant { text-align: left; } }
+.t-mix-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr)); gap: 14px; }
+.t-mix-card { border: 1px solid var(--line); border-radius: 14px; padding: 14px 16px; background: var(--surface); display: flex; flex-direction: column; gap: 8px; }
+.t-mix-card .story { font-family: var(--font-voice); font-size: var(--step-1); line-height: 1.6; margin: 0; color: var(--muted); }
+.brow.right .who { font-weight: 700; color: var(--good); }
+.brow.right .fill { background: var(--good); }
+
+/* chip wrap fix (design review) */
+.mix-row button.variant { white-space: nowrap; }
+.mix-row.tags button.variant small { display: block; margin: 2px 0 0; }
+.mix-row.tags button.variant { line-height: 1.25; padding-top: 6px; padding-bottom: 6px; }
+.mix-row.pols button.variant { font-size: 0.92em; }
 </style>
 
 <div class="wrap">
@@ -1100,8 +1115,8 @@ body[data-step="mix"] .wrap { max-width: 1120px; }
         { k: "h", t: "⑥ 어떻게 줄일까" },
         { k: "p", t: "값을 치르지 않던 영향에 ==값을 매긴다== → 영향을 주는 쪽이 그것까지 따져 보고 결정하게 된다. 주로 정부가 나선다.", keep: true },
         { k: "table", head: ["", "정부가 하는 일", "예"], rows: [
-          ["부정적 외부 효과", "__세금이나 부담금__을 매기고, 기준을 정해 규제한다", "오염 물질 배출 부담금, 소음 기준"],
-          ["긍정적 외부 효과", "__보조금__을 주거나 세금을 줄여 준다", "예방접종 비용 지원"]
+          ["부정적 외부 효과", "__세금·과징금__을 부과하고, 기준을 정해 규제한다", "오염 물질 배출 과징금, 소음 기준"],
+          ["긍정적 외부 효과", "__보조금__을 지급하거나 세금을 감면한다", "예방접종 비용 지원"]
         ] },
         { k: "h", t: "본문 : 오늘 읽은 사연 여덟 편", page: true },
         { k: "note", t: "진노랑 줄과 번호 = 뼈대의 세 요소가 사연 어디에 있는지 / 빨강 = 빠진 요소", keep: true },
@@ -1137,7 +1152,7 @@ body[data-step="mix"] .wrap { max-width: 1120px; }
     },
     public: {
       lead: "이 마을 사연 가운데 몇 편은 같은 종류의 것을 쓰는 이야기야. 몇 편인지는 안 알려 줄게. 나오는 물건도 사람도 다 다르지만, 그것이 사람들에게 쓰이는 방식을 들여다보면 같은 성질이 있어. 같은 종류라고 생각하는 사연을 골라 묶음에 넣어 봐.",
-      bridge: { cases: [["social", "s4", "2차시 · 외부 효과에서 본 장면"]],
+      bridge: { no: "④", cases: [["social", "s4", "2차시 · 외부 효과에서 본 장면"]],
         q: "모두에게 좋은 일이었는데, 공공재일까?",
         clue: "병원에서 접종받은 사람만 맞은 거야(맞을 사람을 가를 수 있다 → 막을 수 있다). 백신 하나는 한 사람만 맞아(줄어든다). 좋은 영향이 주변으로 퍼지는 것(외부 효과)과, 그것 자체의 성질(공공재)은 달라." },
       unit: "사연",
@@ -1253,7 +1268,9 @@ body[data-step="mix"] .wrap { max-width: 1120px; }
         { k: "me", slot: "group" },
         { k: "h", t: "② 내 주변에서 찾기" },
         { k: "p", t: "우리 학교나 동네에서 같은 종류의 것을 하나 찾는다. 돈을 안 낸 사람도 쓸 수 있는지, 여러 명이 써도 줄지 않는지가 드러나게 쓴다.", keep: true },
-        { k: "me", slot: "mine", label: "내가 찾은 사례" }
+        { k: "me", slot: "mine", label: "내가 찾은 사례" },
+        { k: "h", t: "③ 교과서 옥외등 vs 우리 동네 가로등" },
+        { k: "p", t: "옥외등은 집주인이 자기 집을 위해 단 불빛이 골목까지 넘친 것 → 누군가의 활동이 남에게 뜻하지 않게, 값없이 준 이익으로 보면 ==외부 효과==. 가로등은 처음부터 골목을 지나는 모두를 위한 것 → 그 불빛 자체가 못 막고 안 줄어드는 성질로 보면 ==공공재==. 같은 불빛도 __무엇을 보느냐에 따라 이름이 달라__." }
       ],
       demo: {
         nicks: ["하늘", "도토리", "민트", "구름", "별", "콩", "새벽", "라면", "바다", "토끼", "연필", "감자", "노을", "젤리", "참새", "모카", "솔", "단추", "보리", "파도", "호두", "봄비", "자두", "곰"],
@@ -1283,12 +1300,12 @@ body[data-step="mix"] .wrap { max-width: 1120px; }
         hintCls: "뜻을 아는 만큼 한 줄로 써 봐. 몰라도 괜찮아, 이름은 가려서 모여.",
         hintSolo: "뜻을 아는 만큼 한 줄로 써 봐. 몰라도 괜찮아. 사연을 다 보고 나서 이 문장과 견줘 볼 거야.",
         tags: [["sunk", "이미 쓴 돈을 셈"], ["sum", "포기한 것을 다 더함"], ["money", "돈만 셈"]] },
-      extraBox: { head: "심화: 낸 돈이 있는 선택이라면?",
+      extraBox: { head: "낸 돈이 있는 선택이라면?",
         p: "주말 알바(6만 원)를 쉬고 입장권 4만 원을 내고 놀이공원에 갔다면, 실제로 낸 4만 원(명시적 비용)과 포기한 알바비 6만 원(암묵적 비용)을 더한 10만 원이 기회비용이야. 그럼 닮은꼴 ‘다 더하기’와는 뭐가 다를까?",
         head2: ["더해도 되는 것", "더하면 안 되는 것"],
         rows: [["실제로 낸 돈 + 포기한 것 가운데 가장 큰 하나", "포기한 것 여럿 (한꺼번에 다 할 수는 없었으니까)"],
                ["놀이공원: 입장권 4만 원 + 알바비 6만 원 = 10만 원", "영화: 알바 3만 원 + 학원 보충 + 낮잠을 다 더함"]],
-        note: "명시적 비용·암묵적 비용은 선택과목 ‘경제’에서 자세히 배우는 말이야." },
+        note: "명시적 비용·암묵적 비용·매몰 비용은 교과서에도 나오는 말이야." },
       teaser: "‘시험 전날 밤의 고1’ 장면은 다음 시간에 다시 나와. 그때는 다른 눈으로 볼 거야.",
       unit: "사연",
       course: "통합사회2 · 시장경제와 지속가능발전",
@@ -1354,7 +1371,7 @@ body[data-step="mix"] .wrap { max-width: 1120px; }
         { t: "여러 대안 가운데 가장 가치가 큰 것.", e: 2 }
       ],
       short: ["여럿 가운데 하나를 고른다는 점", "고르는 순간 포기하는 것이라는 점", "가장 아까운 하나라는 점"],
-      extra: "기회비용에는 실제로 낸 돈(명시적 비용)과, 포기한 것의 가치(암묵적 비용)가 함께 들어가. 고른 것에서 얻는 만족(편익)이 기회비용보다 크면 합리적인 선택이야. 영화표처럼 이미 써서 돌아오지 않는 돈은 매몰 비용이라고 하는데, 선택할 때 따지지 않는 게 합리적이야.",
+      extra: "기회비용에는 실제로 낸 돈(명시적 비용)과, 포기한 것의 가치(암묵적 비용)가 함께 들어가. 고른 것에서 얻는 만족(편익)에서 기회비용을 뺀 순편익이 가장 큰 선택이 합리적인 선택이야. 영화표처럼 이미 써서 돌아오지 않는 돈은 매몰 비용이라고 하는데, 선택할 때 따지지 않는 게 합리적이야.",
       minePrompt: "요즘 내가 한 선택 하나를 골라서 써 봐. 무엇을 골랐고, 무엇을 포기했고, 그 가운데 가장 아까운 게 무엇이었는지.",
       caseTagHead: "가장 아까운 것",
       caseTag: { o1: "부스 피자 파티", o2: "친구 선물", o3: "배추로 벌 돈", o4: "영어 단어 외울 시간", o5: "회사 월급 350만 원", o6: "코딩부" },
@@ -1378,8 +1395,8 @@ body[data-step="mix"] .wrap { max-width: 1120px; }
         { k: "h", t: "③ 뼈대" },
         { k: "fig" },
         { k: "elements" },
-        { k: "h", t: "④ 기회비용에 들어가는 것 (심화)" },
-        { k: "note", t: "심화: 명시적 비용·암묵적 비용·매몰 비용은 선택과목 ‘경제’에서 자세히 배우는 말이다.", keep: true },
+        { k: "h", t: "④ 기회비용에 들어가는 것" },
+        { k: "note", t: "교과서 탐구: 명시적 비용·암묵적 비용·매몰 비용은 교과서에도 나오는 말이다.", keep: true },
         { k: "p", t: "예: 주말 알바(6만 원)를 쉬고, 입장권 4만 원을 내고 놀이공원에 갔다.", keep: true },
         { k: "table", head: ["", "뜻", "놀이공원 예에서"], rows: [
           ["명시적 비용", "선택하느라 ==실제로 낸 돈==", "입장권 4만 원"],
@@ -1394,7 +1411,7 @@ body[data-step="mix"] .wrap { max-width: 1120px; }
         ] },
         { k: "h", t: "⑤ 합리적 선택" },
         { k: "li", n: "①", t: "선택해서 얻는 만족 = ==편익==" },
-        { k: "li", n: "②", t: "편익이 기회비용보다 클 때 → __합리적 선택__이다." },
+        { k: "li", n: "②", t: "편익에서 기회비용을 뺀 ==순편익==이 가장 큰 선택이 __합리적 선택__이다." },
         { k: "li", n: "③", t: "카페 삼촌: 편익 300만 원 < 기회비용 350만 원 → 돈으로만 따지면 __합리적이지 않은 선택__" },
         { k: "note", t: "삼촌이 ‘손해 보는 장사’라고 한 까닭: 장부에는 300만 원이 남지만, 포기한 월급 350만 원까지 대가로 치면 50만 원을 덜 버는 셈이다." },
         { k: "note", t: "하고 싶은 일을 하는 기쁨, 여유처럼 돈으로 바꾸기 어려운 만족도 편익에 들어간다. 그래서 삼촌의 선택이 꼭 틀렸다고 할 수는 없다." },
@@ -2244,7 +2261,7 @@ body[data-step="mix"] .wrap { max-width: 1120px; }
     });
 
     if (s.bridge) {
-      push(el("h4", { class: "nt-h" }, [el("span", { class: "nt-h-in", text: "③ 다리 사연" })]), true);
+      push(el("h4", { class: "nt-h" }, [el("span", { class: "nt-h-in", text: (s.bridge.no || "③") + " 다리 사연" })]), true);
       s.bridge.cases.map(bridgeCase).filter(Boolean).forEach(function (x) {
         push(el("div", { class: "nt-story" }, [el("p", { class: "nt-sh" }, [el("span", { text: "▶ " + x.c.who + " · " + x.label })]), el("p", { class: "st", text: x.c.text })]), true);
       });
@@ -2358,10 +2375,10 @@ body[data-step="mix"] .wrap { max-width: 1120px; }
   /* ---- 4차시 섞인 장터: four market stories tagged with the student's own three names ---- */
   var MIX = {
     tags: ["social", "public", "opp", "none"],
-    pols: [["reg", "규제·세금·부담금"], ["sub", "보조금·지원"], ["gov", "정부가 직접 공급"], ["no", "대책 필요 없음"]],
+    pols: [["reg", "세금·과징금·규제"], ["sub", "보조금·세금 감면"], ["gov", "정부가 직접 공급"], ["no", "대책 필요 없음"]],
     stories: [
       { id: "m1", place: "떡집 앞", ans: "social", pol: "reg", text: "장터 입구 떡집이 새벽 4시부터 떡을 찌는데, 김이 빠지는 환풍기가 바로 옆 하숙집 창문을 향해 있어. 떡은 아침마다 다 팔리고, 하숙하는 형은 여름 내내 창문을 닫고 자.",
-        why: "떡을 쪄서 파는 일이 그 거래와 상관없는 하숙집 형에게 뜻하지 않게 손해를 주는데, 그 손해에 대한 값은 오가지 않아 → 외부 효과(부정). 기준을 정해 규제하거나 세금·부담금을 매겨 손해를 줄이게 해." },
+        why: "떡을 쪄서 파는 일이 그 거래와 상관없는 하숙집 형에게 뜻하지 않게 손해를 주는데, 그 손해에 대한 값은 오가지 않아 → 외부 효과(부정). 세금·과징금을 부과하거나 기준을 정해 규제해서 손해를 줄이게 해." },
       { id: "m2", place: "장터 입구", ans: "public", pol: "gov", text: "장터 입구에 큰 시계탑이 서 있어. 장 보러 온 할머니도, 지나가던 배달 기사도, 버스 기다리는 학생도 다 고개만 들면 시간을 봐. 백 명이 한꺼번에 올려다봐도 시곗바늘이 안 보이는 사람은 없어.",
         why: "고개만 들면 누구나 보니 못 보게 막기 어렵고, 백 명이 봐도 볼 몫이 줄지 않아 → 공공재. 돈 받고 팔기 어려워 시장에서는 잘 안 생기니까 정부가 직접 공급해." },
       { id: "m3", place: "옷 가게", ans: "opp", pol: "no", text: "장터에서 만 원짜리 티셔츠 두 장 가운데 하나만 살 수 있었어. 초록색을 고르면서, 계산대에 내려놓은 하늘색이 계속 눈에 밟혔어.",
@@ -2373,8 +2390,9 @@ body[data-step="mix"] .wrap { max-width: 1120px; }
   var mixOn = false;
   try { mixOn = window.localStorage.getItem(STORE + "mode") === "mix"; } catch (e) { mixOn = false; }
   function setMix(on) { mixOn = !!on; try { window.localStorage.setItem(STORE + "mode", mixOn ? "mix" : "set"); } catch (e) { /* ignore */ } }
-  function mixLoad() { try { var m = JSON.parse(window.localStorage.getItem(STORE + "mix") || "null"); if (m && typeof m === "object") { return { tags: m.tags || {}, pols: m.pols || {}, shown: !!m.shown, preview: !!m.preview }; } } catch (e) { /* ignore */ } return { tags: {}, pols: {}, shown: false, preview: false }; }
-  function mixSave(m) { try { window.localStorage.setItem(STORE + "mix", JSON.stringify(m)); } catch (e) { /* ignore */ } }
+  function classMix() { return !!(CLS && CLS.role === "student" && CLS.T && CLS.T.mix); }
+  function mixLoad() { try { var m = JSON.parse(window.localStorage.getItem(STORE + "mix" + sfx()) || "null"); if (m && typeof m === "object") { return { tags: m.tags || {}, pols: m.pols || {}, shown: !!m.shown, preview: !!m.preview }; } } catch (e) { /* ignore */ } return { tags: {}, pols: {}, shown: false, preview: false }; }
+  function mixSave(m) { try { window.localStorage.setItem(STORE + "mix" + sfx(), JSON.stringify(m)); } catch (e) { /* ignore */ } clsPush(); }
   function mixLabel(k) {
     if (k === "none") { return { big: "셋 다 아님", small: "" }; }
     var mine = ""; try { mine = load(k).name.trim(); } catch (e) { mine = ""; }
@@ -2382,9 +2400,10 @@ body[data-step="mix"] .wrap { max-width: 1120px; }
   }
   function setDone(k) { try { return load(k).max >= 4; } catch (e) { return false; } }
   function mixView() {
-    var m = mixLoad();
+    var m = mixLoad(), inCls = classMix();
+    if (inCls) { m.shown = !!CLS.T.mixShow; }
     var doneN = ["social", "public", "opp"].filter(setDone).length;
-    if (doneN < 3 && !m.preview) {
+    if (doneN < 3 && !m.preview && !inCls) {
       return el("section", { class: "panel" }, [
         el("h2", { text: "마무리 · 섞인 장터" }),
         guide("세 동네를 다 돌고 나서 여는 마무리 활동이야. 지금 열면 아직 안 배운 개념의 이름이 먼저 보여서, 이름을 직접 지어 보는 재미가 사라져.", "think", "", null),
@@ -2417,7 +2436,10 @@ body[data-step="mix"] .wrap { max-width: 1120px; }
     });
     var nT = MIX.stories.filter(function (st) { return m.tags[st.id]; }).length, nP = MIX.stories.filter(function (st) { return m.pols[st.id]; }).length;
     var score = MIX.stories.filter(function (st) { return m.tags[st.id] === st.ans; }).length, scoreP = MIX.stories.filter(function (st) { return m.pols[st.id] === st.pol; }).length;
-    var bar = el("div", { class: "bar" }, m.shown
+    var bar = inCls
+      ? el("div", { class: "bar" }, [el("span", { class: "count", text: m.shown ? "꼬리표 " + score + "/4 · 대책 " + scoreP + "/4 맞음" : "꼬리표 " + nT + "/4 · 대책 " + nP + "/4" }),
+          el("span", { class: "count", text: m.shown ? "선생님이 정답을 열었어" : "다 고르면 선생님이 정답을 열어 줄 거야" })])
+      : el("div", { class: "bar" }, m.shown
       ? [el("span", { class: "count", id: "mix-score", text: "꼬리표 " + score + "/4 · 대책 " + scoreP + "/4 맞음" }),
          el("button", { type: "button", class: "ghost", id: "mix-again", text: "다시 해 보기", onclick: function () { mixSave({ tags: {}, pols: {}, shown: false, preview: m.preview }); render(); } })]
       : [el("span", { class: "count", text: "꼬리표 " + nT + "/4 · 대책 " + nP + "/4" }),
@@ -2425,10 +2447,10 @@ body[data-step="mix"] .wrap { max-width: 1120px; }
     var panel = el("section", { class: "panel" }, [
       el("h2", { text: "섞인 장터: 내가 지은 이름으로 다시 보기" }),
       guide("장터 사연 네 편이야. 앞에서 내가 지은 이름 세 개 가운데 어느 것이 붙는지 꼬리표를 달아 봐. 어디에도 안 맞으면 ‘셋 다 아님’. 그다음 정부가 나서야 할지, 어떤 대책이 맞을지도 골라 봐.", "think", "", null),
-      anyOwn ? el("p", { class: "note", text: "꼬리표의 큰 글씨는 내가 지은 이름, 작은 글씨는 교과서 이름이야." }) : el("p", { class: "note", text: "미리 보기라서 교과서 이름으로 꼬리표를 붙여. 세 동네를 끝낸 학생에게는 자기가 지은 이름이 크게 나와." }),
+      anyOwn ? el("p", { class: "note", text: "꼬리표의 큰 글씨는 내가 지은 이름, 작은 글씨는 교과서 이름이야." }) : el("p", { class: "note", text: inCls ? "이 기기에 지은 이름이 없어서 교과서 이름으로 꼬리표를 붙여." : "미리 보기라서 교과서 이름으로 꼬리표를 붙여. 세 동네를 끝낸 학생에게는 자기가 지은 이름이 크게 나와." }),
       el("div", { class: "cards mix-cards" }, cards),
       bar,
-      el("p", { class: "note", text: "교사: 꼬리표를 다 붙이면 손을 들어 사연마다 고른 꼬리표를 세어 보고, 가장 갈린 사연으로 1분 토론해 봐." })
+      inCls ? null : el("p", { class: "note", text: "교사: 수업 열기로 반 전체가 함께 하면 선생님 화면에 사연마다 꼬리표 분포가 떠. 가장 갈린 사연으로 1분 토론해 봐." })
     ]);
     return panel;
   }
@@ -2456,7 +2478,7 @@ body[data-step="mix"] .wrap { max-width: 1120px; }
       el("ol", null, [
         el("li", { text: "1차시 기회비용 (주말 동네): ‘이 말 알아?’로 아는 뜻을 먼저 쓰고, 4단계에서 처음 뜻과 다시 쓴 뜻을 나란히 본다." }),
         el("li", { text: "2차시 외부 효과 (시장 골목): 끝에 다리 사연으로 1차시 ‘시험 전날’ 장면을 다시 꺼낸다." }),
-        el("li", { text: "3차시 공공재 (항구 마을): 끝에 2차시 ‘예방접종’을 다시 꺼내 외부 효과와 공공재를 가른다." }),
+        el("li", { text: "3차시 공공재 (항구 마을): 끝에 2차시 ‘예방접종’을 다시 꺼내 외부 효과와 공공재를 가른다. 마무리 발문: 교과서 76쪽 ‘자기 집 밖에 단 옥외등’(외부 효과)과 우리 동네 가로등(공공재)은 겉이 같은데 왜 이름이 다를까?" }),
         el("li", { text: "선택 4차시 ‘마무리 · 섞인 장터’: 사연 네 편에 학생이 지은 이름 세 개로 꼬리표를 붙이고 대책을 고른다." })
       ]),
       el("p", { class: "note", text: "첫 화면이 외부 효과인 것은 처음 보는 사람을 위한 시연용이야. 수업할 땐 위 동네 탭에서 차시에 맞는 동네를 고른 뒤 ‘수업 열기’를 누르면 돼. 시간이 모자라면 ‘지도 건너뛰기’로 1단계를 줄일 수 있어." })
@@ -2482,7 +2504,7 @@ body[data-step="mix"] .wrap { max-width: 1120px; }
     document.body.classList.toggle("in-class", !!CLS.role);
     renderEntry(); renderClassBar();
     if (isT) { renderTeacherScreen(); return; }
-    if (mixOn && !CLS.role) {
+    if ((mixOn && !CLS.role) || classMix()) {
       rail.hidden = true; document.body.setAttribute("data-step", "mix");
       main.textContent = ""; main.appendChild(mixView()); pressTabs(); renderTeacher();
       return;
@@ -2637,7 +2659,7 @@ body[data-step="mix"] .wrap { max-width: 1120px; }
   function myRec() {
     var picks = Object.keys(state.picks).filter(function (k) { return state.picks[k]; });
     var checks = Object.keys(state.checks).filter(function (k) { return state.checks[k]; }).map(Number);
-    return { sid: CLS.sid, nick: clip(CLS.nick, 12), set: setKey, step: state.step, picks: picks, name: clip(state.name.trim(), 24), def: clip(state.def.trim(), 160), checks: checks, vote: state.vote || "", av: avGet(), pre: set().pre && state.preDone ? clip((state.pre || "").trim(), 160) : "", pd: !!state.preDone };
+    return { sid: CLS.sid, nick: clip(CLS.nick, 12), set: setKey, step: state.step, picks: picks, name: clip(state.name.trim(), 24), def: clip(state.def.trim(), 160), checks: checks, vote: state.vote || "", av: avGet(), pre: set().pre && state.preDone ? clip((state.pre || "").trim(), 160) : "", pd: !!state.preDone, mix: classMix() ? (function () { var m = mixLoad(); return { tags: m.tags, pols: m.pols }; })() : null };
   }
   var pushTimer = null;
   function clsPush() {
@@ -2655,10 +2677,11 @@ body[data-step="mix"] .wrap { max-width: 1120px; }
       renderClassBar();
       return;
     }
-    var first = !CLS.T, prevOpen = CLS.T ? CLS.T.open : 0;
+    var first = !CLS.T, prevOpen = CLS.T ? CLS.T.open : 0, prevMix = CLS.T ? String(!!CLS.T.mix) + !!CLS.T.mixShow : "";
     CLS.T = T;
     if (T.set !== setKey) { save(); setKey = T.set; state = load(setKey); first = true; }
-    if (first || T.open !== prevOpen) { render(); } else { renderClassBar(); }
+    var mixKey = String(!!T.mix) + !!T.mixShow;
+    if (first || T.open !== prevOpen || mixKey !== prevMix) { render(); if (mixKey !== prevMix) { clsPush(); try { window.scrollTo(0, 0); } catch (e) { /* ignore */ } } } else { renderClassBar(); }
     if (first) { clsPush(); }
   }
 
@@ -3022,6 +3045,16 @@ body[data-step="mix"] .wrap { max-width: 1120px; }
   }
   function tRedraw() { window.clearTimeout(tDraw); tDraw = window.setTimeout(function () { if (CLS.role === "teacher") { renderTeacherScreen(); } }, 120); }
 
+  function cleanMix(x) {
+    if (!x || typeof x !== "object") { return null; }
+    var out = { tags: {}, pols: {} }, pk = MIX.pols.map(function (p) { return p[0]; });
+    MIX.stories.forEach(function (st) {
+      var t = x.tags && x.tags[st.id], p = x.pols && x.pols[st.id];
+      if (MIX.tags.indexOf(t) >= 0) { out.tags[st.id] = t; }
+      if (pk.indexOf(p) >= 0) { out.pols[st.id] = p; }
+    });
+    return out;
+  }
   function onTeacherMsg(d) {
     if (!teach) { return; }
     if (d.t === "S" && d.rec && typeof d.rec === "object" && typeof d.rec.sid === "string") {
@@ -3031,7 +3064,7 @@ body[data-step="mix"] .wrap { max-width: 1120px; }
         sid: clip(r.sid, 16), nick: clip(r.nick, 12), set: String(r.set || ""), step: Number(r.step) || 1,
         picks: Array.isArray(r.picks) ? r.picks.map(String).slice(0, 12) : [], name: clip(r.name, 24), def: clip(r.def, 160),
         checks: Array.isArray(r.checks) ? r.checks.map(Number).slice(0, 5) : [], vote: clip(r.vote, 40), av: /^\d{7}$/.test(String(r.av || "")) ? String(r.av) : "",
-        pre: clip(r.pre, 160), pd: !!r.pd
+        pre: clip(r.pre, 160), pd: !!r.pd, mix: cleanMix(r.mix)
       };
       if (d.peer) { teach.peers[d.peer] = r.sid; }
       if (d.bye) { delete teach.recs[r.sid]; }
@@ -3078,6 +3111,13 @@ body[data-step="mix"] .wrap { max-width: 1120px; }
       r.picks = f.picks.slice();
       if (T.open >= 2) { r.name = f.name; r.def = f.def; }
       if (T.open >= 3) { r.checks = f.checks.slice(); }
+      if (T.mix && !r.mix) {
+        r.mix = { tags: {}, pols: {} };
+        MIX.stories.forEach(function (st) {
+          r.mix.tags[st.id] = Math.random() < (st.id === "m4" ? 0.5 : 0.75) ? st.ans : MIX.tags[Math.floor(Math.random() * 4)];
+          r.mix.pols[st.id] = Math.random() < 0.7 ? st.pol : MIX.pols[Math.floor(Math.random() * 4)][0];
+        });
+      }
       if (T.vote && T.vote.open && T.vote.cands.length && !r.vote) {
         var c = T.vote.cands, tot = c.reduce(function (a, x) { return a + x.n + 1; }, 0), roll = Math.random() * tot, pick = c[0];
         for (var i = 0; i < c.length; i += 1) { roll -= c[i].n + 1; if (roll <= 0) { pick = c[i]; break; } }
@@ -3133,7 +3173,11 @@ body[data-step="mix"] .wrap { max-width: 1120px; }
     }));
 
     var live = el("section", { class: "t-live", id: "t-live" });
-    if (T.open === 1) {
+    var mixBtn = el("button", { type: "button", class: "mix-tab", id: "t-mix", "aria-pressed": T.mix ? "true" : "false", onclick: function () { tSet({ mix: !T.mix, mixShow: false }); } },
+      T.mix ? ["섞인 장터 닫기"] : [el("small", { text: "마무리 · " }), "섞인 장터 열기"]);
+    steps.appendChild(mixBtn);
+    if (T.mix) { mixTeacher(live, all, T); }
+    else if (T.open === 1) {
       live.appendChild(el("h2", { text: "사연마다 몇 명이 같은 종류로 묶었을까" }));
       live.appendChild(el("p", { class: "sub", text: "아직 교과서 이름은 안 보여 줘. 갈리는 사연이 오늘 토론거리야." }));
       if (s.pre) { live.appendChild(el("p", { class: "count", id: "t-pre-n", text: "‘이 말 알아?’ 처음 뜻: " + all.filter(function (r) { return r.pd; }).length + "명 / " + all.length + "명 (화면엔 안 띄워. 4단계에서 다시 봐)" })); }
@@ -3274,6 +3318,32 @@ body[data-step="mix"] .wrap { max-width: 1120px; }
     })));
     if (!order.length) { box.appendChild(el("p", { class: "count", text: "아직 처음 뜻을 쓴 사람이 없어." })); }
     return box;
+  }
+
+  /* 4차시 섞인 장터 on the teacher screen: tag spread per story; answers open on every device at once */
+  function mixTeacher(live, all, T) {
+    var done = all.filter(function (r) { return r.mix && Object.keys(r.mix.tags).length === MIX.stories.length; }).length;
+    live.appendChild(el("h2", { text: "섞인 장터: 사연마다 어떤 꼬리표를 붙였을까" }));
+    live.appendChild(el("p", { class: "sub", text: "학생은 자기가 지은 이름으로 꼬리표를 붙여. 여기선 교과서 이름으로 모아 보여. 다 붙인 학생 " + done + "명 / " + all.length + "명. 가장 갈린 사연으로 1분 토론해 봐." }));
+    var names = { social: "외부 효과", "public": "공공재", opp: "기회비용", none: "셋 다 아님" };
+    live.appendChild(el("div", { class: "t-mix-grid" }, MIX.stories.map(function (st, i) {
+      var ans = all.filter(function (r) { return r.mix && r.mix.tags[st.id]; });
+      return el("div", { class: "t-mix-card" }, [
+        el("b", { text: "장터 사연 " + (i + 1) + " · " + st.place }),
+        el("p", { class: "story", text: st.text }),
+        el("div", { class: "bars" }, MIX.tags.map(function (k) {
+          var n = ans.filter(function (r) { return r.mix.tags[st.id] === k; }).length, p = ans.length ? Math.round(100 * n / ans.length) : 0;
+          var right = T.mixShow && k === st.ans;
+          return el("div", { class: "brow" + (right ? " right" : "") }, [el("span", { class: "who", text: (right ? "✓ " : "") + names[k] }),
+            el("div", { class: "track" }, [(function () { var f = el("div", { class: "fill" }); f.style.width = p + "%"; return f; })()]), el("span", { class: "v", text: p + "%" })]);
+        })),
+        T.mixShow ? el("p", { class: "mix-why", text: "대책: " + MIX.pols.filter(function (p) { return p[0] === st.pol; })[0][1] + " · " + st.why }) : null
+      ]);
+    })));
+    live.appendChild(el("div", { class: "t-row" }, [
+      el("button", { type: "button", class: "primary", id: "t-mix-show", text: T.mixShow ? "정답 가리기" : "정답 열기 (학생 화면에도)", onclick: function () { tSet({ mixShow: !T.mixShow }); } }),
+      el("button", { type: "button", class: "ghost", id: "t-mix-close", text: "장터 닫고 단계 화면으로", onclick: function () { tSet({ mix: false, mixShow: false }); } })
+    ]));
   }
 
   function restoreClass() {
