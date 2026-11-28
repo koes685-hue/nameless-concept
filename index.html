@@ -650,6 +650,9 @@ body, h1, h2, h3, p, .bubble, button { word-break: keep-all; overflow-wrap: anyw
 .demo-phone-frame iframe { width: 100%; height: 100%; border: 0; display: block; }
 body.demo.teach .wrap { max-width: none; margin-right: 450px; margin-left: 24px; }
 @media (max-width: 1179px) { .demo-phone { display: none; } body.demo.teach .wrap { margin-right: auto; margin-left: auto; max-width: 1120px; } }
+.demo-mini { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 8px; color: var(--muted); font-size: var(--step-0); border-top: 1px solid var(--line); padding-top: 10px; }
+.demo-mini b { color: var(--ink); font-variant-numeric: tabular-nums; }
+.demo-mini-av { display: inline-flex; gap: 2px; margin-left: 6px; }
 .t-people .off { opacity: 0.45; border-style: dashed; }
 .app-foot { border-top: 1px solid var(--line); padding-top: 14px; color: var(--muted); font-size: var(--step-0); line-height: 1.6; display: flex; flex-direction: column; gap: 4px; }
 .app-foot p { margin: 0; }
@@ -2363,6 +2366,7 @@ body.in-class .app-foot { display: none; }
   }
   function leaveClass() {
     var tr = CLS.tr, wasT = CLS.role === "teacher", wasS = CLS.role === "student", wasDemo = !!CLS.demo;
+    if (wasT) { autoTimers.forEach(function (t) { window.clearTimeout(t); }); autoTimers = []; autoOn = false; autoDone = false; }
     if (wasT && tr && teach) { try { tr.send({ t: "T", state: Object.assign({}, teach.T, { ended: true }) }); } catch (e) { /* ignore */ } }
     if (wasS && tr && !CLS.ended) { try { tr.send({ t: "S", rec: myRec(), bye: true }); } catch (e) { /* ignore */ } }
     save();
@@ -2555,13 +2559,94 @@ body.in-class .app-foot { display: none; }
     "이제야 교과서 이름이 나와. 닮은꼴 두 편을 반에서 몇 %가 걸러 냈는지 보여.",
     "학생 폰에서 ‘내 필기본’으로 넘어가면, 방금 쓴 답이 들어간 A4 필기본이 생기고 PDF로 저장할 수 있어."
   ];
+  /* "자동으로 보기": about a minute of the whole lesson, the teacher steps opening by themselves and the
+     demo phone answering by itself (it is driven by postMessage, the same as a person tapping). */
+  var autoOn = false, autoDone = false, autoTimers = [];
+  var AUTO_TIPS = [
+    "",
+    "1단계 · 학생은 사연 여덟 편을 읽고 같은 종류라고 생각하는 것만 묶어. 막대는 반 전체가 묶은 비율이야. 아직 교과서 이름은 안 보여.",
+    "2단계 · 학생마다 이 묶음에 이름을 지어. 반 전체 이름이 모이면 투표로 ‘우리 반 이름’을 정해.",
+    "3단계 · 이야기를 다 지우고 뼈대만 남긴 그림과 자기 뜻을 맞춰 봐. 선생님은 친구들의 뜻을 골라 학생 화면에 띄워.",
+    "4단계 · 이제야 교과서 이름이 나와. 우리 반 이름과 견주고, 닮은꼴 두 편을 반에서 몇 %가 걸러 냈는지 봐.",
+    "5단계 · 학생마다 자기 답과 우리 반 결과가 들어간 A4 필기본이 생겨. PDF로 저장해 복습 자료로 써."
+  ];
+  function phone(msg) { try { var f = document.querySelector("#demo-phone iframe"); if (f && f.contentWindow) { f.contentWindow.postMessage({ nc: msg }, "*"); } } catch (e) { /* ignore */ } }
+  function stopAuto() { autoTimers.forEach(function (t) { window.clearTimeout(t); }); autoTimers = []; if (autoOn) { autoOn = false; if (teach) { renderTeacherScreen(); } } }
+  function runAuto() {
+    if (!teach) { return; }
+    stopAuto(); autoOn = true; autoDone = false;
+    var plan = [
+      [0, function () { tSet({ open: 1, showReal: false, vote: null, cls: null, spot: [], hidden: [] }); phone("s1"); }],
+      [9000, function () { tSet({ open: 2 }); }],
+      [9900, function () { phone("s2"); }],
+      [16500, function () {
+        var cands = nameGroups().slice(0, 8).map(function (g) { return { id: g.id, t: g.t, n: g.n }; });
+        tSet({ vote: { open: true, cands: cands }, cls: null });
+      }],
+      [17400, function () { phone("vote"); }],
+      [22500, function () {
+        var tl = tallies(), best = null;
+        if (teach.T.vote) { teach.T.vote.cands.forEach(function (c) { if (!best || (tl[c.id] || 0) > (tl[best.id] || 0)) { best = c; } }); }
+        tSet({ vote: Object.assign({}, teach.T.vote, { open: false }), cls: best ? { id: best.id, name: best.t, votes: tl[best.id] || 0 } : null });
+      }],
+      [24500, function () { tSet({ open: 3 }); }],
+      [25400, function () { phone("s3"); }],
+      [29500, function () { var d = students().filter(function (r) { return r.def; }).slice(0, 2).map(function (r) { return r.def; }); tSet({ spot: d }); }],
+      [34000, function () { tSet({ open: 4 }); }],
+      [34900, function () { phone("s4"); }],
+      [44000, function () { tSet({ open: 5 }); }],
+      [44900, function () { phone("s5"); }],
+      [56000, function () { autoOn = false; autoDone = true; renderTeacherScreen(); }]
+    ];
+    plan.forEach(function (p) { autoTimers.push(window.setTimeout(function () { if (teach && CLS.demo) { p[1](); } }, p[0])); });
+    renderTeacherScreen();
+  }
+
+  // the demo phone side: act on the tour's cues
+  function typeInto(id, text, done) {
+    var n = document.getElementById(id), i = 0;
+    if (!n) { if (done) { done(); } return; }
+    n.value = ""; n.focus({ preventScroll: true });
+    (function tick() {
+      if (!n.isConnected) { return; }
+      i += 1; n.value = text.slice(0, i); n.dispatchEvent(new Event("input"));
+      if (i < text.length) { window.setTimeout(tick, 70); } else if (done) { done(); }
+    })();
+  }
+  function scrollTo(node) { try { if (node) { node.scrollIntoView({ behavior: "smooth", block: "center" }); } } catch (e) { /* ignore */ } }
+  window.addEventListener("message", function (e) {
+    if (!CLS.demo || CLS.role !== "student" || e.source !== window.parent || !e.data || !e.data.nc) { return; }
+    var cue = e.data.nc, s = set();
+    if (cue === "s1") {
+      state = Object.assign(blank(), { skipMap: true, seed: state.seed }); save(); render();
+      var real = cases().filter(function (c) { return c.real; }).slice(0, 5);
+      real.forEach(function (c, i) { window.setTimeout(function () { var b = document.getElementById("pick-" + c.id); if (b && b.getAttribute("aria-pressed") !== "true") { scrollTo(b); b.click(); } }, 600 + i * 1300); });
+    } else if (cue === "s2") {
+      go(2);
+      typeInto("name-input", "옆집 효과", function () { typeInto("def-input", s.demo && s.demo.defs ? s.demo.defs[0] : "두 쪽 사이의 일 때문에 상관없는 사람이 영향을 받는 것"); });
+    } else if (cue === "vote") {
+      window.setTimeout(function () { var b = document.getElementById("vote-0"); if (b) { scrollTo(b); b.click(); } }, 1200);
+    } else if (cue === "s3") {
+      go(3);
+      s.elements.forEach(function (t, i) { if (i < 2) { window.setTimeout(function () { var c = document.getElementById("check-" + i); if (c && !c.checked) { scrollTo(c); c.click(); } }, 1500 + i * 1100); } });
+    } else if (cue === "s4") {
+      go(4);
+      window.setTimeout(function () { var n = document.getElementById("compare-input"); scrollTo(n); typeInto("compare-input", "교과서 이름이 더 짧고, 내 이름은 누가 영향을 받는지가 더 잘 보여"); }, 1800);
+    } else if (cue === "s5") {
+      go(5);
+      window.setTimeout(function () { scrollTo(document.getElementById("sheet")); }, 1500);
+    }
+  });
+
   function demoGuide(T) {
     return el("div", { class: "demo-guide" }, [
       el("div", { class: "demo-guide-t" }, [el("b", { text: "1분 체험 · 선생님 화면" }), el("span", { class: "count", text: "단계 " + T.open + " / 5" })]),
-      el("p", { text: DEMO_TIPS[T.open] || "" }),
+      el("p", { text: autoOn ? (AUTO_TIPS[T.open] || "") : autoDone ? "여기까지가 한 차시 흐름이야. 이제 ‘직접 해 보기’: 오른쪽 학생 폰을 직접 눌러 보거나, 위 단계 버튼을 눌러 봐." : DEMO_TIPS[T.open] || "" }),
       el("div", { class: "t-row" }, [
+        autoOn ? el("button", { type: "button", class: "primary", id: "demo-stop", text: "멈추고 직접 해 보기", onclick: stopAuto })
+               : el("button", { type: "button", class: "primary", id: "demo-auto", text: autoDone ? "자동으로 다시 보기 (1분)" : "자동으로 보기 (1분)", onclick: runAuto }),
         canFrame() ? el("button", { type: "button", class: "ghost", id: "demo-tab", text: "학생 화면 새 탭에서 열기", onclick: function () { window.open(baseUrl() + "?demo-student=" + CLS.code, "_blank"); } }) : null,
-        el("button", { type: "button", class: "ghost", id: "demo-end", text: "체험 끝내기", onclick: leaveClass })
+        el("button", { type: "button", class: "ghost", id: "demo-end", text: "체험 끝내기", onclick: function () { stopAuto(); leaveClass(); } })
       ])
     ]);
   }
@@ -2806,7 +2891,16 @@ body.in-class .app-foot { display: none; }
       live.appendChild(el("p", { class: "sub", text: "필기본에는 우리 반이 고른 이름과 닮은꼴을 걸러 낸 비율이 한 줄 들어가. 필기본까지 온 학생 " + done + "명 / " + all.length + "명." }));
     }
 
-    main.appendChild(el("section", { class: "panel" }, [CLS.demo ? demoGuide(T) : null, el("div", { class: "t-top" }, [codeCard, peopleCard]), steps, live]));
+    if (CLS.demo) {
+      var mini = el("div", { class: "demo-mini" }, [
+        el("span", { text: "수업 코드 " }), el("b", { id: "t-code", text: CLS.code }),
+        el("span", { class: "sep", text: "·" }), el("span", { id: "t-n", text: "들어온 학생 " + all.length + "명 (시연용 24명 + 너)" }),
+        el("span", { class: "demo-mini-av", "aria-hidden": "true" }, all.slice(0, 12).map(function (r) { return r.av ? avChip(r.av, 20) : null; }))
+      ]);
+      main.appendChild(el("section", { class: "panel" }, [demoGuide(T), steps, live, mini]));
+      return;
+    }
+    main.appendChild(el("section", { class: "panel" }, [el("div", { class: "t-top" }, [codeCard, peopleCard]), steps, live]));
   }
 
   function restoreClass() {
@@ -2816,7 +2910,7 @@ body.in-class .app-foot { display: none; }
       var ds = /[?&]demo-student=(\d{4})/.exec(window.location.search); if (ds) { demoS = ds[1]; }
       demo = /[?&]demo=1/.test(window.location.search);
     } catch (e) { /* ignore */ }
-    if (demoS) { CLS.demo = true; joinClass(demoS, "나"); return true; }
+    if (demoS) { CLS.demo = true; joinClass(demoS, "나"); if (!state.skipMap) { state.skipMap = true; save(); render(); } return true; }
     if (demo) { startDemo(); return true; }
     if (raw) {
       try {
