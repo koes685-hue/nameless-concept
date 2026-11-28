@@ -7,8 +7,11 @@
 <meta property="og:title" content="이름 없는 개념 · 고1 통합사회">
 <meta property="og:description" content="사연을 모아 직접 이름을 붙이고, 교과서 개념을 만나는 교실 수업 앱. 1분 체험으로 교사 화면과 학생 폰을 함께 볼 수 있어요.">
 <meta property="og:image" content="https://koes685-hue.github.io/nameless-concept/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
 <meta property="og:url" content="https://koes685-hue.github.io/nameless-concept/">
 <link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
 <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
 <link rel="apple-touch-icon" href="icon-180.png">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -2613,6 +2616,13 @@ body.in-class .app-foot { display: none; }
       if (i < text.length) { window.setTimeout(tick, 70); } else if (done) { done(); }
     })();
   }
+  function goWhen(n, then) {
+    var tries = 0;
+    (function tryGo() {
+      if (!locked(n)) { go(n); if (then) { window.setTimeout(then, 300); } return; }
+      if ((tries += 1) < 40) { window.setTimeout(tryGo, 150); }
+    })();
+  }
   function scrollTo(node) { try { if (node) { node.scrollIntoView({ behavior: "smooth", block: "center" }); } } catch (e) { /* ignore */ } }
   window.addEventListener("message", function (e) {
     if (!CLS.demo || CLS.role !== "student" || e.source !== window.parent || !e.data || !e.data.nc) { return; }
@@ -2622,19 +2632,15 @@ body.in-class .app-foot { display: none; }
       var real = cases().filter(function (c) { return c.real; }).slice(0, 5);
       real.forEach(function (c, i) { window.setTimeout(function () { var b = document.getElementById("pick-" + c.id); if (b && b.getAttribute("aria-pressed") !== "true") { scrollTo(b); b.click(); } }, 600 + i * 1300); });
     } else if (cue === "s2") {
-      go(2);
-      typeInto("name-input", "옆집 효과", function () { typeInto("def-input", s.demo && s.demo.defs ? s.demo.defs[0] : "두 쪽 사이의 일 때문에 상관없는 사람이 영향을 받는 것"); });
+      goWhen(2, function () { typeInto("name-input", "옆집 효과", function () { typeInto("def-input", s.demo && s.demo.defs ? s.demo.defs[0] : "두 쪽 사이의 일 때문에 상관없는 사람이 영향을 받는 것"); }); });
     } else if (cue === "vote") {
       window.setTimeout(function () { var b = document.getElementById("vote-0"); if (b) { scrollTo(b); b.click(); } }, 1200);
     } else if (cue === "s3") {
-      go(3);
-      s.elements.forEach(function (t, i) { if (i < 2) { window.setTimeout(function () { var c = document.getElementById("check-" + i); if (c && !c.checked) { scrollTo(c); c.click(); } }, 1500 + i * 1100); } });
+      goWhen(3, function () { s.elements.forEach(function (t, i) { if (i < 2) { window.setTimeout(function () { var c = document.getElementById("check-" + i); if (c && !c.checked) { scrollTo(c); c.click(); } }, 1200 + i * 1100); } }); });
     } else if (cue === "s4") {
-      go(4);
-      window.setTimeout(function () { var n = document.getElementById("compare-input"); scrollTo(n); typeInto("compare-input", "교과서 이름이 더 짧고, 내 이름은 누가 영향을 받는지가 더 잘 보여"); }, 1800);
+      goWhen(4, function () { window.setTimeout(function () { var n = document.getElementById("compare-input"); scrollTo(n); typeInto("compare-input", "교과서 이름이 더 짧고, 내 이름은 누가 영향을 받는지가 더 잘 보여"); }, 1500); });
     } else if (cue === "s5") {
-      go(5);
-      window.setTimeout(function () { scrollTo(document.getElementById("sheet")); }, 1500);
+      goWhen(5, function () { window.setTimeout(function () { scrollTo(document.getElementById("sheet")); }, 1200); });
     }
   });
 
@@ -2688,15 +2694,19 @@ body.in-class .app-foot { display: none; }
   }
 
   var tTimer = null, tDraw = null;
-  function tPush() {
+  // throttle, not debounce: with a whole class answering, a debounce kept pushing the teacher's
+  // "step opened" message back by seconds
+  function tPush(now) {
     if (!teach || !CLS.tr) { return; }
-    window.clearTimeout(tTimer);
+    if (now) { window.clearTimeout(tTimer); tTimer = null; }
+    else if (tTimer) { return; }
     tTimer = window.setTimeout(function () {
+      tTimer = null;
       if (!teach || !CLS.tr) { return; }
       computeStats();
       CLS.tr.send({ t: "T", state: teach.T });
       persistTeach();
-    }, 200);
+    }, now ? 0 : 200);
   }
   function tRedraw() { window.clearTimeout(tDraw); tDraw = window.setTimeout(function () { if (CLS.role === "teacher") { renderTeacherScreen(); } }, 120); }
 
@@ -2722,7 +2732,7 @@ body.in-class .app-foot { display: none; }
     } else if (d.t === "J") { tPush(); }
   }
 
-  function tSet(patch) { Object.assign(teach.T, patch); tPush(); bumpBots(); renderTeacherScreen(); }
+  function tSet(patch) { Object.assign(teach.T, patch); tPush(true); bumpBots(); renderTeacherScreen(); }
 
   /* demo students: a believable class for a demo without devices */
   function addBots() {
