@@ -17,7 +17,15 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="이름 없는 개념">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=IBM+Plex+Sans+KR:wght@400;500;600&family=Noto+Sans+KR:wght@400;500;700;900&family=Noto+Serif+KR:wght@400;600&family=Nanum+Myeongjo:wght@700;800&family=IBM+Plex+Mono:wght@500&display=swap">
+<script>
+/* Fonts come from this site (vendor/fonts) so a school network that blocks Google Fonts still gets them;
+   previews without vendor/ use Google Fonts. */
+(function () {
+  var local = /^https?:$/.test(location.protocol) && !(window.claude && window.claude.use);
+  var g = "https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=IBM+Plex+Sans+KR:wght@400;500;600;700&family=Noto+Sans+KR:wght@400;500;700;900&family=Noto+Serif+KR:wght@400;600&family=Nanum+Myeongjo:wght@700;800&display=swap";
+  document.write('<link rel="stylesheet" href="' + (local ? "vendor/fonts/fonts.css" : g) + '"' + (local ? ' onerror="var l=document.createElement(\'link\');l.rel=\'stylesheet\';l.href=\'' + g + '\';document.head.appendChild(l)"' : '') + '>');
+})();
+</script>
 <style>
 /* Layout: a one-column workbook. A numbered step rail on top, one step open at a time;
    the textbook term stays hidden until the last step. Stories read like handwritten letters,
@@ -2240,6 +2248,8 @@ body.in-class .app-foot { display: none; }
 
   function setStatus(text, kind) { CLS.status = text; CLS.statusKind = kind || ""; var n = document.getElementById("cls-status"); if (n) { n.textContent = text; n.className = "st " + (kind || ""); } }
 
+  var NET_BLOCK_T = "수업이 아직 안 열렸어. 학교 와이파이가 실시간 연결을 막고 있을 수 있어. 다른 와이파이나 휴대폰 핫스팟으로 바꿔 보거나, 한 기기에서 ‘1분 체험’으로 시연해 줘.";
+  var NET_BLOCK_S = "실시간 연결이 열리지 않아. 학교 와이파이가 막고 있을 수 있어. 휴대폰 데이터나 다른 와이파이로 바꿔 보거나, ‘수업에서 나가기’를 누르고 혼자 해도 돼.";
   function makeTransport(code, role, onMsg) {
     var name = "nc-" + code, t = { send: function () {}, close: function () {}, kind: "" };
     function useBC() {
@@ -2262,7 +2272,8 @@ body.in-class .app-foot { display: none; }
       if (role === "teacher") {
         peer = new Peer(hostId);
         setStatus("수업을 여는 중…");
-        peer.on("open", function () { setStatus("학생을 기다리는 중", "ok"); if (t.onReady) { t.onReady(); } });
+        var slowT = window.setTimeout(function () { if (!closed) { setStatus("수업이 아직 안 열렸어. 학교 와이파이가 실시간 연결을 막고 있을 수 있어. 다른 와이파이나 휴대폰 핫스팟으로 바꿔 보거나, 화면 위 ‘1분 체험’처럼 한 기기에서 시연해 줘.", "bad"); } }, 9000);
+        peer.on("open", function () { window.clearTimeout(slowT); setStatus("학생을 기다리는 중", "ok"); if (t.onReady) { t.onReady(); } });
         peer.on("connection", function (c) {
           conns.push(c);
           c.on("data", function (d) { if (d && d.t === "S") { d.peer = c.peer; onMsg(d); } });
@@ -2271,6 +2282,7 @@ body.in-class .app-foot { display: none; }
         });
         peer.on("error", function (e) {
           if (e && e.type === "unavailable-id") { if (t.onIdTaken) { closed = true; try { peer.destroy(); } catch (x) { /* ignore */ } t.onIdTaken(); } else { setStatus("이 코드는 이미 쓰이고 있어. 수업을 닫고 다시 열어 줘", "bad"); } }
+          else if (e && /^(network|server-error|socket-error|socket-closed)$/.test(e.type)) { setStatus(NET_BLOCK_T, "bad"); }
           else { setStatus("연결이 불안정해 (" + (e && e.type || "오류") + ")", "bad"); }
         });
         peer.on("disconnected", function () { if (!closed) { try { peer.reconnect(); } catch (e) { /* ignore */ } } });
@@ -2278,16 +2290,18 @@ body.in-class .app-foot { display: none; }
       } else {
         peer = new Peer();
         setStatus("연결 중…");
+        var slowS = window.setTimeout(function () { if (!closed && !(conn && conn.open)) { setStatus("실시간 연결이 열리지 않아. 학교 와이파이가 막고 있을 수 있어. 휴대폰 데이터나 다른 와이파이로 바꿔 보거나, ‘수업에서 나가기’를 누르고 혼자 해도 돼.", "bad"); } }, 10000);
         var connect = function () {
           if (closed) { return; }
           conn = peer.connect(hostId, { reliable: true });
-          conn.on("open", function () { setStatus("연결됨", "ok"); if (last) { conn.send(last); } });
+          conn.on("open", function () { window.clearTimeout(slowS); setStatus("연결됨", "ok"); if (last) { conn.send(last); } });
           conn.on("data", function (d) { if (d && d.t === "T") { onMsg(d); } });
           conn.on("close", function () { setStatus("연결이 끊겼어. 다시 붙는 중…", "bad"); window.clearTimeout(retry); retry = window.setTimeout(connect, 2500); });
         };
         peer.on("open", connect);
         peer.on("error", function (e) {
           if (e && e.type === "peer-unavailable") { setStatus("이 코드의 수업을 찾는 중이야. 코드를 확인해 줘", "bad"); }
+          else if (e && /^(network|server-error|socket-error|socket-closed)$/.test(e.type)) { setStatus(NET_BLOCK_S, "bad"); }
           else { setStatus("연결이 불안정해 (" + (e && e.type || "오류") + ")", "bad"); }
           window.clearTimeout(retry); retry = window.setTimeout(connect, 3000);
         });
