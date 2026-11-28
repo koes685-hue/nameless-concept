@@ -1,6 +1,19 @@
 <!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
 <meta name="claude:viewport-fit-sides" content="cover">
-<title>이름 없는 개념 교실 모드</title>
+<title>이름 없는 개념 · 고1 통합사회</title>
+<meta name="description" content="교과서 이름을 배우기 전에, 겉은 다르고 속은 같은 사연을 모아 직접 이름을 붙여 보는 고1 통합사회 수업 자료. 교사 화면과 학생 폰이 실시간으로 이어지고, 끝나면 학생마다 다른 필기본 PDF가 생긴다.">
+<meta name="theme-color" content="#F6F7F3">
+<meta property="og:type" content="website">
+<meta property="og:title" content="이름 없는 개념 · 고1 통합사회">
+<meta property="og:description" content="사연을 모아 직접 이름을 붙이고, 교과서 개념을 만나는 교실 수업 앱. 1분 체험으로 교사 화면과 학생 폰을 함께 볼 수 있어요.">
+<meta property="og:image" content="https://koes685-hue.github.io/nameless-concept/og.png">
+<meta property="og:url" content="https://koes685-hue.github.io/nameless-concept/">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-180.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="이름 없는 개념">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=IBM+Plex+Sans+KR:wght@400;500;600&family=Noto+Sans+KR:wght@400;500;700;900&family=Noto+Serif+KR:wght@400;600&family=Nanum+Myeongjo:wght@700;800&family=IBM+Plex+Mono:wght@500&display=swap">
 <style>
 /* Layout: a one-column workbook. A numbered step rail on top, one step open at a time;
@@ -617,19 +630,49 @@ input.name-input:focus-visible { outline: none; border-bottom-color: var(--accen
 @media (prefers-reduced-motion: reduce) { .map-me-body, .map-me.walking > .map-me-body > svg, .burst, .place.just .place-ic { animation: none; transition: none; } .burst { display: none; } .map-me { transition: none; } .place .pin, .dex-slot.on { animation: none; } }
 body, h1, h2, h3, p, .bubble, button { word-break: keep-all; overflow-wrap: anywhere; }
 
+
+/* ---- v9: app team additions (layout only; colours follow the theme tokens) ---- */
+.switch button small { font-size: 0.78em; opacity: 0.75; margin-left: 2px; font-weight: 500; }
+.panel > .bar.static { position: static; box-shadow: none; }
+.pick, .primary, .ghost, .variant, .vote-list button { min-height: 48px; }
+.mast .tag, .spec-no, .map-title, .bubble b, .chip, .rail .num, .dex-slot, .plate .k, .t-k, .who { letter-spacing: 0; }
+:root { --font-mono: var(--font-ui); }
+.demo-btn { font: inherit; display: inline-flex; flex-direction: column; align-items: flex-start; gap: 0; border: 1.5px solid var(--accent); background: var(--surface); color: var(--ink); border-radius: 14px; padding: 6px 14px; min-height: 48px; cursor: pointer; text-align: left; }
+.demo-btn b { color: var(--accent); font-size: var(--step-1); }
+.demo-btn span { font-size: var(--step-0); color: var(--muted); }
+.demo-guide { border: 1.5px solid var(--accent); background: var(--surface); border-radius: 14px; padding: 12px 16px; display: flex; flex-direction: column; gap: 6px; }
+.demo-guide p { margin: 0; line-height: 1.6; }
+.demo-guide-t { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
+.demo-guide-t b { color: var(--accent); }
+.demo-phone { position: fixed; right: 24px; top: 72px; width: 390px; z-index: 30; display: flex; flex-direction: column; gap: 6px; align-items: center; }
+.demo-phone-lab { font-size: var(--step-0); color: var(--muted); font-weight: 600; }
+.demo-phone-frame { width: 390px; height: min(800px, calc(100vh - 110px)); border: 10px solid #1B2420; border-radius: 38px; overflow: hidden; background: var(--bg); box-shadow: 0 18px 40px rgba(0,0,0,0.18); }
+.demo-phone-frame iframe { width: 100%; height: 100%; border: 0; display: block; }
+body.demo.teach .wrap { max-width: none; margin-right: 450px; margin-left: 24px; }
+@media (max-width: 1179px) { .demo-phone { display: none; } body.demo.teach .wrap { margin-right: auto; margin-left: auto; max-width: 1120px; } }
+.t-people .off { opacity: 0.45; border-style: dashed; }
+.app-foot { border-top: 1px solid var(--line); padding-top: 14px; color: var(--muted); font-size: var(--step-0); line-height: 1.6; display: flex; flex-direction: column; gap: 4px; }
+.app-foot p { margin: 0; }
+.app-foot b { color: var(--ink); margin-right: 6px; }
+.app-foot .ver { opacity: 0.7; }
+/* the teacher screen redraws on every answer that comes in: no entrance animation there, or the projector flickers */
+body.teach .panel { animation: none; }
+.wipe-row { display: flex; flex-wrap: wrap; gap: 8px 14px; align-items: center; justify-content: space-between; padding-top: 4px; }
+.wipe.armed { border-color: var(--warn); color: var(--warn); font-weight: 600; }
+body.in-class .app-foot { display: none; }
 </style>
 
 <div class="wrap">
   <header class="mast">
     <div class="mast-top">
       <h1>이름 없는 개념</h1>
-      <span class="tag">교실 모드 1차 · 고1 통합사회</span>
+      <span class="tag">고1 통합사회 · 세 세트</span>
     </div>
     <p>이름을 배우기 전에, 먼저 같은 종류의 일을 찾아서 직접 이름을 붙여 보는 자료야. 사연과 글은 모두 지어낸 것이고, 교과서 이름은 네 번째 단계에서 나와. 끝까지 하면 개념 정리에 네 답이 들어간 필기본이 PDF로 생겨.</p>
     <div class="switch" role="group" aria-label="세트 고르기">
-      <button type="button" id="set-social" data-set="social" aria-pressed="true">1세트</button>
-      <button type="button" id="set-2" data-set="public" aria-pressed="false">2세트</button>
-      <button type="button" id="set-3" data-set="opp" aria-pressed="false">3세트</button>
+      <button type="button" id="set-social" data-set="social" aria-pressed="true">1세트 <small>시장 골목</small></button>
+      <button type="button" id="set-2" data-set="public" aria-pressed="false">2세트 <small>항구 마을</small></button>
+      <button type="button" id="set-3" data-set="opp" aria-pressed="false">3세트 <small>주말 동네</small></button>
     </div>
     <div id="cls-entry"></div>
   </header>
@@ -644,6 +687,12 @@ body, h1, h2, h3, p, .bubble, button { word-break: keep-all; overflow-wrap: anyw
     <summary>교사용: 이 세트를 만든 방법 (학생에게는 접어 두기)</summary>
     <div class="inner" id="teacher-inner"></div>
   </details>
+
+  <footer class="app-foot" id="app-foot">
+    <p><b>만든 방법</b> 사연과 필기본 설명은 생성형 AI(Claude)로 초안을 쓰고, 이름을 가린 채 AI에게 거꾸로 풀려 본 뒤 교사가 검토하고 있어. 등장인물과 사연은 모두 지어낸 것이야.</p>
+    <p><b>개인정보</b> 로그인이 없어. 수업 중 답은 이 기기와 선생님 화면 사이에서 암호화되어 오가고, 어떤 서버에도 따로 저장하지 않아(학교망에서는 암호화된 채 공개 중계 서버를 거칠 수 있어). 반 화면과 친구 화면에는 이름 대신 닉네임만, 지은 이름과 뜻은 닉네임 없이 보여. 여럿이 쓰는 기기라면 마지막 단계의 ‘내 기록 지우기’로 지울 수 있어.</p>
+    <p class="ver">이름 없는 개념 · v9 (2026-11-28)</p>
+  </footer>
 </div>
 
 <!-- skeleton drawings -->
@@ -813,10 +862,23 @@ body, h1, h2, h3, p, .bubble, button { word-break: keep-all; overflow-wrap: anyw
   </svg>
 </template>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/peerjs@1.5.4/dist/peerjs.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.js"></script>
+<script>
+/* Libraries load from this site first (vendor/), so a school network that blocks CDNs still works;
+   where vendor/ is missing (e.g. the claude.ai preview) the CDN copy loads instead. */
+(function () {
+  var libs = [
+    ["vendor/html2canvas.min.js", "https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"],
+    ["vendor/jspdf.umd.min.js", "https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"],
+    ["vendor/peerjs.min.js", "https://cdn.jsdelivr.net/npm/peerjs@1.5.4/dist/peerjs.min.js"],
+    ["vendor/qrcode.js", "https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.js"]
+  ];
+  var local = /^https?:$/.test(location.protocol) && !(window.claude && window.claude.use);
+  libs.forEach(function (l) {
+    var src = local ? l[0] : l[1], alt = local ? l[1] : null;
+    document.write('<script src="' + src + '"' + (alt ? ' onerror="var s=document.createElement(\'script\');s.src=\'' + alt + '\';document.head.appendChild(s)"' : '') + '><\/script>');
+  });
+})();
+</script>
 <script>
 (function () {
   "use strict";
@@ -1394,6 +1456,30 @@ body, h1, h2, h3, p, .bubble, button { word-break: keep-all; overflow-wrap: anyw
     try { window.localStorage.setItem(STORE + "current", setKey); } catch (e) { /* ignore */ }
     clsPush();
   }
+  /* Shared school tablets: one button removes everything this app keeps on the device
+     (answers for all three sets, the character, class session). Two taps, no pop-up. */
+  function wipeButton(id) {
+    var armed = false, b = el("button", { type: "button", class: "ghost wipe", id: id || "wipe", text: "이 기기에서 내 기록 지우기" });
+    b.addEventListener("click", function () {
+      if (!armed) { armed = true; b.textContent = "한 번 더 누르면 지워져 (되돌릴 수 없어)"; b.classList.add("armed"); window.setTimeout(function () { if (b.isConnected && armed) { armed = false; b.textContent = "이 기기에서 내 기록 지우기"; b.classList.remove("armed"); } }, 5000); return; }
+      wipeAll();
+    });
+    return b;
+  }
+  function wipeAll() {
+    try {
+      var del = [];
+      for (var i = 0; i < window.localStorage.length; i += 1) { var k = window.localStorage.key(i); if (k && (k.indexOf(STORE) === 0 || k === "nc-av")) { del.push(k); } }
+      del.forEach(function (k) { window.localStorage.removeItem(k); });
+    } catch (e) { /* ignore */ }
+    ["nc-cls", "nc-sid", "nc-nick", "nc-teach"].forEach(function (k) { ssSet(k, null); });
+    if (CLS && CLS.role) { leaveClass(); }
+    state = blank(); explorePos = null;
+    try { window.localStorage.removeItem(STORE + setKey); } catch (e) { /* ignore */ }
+    render();
+    var n = document.getElementById("wipe-done"); if (n) { n.remove(); }
+    main.insertBefore(el("p", { class: "note", id: "wipe-done", role: "status", text: "이 기기에 남은 기록을 모두 지웠어. 다음 사람이 처음부터 시작할 수 있어." }), main.firstChild);
+  }
   function sfx() { return (CLS && CLS.role === "student") ? ":" + CLS.sid : ""; }
 
   var setKey = "social";
@@ -1419,8 +1505,27 @@ body, h1, h2, h3, p, .bubble, button { word-break: keep-all; overflow-wrap: anyw
     return n;
   }
   function set() { return SETS[setKey]; }
+  /* Story order is shuffled so the two look-alikes are not always the last two. In class every device
+     uses the class code as the seed, so the teacher's bars and every student's cards share one order. */
+  function seeded(seed) {
+    var h = 2166136261;
+    for (var i = 0; i < seed.length; i += 1) { h ^= seed.charCodeAt(i); h = Math.imul(h, 16777619); }
+    return function () { h = (h + 0x6D2B79F5) | 0; var t = h; t = Math.imul(t ^ (t >>> 15), t | 1); t ^= t + Math.imul(t ^ (t >>> 7), t | 61); return ((t ^ (t >>> 14)) >>> 0) / 4294967296; };
+  }
+  function shuffleBy(list, seed) {
+    var r = seeded(seed), a = list.slice();
+    for (var i = a.length - 1; i > 0; i -= 1) { var j = Math.floor(r() * (i + 1)), t = a[i]; a[i] = a[j]; a[j] = t; }
+    return a;
+  }
+  function casesFor(key, code) { return shuffleBy(SETS[key].cases, (code || "solo") + ":" + key); }
+  function cases() {
+    if (CLS && CLS.role && CLS.code) { return casesFor(setKey, CLS.code); }
+    if (!state.seed) { state.seed = rid(6); }
+    return casesFor(setKey, state.seed);
+  }
+  function specNo(c) { return "표본 " + ({ social: "A", "public": "B", opp: "C" }[setKey] || "A") + "-0" + (cases().indexOf(c) + 1); }
   function kn() { return ["", "한", "두", "세", "네", "다섯"][set().elements.length] || String(set().elements.length); }
-  function picked() { return set().cases.filter(function (c) { return state.picks[c.id]; }); }
+  function picked() { return cases().filter(function (c) { return state.picks[c.id]; }); }
 
   function stopSpeaking() { try { if (canSpeak) { window.speechSynthesis.cancel(); } } catch (e) { /* ignore */ } }
   function speak(text) {
@@ -1462,7 +1567,7 @@ body, h1, h2, h3, p, .bubble, button { word-break: keep-all; overflow-wrap: anyw
       foot.appendChild(el("button", { type: "button", class: "ghost", id: "listen-" + c.id, text: "듣기", onclick: function () { speak(c.text); } }));
     } else { foot.appendChild(el("span")); }
     var card = el("article", { class: "card" + (state.picks[c.id] ? " picked" : "") }, [
-      el("span", { class: "spec-no", text: "표본 " + String.fromCharCode(64 + Math.ceil((set().cases.indexOf(c) + 1) / 8)) + "-0" + (set().cases.indexOf(c) + 1) }),
+      el("span", { class: "spec-no", text: specNo(c) }),
       el("span", { class: "who", text: c.who }),
       el("p", { class: "story", text: c.text }),
       foot
@@ -1500,11 +1605,11 @@ body, h1, h2, h3, p, .bubble, button { word-break: keep-all; overflow-wrap: anyw
         el("h2", { text: "동네를 돌아다니며 사연 여덟 개를 찾아봐" }),
         el("p", { class: "lead", text: "지도에서 장소를 누르면 네 캐릭터가 걸어가서 사연을 찾아. 찾은 사연은 관찰 노트에 모여. 여덟 개를 다 모으면 같은 종류끼리 묶어 볼 거야." }),
         exploreSection(function () { render(); }),
-        el("div", { class: "bar" }, [el("span", { class: "count", text: "다 찾으면 묶기가 열려" }),
+        el("div", { class: "bar static" }, [el("span", { class: "count", text: "다 찾으면 묶기가 열려" }),
           el("button", { type: "button", class: "ghost", id: "skip-map", text: "지도 건너뛰기", onclick: function () { state.skipMap = true; save(); render(); } })])
       ]);
     }
-    var cards = el("div", { class: "cards" }, s.cases.map(function (c) { return storyCard(c, true); }));
+    var cards = el("div", { class: "cards" }, cases().map(function (c) { return storyCard(c, true); }));
     countNode = el("span", { class: "count", "aria-live": "polite" });
     nextNode = el("button", { type: "button", class: "primary", id: "to-step-2", text: "이 묶음에 이름 붙이러 가기", onclick: function () { go(2); } });
     var p = el("section", { class: "panel" }, [
@@ -1681,7 +1786,15 @@ body, h1, h2, h3, p, .bubble, button { word-break: keep-all; overflow-wrap: anyw
     return el("img", { class: "sh-fig", alt: label, width: vb.width, height: vb.height, src: "data:image/svg+xml;charset=utf-8," + encodeURIComponent(xml) });
   }
 
-  var downloadsNs = null, saveBtnRef = null, saveHintRef = null, fitRef = null, layoutRef = null;
+  var downloadsNs = null, saveBtnRef = null, saveHintRef = null, fitRef = null, layoutRef = null, shareBtnRef = null, lastPdf = null;
+  // phones run out of memory on big canvases, so pages are drawn a little smaller there
+  var SHOT_SCALE = (Math.min(window.screen.width || 1000, window.screen.height || 1000) < 700) ? 1.6 : 2;
+  function canShareFile(p) {
+    try {
+      if (!navigator.canShare || !("ontouchstart" in window)) { return false; }
+      return navigator.canShare({ files: [new File([p.blob], p.name, { type: "application/pdf" })] });
+    } catch (e) { return false; }
+  }
   var PAGE_W = 794;
   var TAIL = "data:image/svg+xml;charset=utf-8," + encodeURIComponent("<svg xmlns='http://www.w3.org/2000/svg' width='12' height='16' viewBox='0 0 12 16'><path d='M0 1.5 L10.5 8 L0 14.5' fill='#FFFFFF' stroke='#6B7280' stroke-width='1.5' stroke-linejoin='round'/></svg>");
 
@@ -1705,20 +1818,24 @@ body, h1, h2, h3, p, .bubble, button { word-break: keep-all; overflow-wrap: anyw
     function next() {
       if (i >= pageEls.length) { return Promise.resolve(); }
       hint.textContent = "PDF를 만드는 중이야… (" + (i + 1) + "/" + pageEls.length + "쪽)";
-      return window.html2canvas(pageEls[i], { scale: 2, backgroundColor: "#ffffff", logging: false, windowWidth: 1000, onclone: unscale }).then(function (canvas) {
+      return window.html2canvas(pageEls[i], { scale: SHOT_SCALE, backgroundColor: "#ffffff", logging: false, windowWidth: 1000, onclone: unscale }).then(function (canvas) {
         if (i > 0) { pdf.addPage(); }
-        pdf.addImage(canvas, "PNG", 0, 0, 210, 297, undefined, "FAST");
+        pdf.addImage(canvas.toDataURL("image/jpeg", 0.9), "JPEG", 0, 0, 210, 297, undefined, "FAST");
+        canvas.width = 0; canvas.height = 0;
         i += 1;
         return next();
       });
     }
     var ready = (document.fonts && document.fonts.ready) ? document.fonts.ready : Promise.resolve();
     ready.then(next).then(function () {
-      var fname = "필기본_" + set().term.replace(/\s+/g, "") + ".pdf";
+      var who = (state.student || "").trim().replace(/[\\/:*?"<>|\s]+/g, "");
+      var fname = "필기본_" + set().term.replace(/\s+/g, "") + (who ? "_" + who : "") + ".pdf";
       if (downloadsNs) { return downloadsNs.save({ filename: fname, data: pdf.output("blob") }); }
+      lastPdf = { name: fname, blob: pdf.output("blob") };
       pdf.save(fname);
     }).then(function () {
-      done("저장했어.");
+      done(lastPdf && canShareFile(lastPdf) ? "저장했어. 안 보이면 아래 ‘다른 앱으로 보내기’를 눌러 줘." : "저장했어.");
+      if (shareBtnRef) { shareBtnRef.hidden = !(lastPdf && canShareFile(lastPdf)); }
     }).catch(function (err) {
       var code = err && err.code;
       if (code === "declined") { done("저장을 취소했어."); }
@@ -1912,7 +2029,7 @@ body, h1, h2, h3, p, .bubble, button { word-break: keep-all; overflow-wrap: anyw
         })));
       }
       else if (b.k === "stories") {
-        s.cases.forEach(function (c) { push(storyBlock(c)); });
+        cases().forEach(function (c) { push(storyBlock(c)); });
       }
       else if (b.k === "me") {
         if (b.slot === "def") {
@@ -2011,6 +2128,12 @@ body, h1, h2, h3, p, .bubble, button { word-break: keep-all; overflow-wrap: anyw
     saveHintRef = el("span", { class: "count", "aria-live": "polite" });
     saveBtnRef = el("button", { type: "button", class: "primary", id: "save-sheet", text: "PDF로 저장" });
     saveBtnRef.addEventListener("click", function () { savePdf(pages.map(function (p) { return p.el; }), saveBtnRef, saveHintRef); });
+    shareBtnRef = el("button", { type: "button", class: "ghost", id: "share-sheet", text: "다른 앱으로 보내기", hidden: true, onclick: function () {
+      if (!lastPdf) { return; }
+      var f = new File([lastPdf.blob], lastPdf.name, { type: "application/pdf" });
+      navigator.share({ files: [f], title: lastPdf.name }).catch(function () { /* closed */ });
+    } });
+    lastPdf = null;
     refreshSave();
 
     return el("section", { class: "panel" }, [
@@ -2018,8 +2141,9 @@ body, h1, h2, h3, p, .bubble, button { word-break: keep-all; overflow-wrap: anyw
       el("p", { class: "lead", text: "검정은 선생님이 정리한 내용이고, 말풍선은 네가 쓴 답, 파란 손글씨는 너한테 온 한마디야. 오늘 읽은 " + s.unit + " 여덟 편도 필기와 함께 들어 있어. 앞 단계로 돌아가서 고치면 필기본도 같이 바뀌어." }),
       field("student-input", "이름 (필기본 맨 위에 적혀)", null, student),
       wrap,
+      el("div", { class: "wipe-row" }, [el("span", { class: "count", text: "학교 태블릿처럼 여럿이 쓰는 기기라면, PDF를 저장한 뒤 기록을 지워 줘." }), wipeButton("wipe")]),
       el("div", { class: "bar" }, [
-        el("div", { class: "save-row" }, [saveBtnRef, saveHintRef]),
+        el("div", { class: "save-row" }, [saveBtnRef, shareBtnRef, saveHintRef]),
         el("button", { type: "button", class: "ghost", id: "restart", text: "이 세트 처음부터 다시", onclick: function () { state = blank(); save(); render(); } })
       ])
     ]);
@@ -2055,11 +2179,12 @@ body, h1, h2, h3, p, .bubble, button { word-break: keep-all; overflow-wrap: anyw
   }
 
   function render() {
-    countNode = null; nextNode = null; saveBtnRef = null; saveHintRef = null; fitRef = null; layoutRef = null;
+    countNode = null; nextNode = null; saveBtnRef = null; saveHintRef = null; fitRef = null; layoutRef = null; shareBtnRef = null;
     var sw = document.querySelector(".switch"), td = document.getElementById("teacher");
     var isT = CLS.role === "teacher";
     document.body.classList.toggle("teach", isT);
-    rail.hidden = isT; if (td) { td.hidden = isT; } if (sw) { sw.hidden = !!CLS.role; }
+    rail.hidden = isT; if (td) { td.hidden = !!CLS.role; } if (sw) { sw.hidden = !!CLS.role; }
+    document.body.classList.toggle("demo", !!CLS.demo);
     document.body.setAttribute("data-step", isT ? "t" : String(state.step));
     document.body.classList.toggle("in-class", !!CLS.role);
     renderEntry(); renderClassBar();
@@ -2122,7 +2247,7 @@ body, h1, h2, h3, p, .bubble, button { word-break: keep-all; overflow-wrap: anyw
       };
       t.send = function (m) { try { ch.postMessage(m); } catch (e) { /* ignore */ } };
       t.close = function () { try { ch.close(); } catch (e) { /* ignore */ } };
-      setStatus(IN_CLAUDE ? "같은 기기 시연 모드 (탭끼리 연결)" : "같은 기기 시연 모드", "ok");
+      setStatus(CLS.demo ? "체험 모드 (이 기기 안에서만 연결)" : IN_CLAUDE ? "같은 기기 시연 모드 (탭끼리 연결)" : "같은 기기 시연 모드", "ok");
       if (t.onReady) { t.onReady(); }
     }
     function usePeer() {
@@ -2139,7 +2264,7 @@ body, h1, h2, h3, p, .bubble, button { word-break: keep-all; overflow-wrap: anyw
           c.on("close", function () { conns = conns.filter(function (x) { return x !== c; }); onMsg({ t: "L", peer: c.peer }); });
         });
         peer.on("error", function (e) {
-          if (e && e.type === "unavailable-id") { setStatus("이 코드는 이미 쓰이고 있어. 수업을 닫고 다시 열어 줘", "bad"); }
+          if (e && e.type === "unavailable-id") { if (t.onIdTaken) { closed = true; try { peer.destroy(); } catch (x) { /* ignore */ } t.onIdTaken(); } else { setStatus("이 코드는 이미 쓰이고 있어. 수업을 닫고 다시 열어 줘", "bad"); } }
           else { setStatus("연결이 불안정해 (" + (e && e.type || "오류") + ")", "bad"); }
         });
         peer.on("disconnected", function () { if (!closed) { try { peer.reconnect(); } catch (e) { /* ignore */ } } });
@@ -2183,7 +2308,8 @@ body, h1, h2, h3, p, .bubble, button { word-break: keep-all; overflow-wrap: anyw
         if (t.onReady) { t.onReady(); }
       });
     }
-    if (IN_CLAUDE) {
+    if (CLS.demo) { useBC(); }
+    else if (IN_CLAUDE) {
       setStatus("연결 중…");
       window.claude.use("room").then(function (room) { return room ? useRoom(room) : useBC(); }).catch(useBC);
     } else if (typeof window.Peer === "function" && /^https?:$/.test(window.location.protocol)) { usePeer(); }
@@ -2200,13 +2326,20 @@ body, h1, h2, h3, p, .bubble, button { word-break: keep-all; overflow-wrap: anyw
   }
   var pushTimer = null;
   function clsPush() {
-    if (!CLS || CLS.role !== "student" || !CLS.tr) { return; }
+    if (!CLS || CLS.role !== "student" || !CLS.tr || CLS.ended) { return; }
     window.clearTimeout(pushTimer);
-    pushTimer = window.setTimeout(function () { CLS.tr.send({ t: "S", rec: myRec() }); }, 250);
+    pushTimer = window.setTimeout(function () { if (CLS.role === "student" && CLS.tr && !CLS.ended) { CLS.tr.send({ t: "S", rec: myRec() }); } }, 250);
   }
   function onStudentMsg(d) {
     var T = d.state;
     if (!T || typeof T !== "object" || !SETS[T.set]) { return; }
+    if (T.ended) {
+      CLS.ended = true;
+      if (CLS.tr) { CLS.tr.close(); }
+      setStatus("수업이 끝났어", "");
+      renderClassBar();
+      return;
+    }
     var first = !CLS.T, prevOpen = CLS.T ? CLS.T.open : 0;
     CLS.T = T;
     if (T.set !== setKey) { save(); setKey = T.set; state = load(setKey); first = true; }
@@ -2215,9 +2348,13 @@ body, h1, h2, h3, p, .bubble, button { word-break: keep-all; overflow-wrap: anyw
   }
 
   function joinClass(code, nick) {
-    CLS.role = "student"; CLS.code = code; CLS.nick = nick;
-    CLS.sid = ssGet("nc-sid") || rid(10); ssSet("nc-sid", CLS.sid);
-    ssSet("nc-cls", JSON.stringify({ role: "student", code: code, nick: nick }));
+    CLS.role = "student"; CLS.code = code; CLS.nick = nick; CLS.ended = false;
+    if (CLS.demo) { CLS.sid = "demo" + rid(6); }
+    else {
+      CLS.sid = ssGet("nc-sid") || rid(10); ssSet("nc-sid", CLS.sid);
+      ssSet("nc-cls", JSON.stringify({ role: "student", code: code, nick: nick }));
+    }
+    keepAwake(true);
     state = load(setKey);
     CLS.tr = makeTransport(code, "student", onStudentMsg);
     CLS.tr.onReady = clsPush;
@@ -2225,10 +2362,18 @@ body, h1, h2, h3, p, .bubble, button { word-break: keep-all; overflow-wrap: anyw
     render();
   }
   function leaveClass() {
-    if (CLS.tr) { CLS.tr.close(); }
+    var tr = CLS.tr, wasT = CLS.role === "teacher", wasS = CLS.role === "student", wasDemo = !!CLS.demo;
+    if (wasT && tr && teach) { try { tr.send({ t: "T", state: Object.assign({}, teach.T, { ended: true }) }); } catch (e) { /* ignore */ } }
+    if (wasS && tr && !CLS.ended) { try { tr.send({ t: "S", rec: myRec(), bye: true }); } catch (e) { /* ignore */ } }
     save();
-    CLS = { role: null, code: "", nick: "", sid: CLS.sid, T: null, tr: null, status: "", statusKind: "" };
-    ssSet("nc-cls", null);
+    // what a student did in class stays with them when they go on alone
+    if (wasS && !wasDemo) { try { window.localStorage.setItem(STORE + setKey, JSON.stringify(state)); } catch (e) { /* ignore */ } }
+    window.setTimeout(function () { if (tr) { tr.close(); } }, (wasT || wasS) ? 400 : 0);
+    CLS = { role: null, code: "", nick: "", sid: CLS.sid, T: null, tr: null, status: "", statusKind: "", demo: false };
+    ssSet("nc-cls", null); ssSet("nc-teach", null);
+    keepAwake(false);
+    var ph = document.getElementById("demo-phone"); if (ph) { ph.remove(); }
+    if (wasDemo) { try { window.history.replaceState(null, "", baseUrl()); } catch (e) { /* ignore */ } }
     teach = null;
     document.body.classList.remove("teach");
     state = load(setKey);
@@ -2247,6 +2392,14 @@ body, h1, h2, h3, p, .bubble, button { word-break: keep-all; overflow-wrap: anyw
       el("span", { id: "cls-status", class: "st " + CLS.statusKind, text: CLS.status }),
       el("button", { type: "button", class: "ghost", id: "cls-leave", text: "수업에서 나가기", onclick: leaveClass })
     ]));
+    if (CLS.ended) {
+      classBar.appendChild(el("div", { class: "msg" }, [
+        el("span", { text: "선생님이 수업을 닫았어. 지금까지 한 건 이 기기에 그대로 있어." }),
+        el("button", { type: "button", class: "primary", id: "cls-solo", text: "혼자 이어서 하기", onclick: leaveClass }),
+        wipeButton("wipe-ended")
+      ]));
+      return;
+    }
     if (!T) { classBar.appendChild(el("p", { class: "count", text: "선생님 화면과 연결되면 시작해. 그동안 사연을 먼저 읽어 둬도 돼." })); return; }
     if (T.open > state.step && T.open > state.max) {
       classBar.appendChild(el("div", { class: "msg" }, [
@@ -2295,7 +2448,8 @@ body, h1, h2, h3, p, .bubble, button { word-break: keep-all; overflow-wrap: anyw
       el("button", { type: "button", class: "av-btn", id: "av-open", onclick: function () { openAvatarSheet(function () { renderEntry(); }); } }, [avChip(avGet() || "1001000", 34), el("span", { text: avGet() ? "내 캐릭터" : "내 캐릭터 만들기" })]),
       el("span", { class: "lab", text: "혼자 해도 되고, 반 전체가 같이 해도 돼" }),
       el("button", { type: "button", class: "ghost", id: "cls-join-open", text: "수업 들어가기", onclick: function () { showJoin(); } }),
-      el("button", { type: "button", class: "ghost", id: "cls-host", text: "선생님: 수업 열기", onclick: hostClass })
+      el("button", { type: "button", class: "ghost", id: "cls-host", text: "선생님: 수업 열기", onclick: function () { hostClass(); } }),
+      el("button", { type: "button", class: "demo-btn", id: "demo-open", onclick: startDemo }, [el("b", { text: "1분 체험" }), el("span", { text: "선생님 화면과 학생 폰을 한 번에" })])
     ]);
     entry.appendChild(strip);
     function showJoin(prefill) {
@@ -2327,15 +2481,97 @@ body, h1, h2, h3, p, .bubble, button { word-break: keep-all; overflow-wrap: anyw
   var teach = null; // { recs: {sid: rec}, peers: {peer: sid}, bots: [], T: {...} }
   function newT() { return { v: 1, set: setKey, open: 1, showReal: false, vote: null, cls: null, spot: [], hidden: [], stats: { n: 0, pct: {} } }; }
 
-  function hostClass() {
+  function newCode() { return String(1000 + Math.floor(Math.random() * 9000)); }
+  // restore: { code, T, recs, bots } saved in this tab, so a reload in the middle of a lesson keeps the class
+  function hostClass(restore) {
+    restore = (restore && restore.code && restore.T && SETS[restore.T.set]) ? restore : null;
     CLS.role = "teacher";
-    CLS.code = String(1000 + Math.floor(Math.random() * 9000));
-    ssSet("nc-cls", JSON.stringify({ role: "teacher", code: CLS.code, set: setKey }));
-    teach = { recs: {}, peers: {}, bots: [], T: newT() };
+    CLS.code = restore ? restore.code : newCode();
+    teach = { recs: restore ? (restore.recs || {}) : {}, peers: {}, bots: [], T: restore ? restore.T : newT(), restored: !!restore, tries: 0 };
+    Object.keys(teach.recs).forEach(function (k) { teach.recs[k].off = true; });
+    if (restore) { setKey = teach.T.set; }
+    openHost();
+    keepAwake(true);
+    render();
+    if (restore && restore.bots) { addBots(); }
+  }
+  function openHost() {
+    if (CLS.tr) { CLS.tr.close(); }
+    if (!CLS.demo) { ssSet("nc-cls", JSON.stringify({ role: "teacher", code: CLS.code })); persistTeach(); }
     CLS.tr = makeTransport(CLS.code, "teacher", onTeacherMsg);
     CLS.tr.onReady = tPush;
-    render();
+    CLS.tr.onIdTaken = function () {
+      if (!teach) { return; }
+      teach.tries += 1;
+      // after a reload the old connection can hold the code for a few seconds: wait for it
+      if (teach.restored && teach.tries <= 12) { setStatus("수업을 다시 여는 중… 잠깐만", ""); window.setTimeout(function () { if (teach) { openHost(); } }, 2500); return; }
+      teach.restored = false; teach.tries = 0; CLS.code = newCode(); openHost(); render();
+    };
   }
+  function persistTeach() {
+    if (!teach || CLS.demo || CLS.role !== "teacher") { return; }
+    var recs = {};
+    Object.keys(teach.recs).forEach(function (k) { recs[k] = teach.recs[k]; });
+    ssSet("nc-teach", JSON.stringify({ code: CLS.code, T: teach.T, recs: recs, bots: teach.bots.length > 0 }));
+  }
+
+  /* keep the screen on during a lesson: a sleeping tablet or phone drops its connection */
+  var wakeLock = null, wantAwake = false;
+  function keepAwake(on) {
+    wantAwake = !!on;
+    if (!on) { if (wakeLock) { try { wakeLock.release(); } catch (e) { /* ignore */ } wakeLock = null; } return; }
+    try {
+      if (navigator.wakeLock && document.visibilityState === "visible" && !wakeLock) {
+        navigator.wakeLock.request("screen").then(function (l) { wakeLock = l; l.addEventListener("release", function () { wakeLock = null; }); }).catch(function () { /* not allowed here */ });
+      }
+    } catch (e) { /* ignore */ }
+  }
+  document.addEventListener("visibilitychange", function () { if (wantAwake && document.visibilityState === "visible") { keepAwake(true); } });
+
+  function baseUrl() { return window.location.href.split("#")[0].split("?")[0]; }
+  function canFrame() { return !IN_CLAUDE && /^https?:$/.test(window.location.protocol); }
+  /* 1-minute tour: a teacher screen with 24 demo students, and (on a wide screen) one real student phone
+     beside it that the visitor can use. Everything runs inside this browser, so it needs no network. */
+  function startDemo() {
+    if (CLS.role) { leaveClass(); }
+    CLS.demo = true;
+    try { if (!/[?&]demo=1/.test(window.location.search) && canFrame()) { window.history.replaceState(null, "", baseUrl() + "?demo=1"); } } catch (e) { /* ignore */ }
+    hostClass();
+    addBots();
+    if (canFrame()) {
+      var ph = el("aside", { class: "demo-phone", id: "demo-phone", "aria-label": "학생 폰 화면 (체험용)" }, [
+        el("span", { class: "demo-phone-lab", text: "학생 폰 · 직접 눌러 봐" }),
+        el("div", { class: "demo-phone-frame" }, [el("iframe", { src: baseUrl() + "?demo-student=" + CLS.code, title: "학생 화면", loading: "eager" })])
+      ]);
+      document.body.appendChild(ph);
+    }
+    try { window.scrollTo(0, 0); } catch (e) { /* ignore */ }
+  }
+  var DEMO_TIPS = [
+    "",
+    "오른쪽 폰이 학생 한 명의 화면이야. 지도에서 장소를 눌러 사연을 모으거나 ‘지도 건너뛰기’를 누른 뒤 묶어 봐. 아래 막대가 반 전체(시연용 학생 24명 + 너)가 묶은 비율이야.",
+    "학생 폰에 ‘넘어가기’가 떴어. 폰에서 이름을 지어 보고, 여기서 ‘이 이름들로 투표 시작’을 누르면 폰에 투표가 떠.",
+    "친구들이 쓴 뜻을 눌러 보면 학생 폰 위쪽에 바로 떠. 막대는 뼈대 요소가 뜻에 들어 있던 비율이야.",
+    "이제야 교과서 이름이 나와. 닮은꼴 두 편을 반에서 몇 %가 걸러 냈는지 보여.",
+    "학생 폰에서 ‘내 필기본’으로 넘어가면, 방금 쓴 답이 들어간 A4 필기본이 생기고 PDF로 저장할 수 있어."
+  ];
+  function demoGuide(T) {
+    return el("div", { class: "demo-guide" }, [
+      el("div", { class: "demo-guide-t" }, [el("b", { text: "1분 체험 · 선생님 화면" }), el("span", { class: "count", text: "단계 " + T.open + " / 5" })]),
+      el("p", { text: DEMO_TIPS[T.open] || "" }),
+      el("div", { class: "t-row" }, [
+        canFrame() ? el("button", { type: "button", class: "ghost", id: "demo-tab", text: "학생 화면 새 탭에서 열기", onclick: function () { window.open(baseUrl() + "?demo-student=" + CLS.code, "_blank"); } }) : null,
+        el("button", { type: "button", class: "ghost", id: "demo-end", text: "체험 끝내기", onclick: leaveClass })
+      ])
+    ]);
+  }
+  function toggleFull() {
+    try {
+      if (document.fullscreenElement) { document.exitFullscreen(); }
+      else { document.documentElement.requestFullscreen().catch(function () { /* refused */ }); }
+    } catch (e) { /* ignore */ }
+  }
+  document.addEventListener("fullscreenchange", function () { if (CLS.role === "teacher") { renderTeacherScreen(); } });
 
   function students() {
     var T = teach.T;
@@ -2371,8 +2607,10 @@ body, h1, h2, h3, p, .bubble, button { word-break: keep-all; overflow-wrap: anyw
     if (!teach || !CLS.tr) { return; }
     window.clearTimeout(tTimer);
     tTimer = window.setTimeout(function () {
+      if (!teach || !CLS.tr) { return; }
       computeStats();
       CLS.tr.send({ t: "T", state: teach.T });
+      persistTeach();
     }, 200);
   }
   function tRedraw() { window.clearTimeout(tDraw); tDraw = window.setTimeout(function () { if (CLS.role === "teacher") { renderTeacherScreen(); } }, 120); }
@@ -2388,12 +2626,14 @@ body, h1, h2, h3, p, .bubble, button { word-break: keep-all; overflow-wrap: anyw
         checks: Array.isArray(r.checks) ? r.checks.map(Number).slice(0, 5) : [], vote: clip(r.vote, 40), av: /^\d{7}$/.test(String(r.av || "")) ? String(r.av) : ""
       };
       if (d.peer) { teach.peers[d.peer] = r.sid; }
+      if (d.bye) { delete teach.recs[r.sid]; }
       if (fresh) { tPush(); }
       tPush();
       tRedraw();
     } else if (d.t === "L" && d.peer) {
+      // a dropped connection keeps the answers (phones sleep, wifi blinks); the chip just greys out
       var sid = teach.peers[d.peer];
-      if (sid) { delete teach.recs[sid]; delete teach.peers[d.peer]; tPush(); tRedraw(); }
+      if (sid) { if (teach.recs[sid]) { teach.recs[sid].off = true; } delete teach.peers[d.peer]; tPush(); tRedraw(); }
     } else if (d.t === "J") { tPush(); }
   }
 
@@ -2416,13 +2656,15 @@ body, h1, h2, h3, p, .bubble, button { word-break: keep-all; overflow-wrap: anyw
       var bot = { on: false, lag: 400 + Math.random() * 3600, full: { picks: picks, name: nm, def: df, checks: checks },
         rec: { sid: "bot" + i, nick: nk, set: teach.T.set, step: 1, picks: [], name: "", def: "", checks: [], vote: "", bot: true, av: avRandom() } };
       teach.bots.push(bot);
-      window.setTimeout(function () { bot.on = true; bumpBot(bot); tPush(); tRedraw(); }, 120 * i);
+      window.setTimeout(function () { if (!teach || teach.bots.indexOf(bot) < 0) { return; } bot.on = true; bumpBot(bot); tPush(); tRedraw(); }, 120 * i);
     });
   }
   function bumpBot(bot) {
-    var T = teach.T, f = bot.full, r = bot.rec;
+    if (!teach) { return; }
+    var f = bot.full, r = bot.rec;
     window.setTimeout(function () {
       if (!teach) { return; }
+      var T = teach.T;
       r.step = T.open;
       r.picks = f.picks.slice();
       if (T.open >= 2) { r.name = f.name; r.def = f.def; }
@@ -2456,14 +2698,16 @@ body, h1, h2, h3, p, .bubble, button { word-break: keep-all; overflow-wrap: anyw
       el("p", { class: "count", text: joinUrl ? "QR을 찍거나, 이 주소에서 ‘수업 들어가기’를 누르고 코드를 넣으면 돼." : "학생은 같은 주소에서 ‘수업 들어가기’를 누르고 이 코드를 넣으면 돼." }),
       el("span", { id: "cls-status", class: "st " + CLS.statusKind, text: CLS.status })
     ]);
-    var people = el("div", { class: "t-people" }, all.map(function (r) { return el("span", { class: r.bot ? "bot" : "" }, [r.av ? avChip(r.av, 22) : null, el("span", { text: r.nick || "학생" })]); }));
+    var offN = all.filter(function (r) { return r.off; }).length;
+    var people = el("div", { class: "t-people" }, all.map(function (r) { return el("span", { class: (r.bot ? "bot" : "") + (r.off ? " off" : ""), title: r.off ? "연결이 끊겼어 (답은 남아 있어)" : "" }, [r.av ? avChip(r.av, 22) : null, el("span", { text: r.nick || "학생" })]); }));
     var peopleCard = el("div", { class: "t-card" }, [
       el("span", { class: "t-k", text: "들어온 학생" }),
-      el("b", { id: "t-n", text: all.length + "명" }),
+      el("b", { id: "t-n", text: all.length + "명" + (offN ? " · 연결 끊김 " + offN + "명" : "") }),
       people,
       el("div", { class: "t-row" }, [
         s.demo ? el("button", { type: "button", class: "ghost", id: "t-bots", text: teach.bots.length ? "시연용 학생 들어옴" : "시연용 학생 24명 넣기", disabled: teach.bots.length > 0, onclick: addBots }) : null,
-        el("button", { type: "button", class: "ghost", id: "t-close", text: "수업 닫기", onclick: leaveClass })
+        document.documentElement.requestFullscreen ? el("button", { type: "button", class: "ghost", id: "t-full", text: document.fullscreenElement ? "전체 화면 끝내기" : "전체 화면", onclick: toggleFull }) : null,
+        el("button", { type: "button", class: "ghost", id: "t-close", text: CLS.demo ? "체험 끝내기" : "수업 닫기", onclick: leaveClass })
       ])
     ]);
 
@@ -2483,7 +2727,7 @@ body, h1, h2, h3, p, .bubble, button { word-break: keep-all; overflow-wrap: anyw
     if (T.open === 1) {
       live.appendChild(el("h2", { text: "사연마다 몇 명이 같은 종류로 묶었을까" }));
       live.appendChild(el("p", { class: "sub", text: "아직 교과서 이름은 안 보여 줘. 갈리는 사연이 오늘 토론거리야." }));
-      live.appendChild(el("div", { class: "bars" }, s.cases.map(function (c) {
+      live.appendChild(el("div", { class: "bars" }, casesFor(T.set, CLS.code).map(function (c) {
         var p = T.stats.pct[c.id] || 0, twin = T.showReal && !c.real;
         return el("div", { class: "brow" + (twin ? " twin" : "") }, [
           el("span", { class: "who" }, [c.who, twin ? el("span", { class: "twin-tag", text: "닮은꼴" }) : null]),
@@ -2562,16 +2806,23 @@ body, h1, h2, h3, p, .bubble, button { word-break: keep-all; overflow-wrap: anyw
       live.appendChild(el("p", { class: "sub", text: "필기본에는 우리 반이 고른 이름과 닮은꼴을 걸러 낸 비율이 한 줄 들어가. 필기본까지 온 학생 " + done + "명 / " + all.length + "명." }));
     }
 
-    main.appendChild(el("section", { class: "panel" }, [el("div", { class: "t-top" }, [codeCard, peopleCard]), steps, live]));
+    main.appendChild(el("section", { class: "panel" }, [CLS.demo ? demoGuide(T) : null, el("div", { class: "t-top" }, [codeCard, peopleCard]), steps, live]));
   }
 
   function restoreClass() {
-    var raw = ssGet("nc-cls"), q = null;
-    try { var m = /[?&]join=(\d{4})/.exec(window.location.search); if (m) { q = m[1]; } } catch (e) { /* ignore */ }
+    var raw = ssGet("nc-cls"), q = null, demoS = null, demo = false;
+    try {
+      var m = /[?&]join=(\d{4})/.exec(window.location.search); if (m) { q = m[1]; }
+      var ds = /[?&]demo-student=(\d{4})/.exec(window.location.search); if (ds) { demoS = ds[1]; }
+      demo = /[?&]demo=1/.test(window.location.search);
+    } catch (e) { /* ignore */ }
+    if (demoS) { CLS.demo = true; joinClass(demoS, "나"); return true; }
+    if (demo) { startDemo(); return true; }
     if (raw) {
       try {
         var c = JSON.parse(raw);
         if (c && c.role === "student" && c.code && c.nick) { joinClass(c.code, c.nick); return true; }
+        if (c && c.role === "teacher") { var tr = JSON.parse(ssGet("nc-teach") || "null"); if (tr && tr.code === c.code) { hostClass(tr); return true; } }
       } catch (e) { /* ignore */ }
       ssSet("nc-cls", null);
     }
@@ -2836,10 +3087,9 @@ body, h1, h2, h3, p, .bubble, button { word-break: keep-all; overflow-wrap: anyw
     function openFind(c, p) {
       var back = el("div", { class: "sheet-back", onclick: function (e) { if (e.target === back) { back.remove(); } } });
       var was = !!state.found[c.id];
-      var idx = s.cases.indexOf(c) + 1;
       var sheet = el("div", { class: "sheet find", role: "dialog", "aria-modal": "true", "aria-label": p.label + "에서 찾은 사연" }, [
         el("div", { class: "sheet-grip" }),
-        el("span", { class: "spec-no", text: "표본 A-0" + idx + " · " + p.label }),
+        el("span", { class: "spec-no", text: specNo(c) + " · " + p.label }),
         el("span", { class: "who", text: c.who }),
         el("p", { class: "story", text: c.text }),
         el("div", { class: "sheet-bar" }, [
@@ -2857,7 +3107,7 @@ body, h1, h2, h3, p, .bubble, button { word-break: keep-all; overflow-wrap: anyw
       try { document.getElementById("find-keep").focus(); } catch (e) { /* ignore */ }
     }
 
-    var slots = el("div", { class: "dex", "aria-label": "관찰 노트" }, s.cases.map(function (c, i) {
+    var slots = el("div", { class: "dex", "aria-label": "관찰 노트" }, cases().map(function (c, i) {
       return el("span", { class: "dex-slot" + (state.found[c.id] ? " on" : ""), title: state.found[c.id] ? c.who : "아직 못 찾음", text: state.found[c.id] ? String(i + 1) : "?" });
     }));
     var head = el("div", { class: "dex-head" }, [el("b", { text: "관찰 노트" }), el("span", { class: "count", id: "dex-count", text: found + " / " + s.cases.length + " 발견" })]);
@@ -2884,6 +3134,13 @@ body, h1, h2, h3, p, .bubble, button { word-break: keep-all; overflow-wrap: anyw
   try {
     if (window.claude && typeof window.claude.use === "function") {
       window.claude.use("downloads").then(function (ns) { downloadsNs = ns || null; refreshSave(); }).catch(function () { /* stay hidden */ });
+    }
+  } catch (e) { /* ignore */ }
+
+  // offline cache and "add to home screen" on the public site (not in previews or the demo phone frame)
+  try {
+    if ("serviceWorker" in navigator && canFrame() && window.top === window.self) {
+      window.addEventListener("load", function () { navigator.serviceWorker.register("sw.js").catch(function () { /* not available */ }); });
     }
   } catch (e) { /* ignore */ }
 
